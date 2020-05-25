@@ -1,5 +1,7 @@
 <?php
 
+use models\User\User;
+
 $db = require __DIR__ . '/db.php';
 $mongodb = require __DIR__ . '/mongodb.php';
 $params = require __DIR__ . '/params.php';
@@ -63,7 +65,7 @@ $config = [
             'showScriptName' => false,
         ],
         'user' => [
-            'identityClass' => models\User\User::class,
+            'identityClass' => User::class,
 //            'enableAutoLogin' => true,
             'enableSession' => true,
             'loginUrl' => ['rbac/user/login'],
@@ -78,7 +80,7 @@ $config = [
                 'assignment' => [
                     'class' => mdm\admin\controllers\AssignmentController::class,
                     'idField' => '_id',
-                    'userClassName' => models\User\User::class,
+                    'userClassName' => User::class,
                     'usernameField' => 'username',
                 ],
             ],

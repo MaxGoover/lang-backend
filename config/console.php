@@ -3,6 +3,7 @@
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 $mongodb = require __DIR__ . '/mongodb.php';
+$controllerMap = require __DIR__ . '/controllerMap.php';
 
 $config = [
     'id' => 'basic-console',

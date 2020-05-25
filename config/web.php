@@ -12,7 +12,7 @@ $config = [
     'as access' => [
         'class' => mdm\admin\components\AccessControl::class,
         'allowActions' => [
-            '*' // пока что доступ ко всему '*', потом уберем
+//            '*' // пока что доступ ко всему '*', потом уберем
         ]
     ],
     'basePath' => dirname(__DIR__),

@@ -3,33 +3,35 @@
 namespace models\User;
 
 use mdm\admin\components\Configs;
-use mdm\admin\components\UserStatus;
 use Yii;
-use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\mongodb\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * User model
+ * Class User.
  *
- * @property \MongoDB\BSON\ObjectId|string $_id
+ * @property \MongoDB\BSON\ObjectID|string $_id
  *
- * @property integer $id
  * @property string $username
- * @property string $password_hash
- * @property string $password_reset_token
+ * @property string $passwordHash
+ * @property string $passwordResetToken
  * @property string $email
- * @property string $auth_key
- * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
+ * @property string $authKey
  * @property string $password write-only password
  *
- * @property UserProfile $profile
+ * @property integer $status
+ * @property integer $createdAt
+ * @property integer $updatedAt
+ *
+ * @property array $tokens
+ * @property array $logins
+ * @property array $publicData Returns only user's public data
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    use UserTokenTrait;
+
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 10;
 
@@ -38,7 +40,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => UserStatus::ACTIVE]);
+        return static::find()->byId($id)->active()->one();
     }
 
     /**
@@ -46,7 +48,18 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+        return static::find()->byToken($token)->one();
+    }
+
+    /**
+     * Finds user by its refresh token.
+     *
+     * @param $refreshToken
+     * @return User|null|ActiveRecord
+     */
+    public static function findIdentityByRefreshToken($refreshToken)
+    {
+        return static::find()->byRefreshToken($refreshToken)->one();
     }
 
     /**
@@ -62,8 +75,8 @@ class User extends ActiveRecord implements IdentityInterface
         }
 
         return static::findOne([
-            'password_reset_token' => $token,
-            'status' => UserStatus::ACTIVE,
+            'passwordResetToken' => $token,
+            'status' => self::STATUS_ACTIVE,
         ]);
     }
 
@@ -75,7 +88,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username, 'status' => UserStatus::ACTIVE]);
+        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -108,7 +121,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function generateAuthKey()
     {
-        $this->auth_key = Yii::$app->security->generateRandomString();
+        $this->authKey = Yii::$app->security->generateRandomString();
     }
 
     /**
@@ -116,7 +129,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function generatePasswordResetToken()
     {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+        $this->passwordResetToken = Yii::$app->security->generateRandomString() . '_' . time();
     }
 
     /**
@@ -124,7 +137,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->auth_key;
+        return $this->authKey;
     }
 
     /**
@@ -140,7 +153,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function removePasswordResetToken()
     {
-        $this->password_reset_token = null;
+        $this->passwordResetToken = null;
     }
 
     /**
@@ -150,7 +163,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function setPassword($password)
     {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+        $this->passwordHash = Yii::$app->security->generatePasswordHash($password);
     }
 
     /**
@@ -169,44 +182,98 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return Yii::$app->security->validatePassword($password, $this->password_hash);
+        return Yii::$app->security->validatePassword($password, $this->passwordHash);
     }
 
     ##################################################
 
     /**
-     * @inheritdoc
+     * @return array
      */
-    public static function collectionName()
+    public static function collectionName(): array
     {
         return [env('MONGO_DB_DATABASE'), 'user'];
     }
 
     /**
-     * @inheritdoc
+     * @return string[]
      */
-    public static function tableName()
-    {
-        return Configs::instance()->userTable;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
+    public function attributes(): array
     {
         return [
-            TimestampBehavior::class,
+            '_id',
+            'username',
+            'passwordHash',
+            'passwordResetToken',
+            'email',
+            'wfmNumber',
+            'authKey',
+            'tokens',
+            'logins',
+            'name',
+            'surname',
+            'middleName',
+            'webSettings',
+            'projectsIds',
+            'status',
+            'createdAt',
+            'updatedAt',
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            '_id'                => Yii::t('user', 'ID'),
+            'username'           => Yii::t('user', 'Username'),
+            'passwordHash'       => Yii::t('user', 'Password Hash'),
+            'passwordResetToken' => Yii::t('user', 'Password Reset Token'),
+            'email'              => Yii::t('user', 'Email'),
+            'authKey'            => Yii::t('user', 'Auth Key'),
+            'tokens'             => Yii::t('user', 'Tokens'),
+            'logins'             => Yii::t('user', 'Logins'),
+            'status'             => Yii::t('user', 'Status'),
+            'createdAt'          => Yii::t('user', 'Created At'),
+            'updatedAt'          => Yii::t('user', 'Updated At'),
         ];
     }
 
     /**
-     * @inheritdoc
+     * @return array|array[]
      */
-    public function rules()
+    public function behaviors(): array
     {
         return [
-            ['status', 'in', 'range' => [UserStatus::ACTIVE, UserStatus::INACTIVE]],
+            'timestamp' => [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['createdAt', 'updateAt'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updateAt'],
+                ]
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function rules(): array
+    {
+        return [
+            [['username', 'passwordHash', 'status'], 'required'],
+            ['username', 'unique'],
+            [['username', 'passwordHash', 'passwordResetToken', 'authKey', 'wfmNumber', 'name', 'surname', 'middleName'], 'string'],
+            [['status', 'createdAt', 'updatedAt'], 'integer'],
+            ['tokens', 'checkTokens'],
+            ['webSettings', 'checkWebSettings'],
+            [['username', 'email'], 'filter', 'filter' => 'trim'],
+            ['email', 'email'],
+//            ['email', 'unique', 'message' => Yii::t('rbac-admin', 'This email address has already been taken.')],
+            ['email', 'unique', 'message' => Yii::t('rbac-admin', 'This email address has already been taken.')],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE]],
+            [['logins', 'projectsIds'], 'each', 'rule' => ['string']],
+            [['_id','username','passwordHash','passwordResetToken','email','wfmNumber','authKey','tokens','logins',
+                'name','surname','middleName','webSettings','projectsIds','status','createdAt','updatedAt',], 'safe']
         ];
     }
 }

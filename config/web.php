@@ -56,7 +56,7 @@ $config = [
             'showScriptName' => false,
         ],
         'user' => [
-            'identityClass' => mdm\admin\models\User::class,
+            'identityClass' => models\User\User::class,
 //            'enableAutoLogin' => true,
             'enableSession' => true,
             'loginUrl' => ['rbac/user/login'],
@@ -70,9 +70,8 @@ $config = [
             'controllerMap' => [
                 'assignment' => [
                     'class' => mdm\admin\controllers\AssignmentController::class,
-//                    'userClassName' => app\models\User::class,
-//                    'idField' => '_id',
-                    'idField' => 'id',
+                    'idField' => '_id',
+                    'userClassName' => models\User\User::class,
                     'usernameField' => 'username',
                 ],
             ],

@@ -31,11 +31,7 @@ $config = [
         'mongodb' => $mongodb,
     ],
     'params' => $params,
-    'controllerMap' => [
-        'fixture' => [ // Fixture generation command line.
-            'class' => 'yii\faker\FixtureController',
-        ],
-    ],
+    'controllerMap' => $controllerMap,
 ];
 
 if (YII_ENV_DEV) {

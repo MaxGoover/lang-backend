@@ -6,6 +6,7 @@ $mongodb = require __DIR__ . '/mongodb.php';
 
 $config = [
     'id' => 'basic',
+    'language' => env ('APP_LANGUAGE'),
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -25,8 +26,10 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'identityClass' => mdm\admin\models\User::class,
+//            'enableAutoLogin' => true,
+            'enableSession' => true,
+            'loginUrl' => ['rbac/user/login'],
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -57,6 +60,28 @@ $config = [
         ],
     ],
     'params' => $params,
+    'modules' => [
+        'rbac' => [
+            'class' => mdm\admin\Module::class,
+            'controllerMap' => [
+                'assignment' => [
+                    'class' => mdm\admin\controllers\AssignmentController::class,
+//                    'userClassName' => app\models\User::class,
+//                    'idField' => '_id',
+                    'idField' => 'id',
+                    'usernameField' => 'username',
+                ],
+            ],
+            'layout' => 'left-menu',
+            'mainLayout' => '@app/views/layouts/main.php',
+        ]
+    ],
+    'as access' => [
+        'class' => mdm\admin\components\AccessControl::class,
+        'allowActions' => [
+            '*' // пока что доступ ко всему '*', потом уберем
+        ]
+    ],
 ];
 
 if (YII_ENV_DEV) {

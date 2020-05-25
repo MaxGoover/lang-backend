@@ -29,6 +29,13 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'i18n'         => [
+            'translations' => [
+                '*' => [
+                    'class' => yii\i18n\PhpMessageSource::class,
+                ],
+            ],
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [

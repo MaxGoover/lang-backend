@@ -2,6 +2,7 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$mongodb = require __DIR__ . '/mongodb.php';
 
 $config = [
     'id' => 'basic-console',
@@ -26,15 +27,14 @@ $config = [
             ],
         ],
         'db' => $db,
+        'mongodb' => $mongodb,
     ],
     'params' => $params,
-    /*
     'controllerMap' => [
         'fixture' => [ // Fixture generation command line.
             'class' => 'yii\faker\FixtureController',
         ],
     ],
-    */
 ];
 
 if (YII_ENV_DEV) {

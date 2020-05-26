@@ -68,7 +68,7 @@ $config = [
             'identityClass' => User::class,
 //            'enableAutoLogin' => true,
             'enableSession' => true,
-            'loginUrl'      => ['rbac/user/login'],
+            'loginUrl'      => ['site/login'],
         ],
     ],
     'id'         => env('APP_ID'),

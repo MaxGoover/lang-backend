@@ -55,7 +55,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
-    public static function findIdentityByAccessToken($token, $type = null)
+    public static function findIdentityByAccessToken($token, $type = null): self
     {
         return static::find()->byToken($token)->one();
     }
@@ -66,7 +66,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param $refreshToken
      * @return User|null|ActiveRecord
      */
-    public static function findIdentityByRefreshToken($refreshToken)
+    public static function findIdentityByRefreshToken($refreshToken): self
     {
         return static::find()->byRefreshToken($refreshToken)->one();
     }
@@ -77,7 +77,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $token password reset token
      * @return static|null
      */
-    public static function findByPasswordResetToken($token)
+    public static function findByPasswordResetToken($token): ?self
     {
         if (!static::isPasswordResetTokenValid($token)) {
             return null;
@@ -95,7 +95,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername($username)
+    public static function findByUsername(string $username): self
     {
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }

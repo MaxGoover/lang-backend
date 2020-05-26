@@ -6,42 +6,42 @@ $mongodb = require __DIR__ . '/mongodb.php';
 $params = require __DIR__ . '/params.php';
 
 $config = [
-    'aliases' => [
+    'aliases'             => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
         '@tests' => '@app/tests',
     ],
-    'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
-    'components' => [
+    'basePath'            => dirname(__DIR__),
+    'bootstrap'           => ['log'],
+    'components'          => [
         'authManager' => [
             'class' => yii\rbac\DbManager::class,
         ],
-        'cache' => [
+        'cache'       => [
             'class' => yii\caching\FileCache::class,
         ],
-        'log' => [
+        'log'         => [
             'targets' => [
                 [
-                    'class' => yii\log\FileTarget::class,
+                    'class'  => yii\log\FileTarget::class,
                     'levels' => ['error', 'warning'],
                 ],
             ],
         ],
-        'db' => $db,
-        'i18n'         => [
+        'db'          => $db,
+        'i18n'        => [
             'translations' => [
                 '*' => [
                     'class' => yii\i18n\PhpMessageSource::class,
                 ],
             ],
         ],
-        'mongodb' => $mongodb,
+        'mongodb'     => $mongodb,
     ],
-    'controllerMap' => $controllerMap,
+    'controllerMap'       => $controllerMap,
     'controllerNamespace' => 'app\commands',
-    'id' => 'basic-console',
-    'params' => $params,
+    'id'                  => env('APP_ID') . '-console',
+    'params'              => $params,
 
 ];
 

@@ -1,11 +1,11 @@
 <?php
 
-use yii\widgets\ActiveForm;
-use yii\helpers\Html;
-
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\authorization\SignUpForm */
+
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 $this->title = Yii::t('rbac-admin', 'Signup');
 $this->params['breadcrumbs'][] = $this->title;

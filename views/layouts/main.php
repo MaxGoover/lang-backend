@@ -28,6 +28,7 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
@@ -42,6 +43,7 @@ AppAsset::register($this);
             ['label' => 'Rbac', 'url' => ['/rbac']],
             ['label' => 'Gii', 'url' => ['/gii']],
             ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'Sign up', 'url' => ['/site/signup']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (

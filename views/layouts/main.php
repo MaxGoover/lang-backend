@@ -42,8 +42,6 @@ AppAsset::register($this);
             ['label' => 'Rbac', 'url' => ['/rbac']],
             ['label' => 'Gii', 'url' => ['/gii']],
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (

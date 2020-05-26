@@ -1,12 +1,12 @@
 <?php
 
-namespace models\User;
+namespace app\models\User;
 
 use Yii;
 
 /**
  * Trait UserTokenTrait
- * @package models\User
+ * @package app\models\User
  */
 trait UserTokenTrait
 {

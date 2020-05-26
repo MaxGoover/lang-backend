@@ -2,56 +2,43 @@
 
 namespace app\controllers;
 
+use app\models\authorization\SignUpForm;
+use app\models\ContactForm;
+use app\models\LoginForm;
 use Yii;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\Response;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
 
 class SiteController extends Controller
 {
     /**
-     * {@inheritdoc}
+     * Displays about page.
+     *
+     * @return string
      */
-    public function behaviors()
+    public function actionAbout()
     {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
+        return $this->render('about');
     }
 
     /**
-     * {@inheritdoc}
+     * Displays contact page.
+     *
+     * @return Response|string
      */
-    public function actions()
+    public function actionContact()
     {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
-        ];
+        $model = new ContactForm();
+        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+            Yii::$app->session->setFlash('contactFormSubmitted');
+
+            return $this->refresh();
+        }
+        return $this->render('contact', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -98,31 +85,47 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
+    ##################################################
 
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors(): array
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['logout'],
+                'rules' => [
+                    [
+                        'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
     }
 
     /**
-     * Displays about page.
-     *
-     * @return string
+     * {@inheritdoc}
      */
-    public function actionAbout()
+    public function actions(): array
     {
-        return $this->render('about');
+        return [
+            'captcha' => [
+                'class' => yii\captcha\CaptchaAction::class,
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+            ],
+            'error' => [
+                'class' => yii\web\ErrorAction::class,
+            ],
+        ];
     }
 }

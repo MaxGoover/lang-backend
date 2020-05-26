@@ -1,8 +1,7 @@
 <?php
 
-namespace models\User;
+namespace app\models\User;
 
-use mdm\admin\components\Configs;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\mongodb\ActiveRecord;
@@ -36,11 +35,21 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_ACTIVE = 10;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     * @return UserQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new UserQuery(get_called_class());
+    }
+
+    /**
+     * @param int|string $id
+     * @return IdentityInterface|null
      */
     public static function findIdentity($id)
     {
-        return static::find()->byId($id)->active()->one();
+        return self::find()->byId($id)->active()->one();
     }
 
     /**
@@ -89,14 +98,6 @@ class User extends ActiveRecord implements IdentityInterface
     public static function findByUsername($username)
     {
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
-    }
-
-    /**
-     * @return string|\yii\db\Connection|\yii\mongodb\Connection
-     */
-    public static function getDb()
-    {
-        return Configs::userDb();
     }
 
     /**
@@ -195,32 +196,6 @@ class User extends ActiveRecord implements IdentityInterface
         return [env('MONGO_DB_DATABASE'), 'user'];
     }
 
-    /**
-     * @return string[]
-     */
-    public function attributes(): array
-    {
-        return [
-            '_id',
-            'username',
-            'passwordHash',
-            'passwordResetToken',
-            'email',
-            'wfmNumber',
-            'authKey',
-            'tokens',
-            'logins',
-            'name',
-            'surname',
-            'middleName',
-            'webSettings',
-            'projectsIds',
-            'status',
-            'createdAt',
-            'updatedAt',
-        ];
-    }
-
     public function attributeLabels()
     {
         return [
@@ -235,6 +210,32 @@ class User extends ActiveRecord implements IdentityInterface
             'status'             => Yii::t('user', 'Status'),
             'createdAt'          => Yii::t('user', 'Created At'),
             'updatedAt'          => Yii::t('user', 'Updated At'),
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function attributes(): array
+    {
+        return [
+            '_id',
+            'username',
+            'passwordHash',
+            'passwordResetToken',
+            'email',
+//            'wfmNumber',
+            'authKey',
+            'tokens',
+//            'logins',
+//            'name',
+//            'surname',
+//            'middleName',
+//            'webSettings',
+//            'projectsIds',
+            'status',
+            'createdAt',
+            'updatedAt',
         ];
     }
 
@@ -265,15 +266,15 @@ class User extends ActiveRecord implements IdentityInterface
             [['username', 'passwordHash', 'passwordResetToken', 'authKey', 'wfmNumber', 'name', 'surname', 'middleName'], 'string'],
             [['status', 'createdAt', 'updatedAt'], 'integer'],
             ['tokens', 'checkTokens'],
-            ['webSettings', 'checkWebSettings'],
+//            ['webSettings', 'checkWebSettings'],
             [['username', 'email'], 'filter', 'filter' => 'trim'],
             ['email', 'email'],
 //            ['email', 'unique', 'message' => Yii::t('rbac-admin', 'This email address has already been taken.')],
             ['email', 'unique', 'message' => Yii::t('rbac-admin', 'This email address has already been taken.')],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE]],
-            [['logins', 'projectsIds'], 'each', 'rule' => ['string']],
-            [['_id','username','passwordHash','passwordResetToken','email','wfmNumber','authKey','tokens','logins',
-                'name','surname','middleName','webSettings','projectsIds','status','createdAt','updatedAt',], 'safe']
+//            [['logins', 'projectsIds'], 'each', 'rule' => ['string']],
+//            [['_id','username','passwordHash','passwordResetToken','email','wfmNumber','authKey','tokens','logins',
+//                'name','surname','middleName','webSettings','projectsIds','status','createdAt','updatedAt',], 'safe']
         ];
     }
 }

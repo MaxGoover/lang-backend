@@ -1,6 +1,6 @@
 <?php
 
-namespace models\User;
+namespace app\models\User;
 
 use Yii;
 use yii\base\Exception;

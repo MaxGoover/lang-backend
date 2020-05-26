@@ -1,6 +1,6 @@
 <?php
 
-use models\User\User;
+use app\models\User\User;
 
 $db = require __DIR__ . '/db.php';
 $mongodb = require __DIR__ . '/mongodb.php';
@@ -72,15 +72,15 @@ $config = [
         ],
     ],
     'id' => 'basic',
-    'language' => env ('APP_LANGUAGE'),
+    'language' => env('APP_LANGUAGE'),
     'modules' => [
         'rbac' => [
             'class' => mdm\admin\Module::class,
             'controllerMap' => [
                 'assignment' => [
                     'class' => mdm\admin\controllers\AssignmentController::class,
-                    'idField' => '_id',
                     'userClassName' => User::class,
+                    'idField' => '_id',
                     'usernameField' => 'username',
                 ],
             ],

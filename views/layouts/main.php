@@ -38,9 +38,9 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Debug', 'url' => ['/site/debug']],
-            ['label' => 'Rbac', 'url' => ['/site/rbac']],
-            ['label' => 'Gii', 'url' => ['/site/gii']],
+            ['label' => 'Debug', 'url' => ['/debug']],
+            ['label' => 'Rbac', 'url' => ['/rbac']],
+            ['label' => 'Gii', 'url' => ['/gii']],
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],

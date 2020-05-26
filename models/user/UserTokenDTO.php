@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\User;
+namespace app\models\user;
 
 use Yii;
 use yii\base\Exception;
@@ -26,14 +26,14 @@ class UserTokenDTO
     private $_refreshToken;
 
     /**
-     * User's ip.
+     * user's ip.
      *
      * @var string
      */
     private $_ip;
 
     /**
-     * User agent data.
+     * user agent data.
      *
      * @var string
      */

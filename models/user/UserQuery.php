@@ -1,11 +1,11 @@
 <?php
 
-namespace app\models\User;
+namespace app\models\user;
 
 use yii\mongodb\ActiveQuery;
 
 /**
- * This is the ActiveQuery class for [[User]].
+ * This is the ActiveQuery class for [[user]].
  *
  * @see User
  */
@@ -22,7 +22,7 @@ class UserQuery extends ActiveQuery
     }
 
     /**
-     * Finds User model by id.
+     * Finds user model by id.
      *
      * @param $id
      * @return UserQuery
@@ -66,7 +66,7 @@ class UserQuery extends ActiveQuery
     }
 
     /**
-     * Finds User model by username.
+     * Finds user model by username.
      *
      * @param $username
      * @return UserQuery

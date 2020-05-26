@@ -1,6 +1,6 @@
 <?php
 
-use app\models\User\User;
+use app\models\user\User;
 
 $db = require __DIR__ . '/db.php';
 $mongodb = require __DIR__ . '/mongodb.php';

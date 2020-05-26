@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\User;
+namespace app\models\user;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -8,7 +8,7 @@ use yii\mongodb\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * Class User.
+ * Class user.
  *
  * @property \MongoDB\BSON\ObjectID|string $_id
  *

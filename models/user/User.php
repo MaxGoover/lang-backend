@@ -248,8 +248,8 @@ class User extends ActiveRecord implements IdentityInterface
             'timestamp' => [
                 'class' => TimestampBehavior::class,
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['createdAt', 'updateAt'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updateAt'],
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['createdAt', 'updatedAt'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updatedAt'],
                 ]
             ],
         ];
@@ -263,7 +263,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             [['username', 'passwordHash', 'status'], 'required'],
             ['username', 'unique'],
-            [['username', 'passwordHash', 'passwordResetToken', 'authKey', 'wfmNumber', 'name', 'surname', 'middleName'], 'string'],
+            [['username', 'passwordHash', 'passwordResetToken', 'authKey'], 'string'],
             [['status', 'createdAt', 'updatedAt'], 'integer'],
             ['tokens', 'checkTokens'],
 //            ['webSettings', 'checkWebSettings'],

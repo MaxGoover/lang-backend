@@ -1,7 +1,9 @@
 <?php
 
-namespace app\models;
+namespace app\models\authorization;
 
+use app\models\user\User;
+use app\models\user\UserTokenDTO;
 use Yii;
 use yii\base\Model;
 
@@ -14,26 +16,11 @@ use yii\base\Model;
 class LoginForm extends Model
 {
     public $username;
-    public $password;
-    public $rememberMe = true;
+    public string $password;
+    public bool $rememberMe = false;
 
+    private UserTokenDTO $_tokenDto;
     private $_user = false;
-
-
-    /**
-     * @return array the validation rules.
-     */
-    public function rules()
-    {
-        return [
-            // username and password are both required
-            [['username', 'password'], 'required'],
-            // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
-            ['password', 'validatePassword'],
-        ];
-    }
 
     /**
      * Validates the password.
@@ -42,7 +29,7 @@ class LoginForm extends Model
      * @param string $attribute the attribute currently being validated
      * @param array $params the additional name-value pairs given in the rule
      */
-    public function validatePassword($attribute, $params)
+    public function validatePassword(string $attribute)
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
@@ -60,9 +47,24 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+            if ($user = $this->getUser()) {
+                try {
+                    $this->_tokenDto = $user->refreshToken();
+
+                    if ($user->save()) {
+                        return Yii::$app->user->login($user, $this->rememberMe ? 2592000 : 0);
+
+                    }
+                } catch (\Exception $e) {
+                }
+            }
         }
+
         return false;
+    }
+
+    public function getTokenDto(): UserTokenDTO {
+        return $this->_tokenDto;
     }
 
     /**
@@ -77,5 +79,19 @@ class LoginForm extends Model
         }
 
         return $this->_user;
+    }
+
+    ##################################################
+
+    /**
+     * @return array the validation rules.
+     */
+    public function rules(): array
+    {
+        return [
+            [['username', 'password'], 'required'],
+            ['rememberMe', 'boolean'],
+            ['password', 'validatePassword'],
+        ];
     }
 }

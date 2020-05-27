@@ -77,7 +77,7 @@ class SignUpForm extends Model
                 'email',
                 'unique',
                 'targetClass' => $class,
-                'message'     => Yii::t('rbac-admin', 'This email address has already been taken.')
+                'message'     => Yii::t('admin', 'This email address has already been taken.')
             ],
 
             ['password', 'required'],

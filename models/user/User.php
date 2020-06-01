@@ -150,6 +150,21 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Returns only public data.
+     *
+     * @return array
+     */
+    public function getPublicData()
+    {
+        return [
+            'id'       => $this->_id,
+            'username' => $this->username,
+            'email'    => $this->email,
+            'roles'    => Yii::$app->authManager->getRolesByUser($this->_id),
+        ];
+    }
+
+    /**
      * Removes password reset token
      */
     public function removePasswordResetToken()

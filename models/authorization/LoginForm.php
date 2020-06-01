@@ -63,7 +63,8 @@ class LoginForm extends Model
         return false;
     }
 
-    public function getTokenDto(): UserTokenDTO {
+    public function getTokenDto(): UserTokenDTO
+    {
         return $this->_tokenDto;
     }
 
@@ -86,8 +87,8 @@ class LoginForm extends Model
     public function attributeLabels(): array
     {
         return [
-            'username'           => Yii::t('user', 'Username'),
-            'password'       => Yii::t('user', 'Password'),
+            'username'   => Yii::t('user', 'Username'),
+            'password'   => Yii::t('user', 'Password'),
             'rememberMe' => Yii::t('user', 'RememberMe'),
         ];
     }

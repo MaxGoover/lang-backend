@@ -83,6 +83,15 @@ class LoginForm extends Model
 
     ##################################################
 
+    public function attributeLabels(): array
+    {
+        return [
+            'username'           => Yii::t('user', 'Username'),
+            'password'       => Yii::t('user', 'Password'),
+            'rememberMe' => Yii::t('user', 'RememberMe'),
+        ];
+    }
+
     /**
      * @return array the validation rules.
      */

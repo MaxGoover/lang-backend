@@ -20,11 +20,17 @@ $config = [
         'cache'       => [
             'class' => yii\caching\FileCache::class,
         ],
-        'log'         => [
+        'log' => [
             'targets' => [
                 [
-                    'class'  => yii\log\FileTarget::class,
-                    'levels' => ['error', 'warning'],
+                    'categories' => ['console_errors'],
+                    'class'      => yii\log\FileTarget::class,
+                    'logFile'    => '@runtime/logs/console_errors.log',
+                ],
+                [
+                    'categories' => ['console_success'],
+                    'class'      => yii\log\FileTarget::class,
+                    'logFile'    => '@runtime/logs/console_success.log',
                 ],
             ],
         ],

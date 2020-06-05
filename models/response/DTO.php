@@ -6,10 +6,8 @@ class DTO
 {
     const STATUS_SUCCESS = 200;
     const STATUS_BAD_REQUEST = 400;
-    const STATUS_UNAUTHORIZED = 401;
-    const STATUS_FORBIDDEN = 403;
     const STATUS_NOT_FOUND = 404;
-    const STATUS_INTERNAL_SERVER_ERROR = 500;
+    const STATUS_INTERNAL_SERVER = 500;
 
     protected $data = null;
     protected $date;
@@ -26,7 +24,7 @@ class DTO
         $dto->message = 'Bad Request Error';
         $dto->status = self::STATUS_BAD_REQUEST;
 
-        return $dto->response();
+        return $dto->response($dto);
     }
 
     public static function internalServerError($errors = null)
@@ -36,7 +34,7 @@ class DTO
         $dto->message = 'Internal Server Error';
         $dto->status = self::STATUS_INTERNAL_SERVER;
 
-        return $dto->response();
+        return $dto->response($dto);
     }
 
     public static function notFoundError($errors = null)
@@ -46,7 +44,12 @@ class DTO
         $dto->message = 'Not Found Error';
         $dto->status = self::STATUS_NOT_FOUND;
 
-        return $dto->response();
+        return $dto->response($dto);
+    }
+
+    public static function response (self $dto): self {
+        $dto->date = time();
+        return $dto;
     }
 
     public static function success ($data) {
@@ -56,7 +59,7 @@ class DTO
         $dto->message = 'Successfully';
         $dto->status = self::STATUS_SUCCESS;
 
-        return $dto->response();
+        return $dto->response($dto);
     }
 
     public static function validationError($errors = null)
@@ -66,6 +69,6 @@ class DTO
         $dto->message = 'Validation Error';
         $dto->status = self::STATUS_BAD_REQUEST;
 
-        return $dto->response();
+        return $dto->response($dto);
     }
 }

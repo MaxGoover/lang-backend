@@ -18,7 +18,10 @@ $config = [
         ]
     ],
     'basePath'   => dirname(__DIR__),
-    'bootstrap'  => ['log'],
+    'bootstrap'  => [
+        'bootstrap\SetUp',
+        'log',
+    ],
     'components' => [
         'authManager'  => [
             'class'        => yii\rbac\DbManager::class,

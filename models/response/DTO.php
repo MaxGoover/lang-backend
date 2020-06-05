@@ -12,63 +12,71 @@ class DTO
     protected $data = null;
     protected $date;
     protected $errors = null;
-    protected $executionTime;
+//    protected $executionTime;
     protected bool $isError = true;
     protected string $message;
     protected int $status;
 
-    public static function badRequestError($errors = null)
+    public static function badRequestError($errors = null): self
+    {
+        $callback = function (self $dto) {
+            $dto->message = 'Bad Request Error';
+            $dto->status = self::STATUS_BAD_REQUEST;
+            return $dto;
+        };
+        return self::response($callback, $errors);
+    }
+
+    public static function internalServerError($errors = null): self
+    {
+        $callback = function (self $dto) {
+            $dto->message = 'Internal Server Error';
+            $dto->status = self::STATUS_INTERNAL_SERVER;
+            return $dto;
+        };
+        return self::response($callback, $errors);
+    }
+
+    public static function notFoundError($errors = null): self
+    {
+        $callback = function (self $dto) {
+            $dto->message = 'Not Found Error';
+            $dto->status = self::STATUS_NOT_FOUND;
+            return $dto;
+        };
+        return self::response($callback, $errors);
+    }
+
+    public static function validationError($errors = null): self
+    {
+        $callback = function (self $dto) {
+            $dto->message = 'Validation Error';
+            $dto->status = self::STATUS_BAD_REQUEST;
+            return $dto;
+        };
+        return self::response($callback, $errors);
+    }
+
+    ##################################################
+
+    public static function response(callable $callback, $errors = null): self
     {
         $dto = new static();
         $dto->errors = $errors;
-        $dto->message = 'Bad Request Error';
-        $dto->status = self::STATUS_BAD_REQUEST;
-
-        return $dto->response($dto);
-    }
-
-    public static function internalServerError($errors = null)
-    {
-        $dto = new static();
-        $dto->errors = $errors;
-        $dto->message = 'Internal Server Error';
-        $dto->status = self::STATUS_INTERNAL_SERVER;
-
-        return $dto->response($dto);
-    }
-
-    public static function notFoundError($errors = null)
-    {
-        $dto = new static();
-        $dto->errors = $errors;
-        $dto->message = 'Not Found Error';
-        $dto->status = self::STATUS_NOT_FOUND;
-
-        return $dto->response($dto);
-    }
-
-    public static function response (self $dto): self {
+        $dto = $callback($dto);
         $dto->date = time();
         return $dto;
     }
 
-    public static function success ($data) {
-        $dto = new static();
-        $dto->data = $data;
-        $dto->isError = false;
-        $dto->message = 'Successfully';
-        $dto->status = self::STATUS_SUCCESS;
-
-        return $dto->response($dto);
-    }
-
-    public static function validationError($errors = null)
+    public static function success ($data): self
     {
-        $dto = new static();
-        $dto->errors = $errors;
-        $dto->message = 'Validation Error';
-        $dto->status = self::STATUS_BAD_REQUEST;
-
-        return $dto->response($dto);
+        $callback = function (self $dto) use ($data) {
+            $dto->data = $data;
+            $dto->isError = false;
+            $dto->message = 'Successfully';
+            $dto->status = self::STATUS_SUCCESS;
+            return $dto;
+        };
+        return self::response($callback);
     }
 }

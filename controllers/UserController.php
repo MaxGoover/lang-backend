@@ -6,16 +6,16 @@ use yii\console\Controller;
 
 class UserController extends Controller
 {
-    private $_manageService;
+    private $_service;
 
     public function __construct(
         $id,
         $module,
-        UserManageService $manageService,
+        UserService $service,
         $config = [])
     {
         parent::__construct($id, $module, $config);
-        $this->_manageService = $manageService;
+        $this->_service = $service;
     }
 
     /**

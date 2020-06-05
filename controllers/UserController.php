@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
-class UserController
+use yii\console\Controller;
+
+class UserController extends Controller
 {
     private $_manageService;
 

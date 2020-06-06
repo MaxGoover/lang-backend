@@ -10,7 +10,7 @@ use shop\services\newsletter\Newsletter;
 use shop\services\RoleManager;
 use shop\services\TransactionManager;
 
-class UserService
+class UserManageService
 {
     private $_repository;
     private $_roles;

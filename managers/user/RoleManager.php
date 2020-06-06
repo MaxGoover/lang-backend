@@ -1,6 +1,6 @@
 <?php
 
-namespace app\services;
+namespace app\managers\user;
 
 use yii\rbac\ManagerInterface;
 

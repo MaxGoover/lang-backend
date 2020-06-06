@@ -29,10 +29,7 @@ class UserRepository
         return $this->_getBy(['id' => $id]);
     }
 
-    /**
-     * @param $productId
-     * @return iterable|User[]
-     */
+
     public function getAllByProductInWishList($productId): iterable
     {
         return User::find()

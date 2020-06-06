@@ -4,6 +4,7 @@ namespace common\bootstrap;
 
 use yii\base\BootstrapInterface;
 use yii\base\ErrorHandler;
+use yii\base\Security;
 use yii\caching\Cache;
 use yii\di\Container;
 use yii\di\Instance;
@@ -15,6 +16,10 @@ class SetUp implements BootstrapInterface
     public function bootstrap($app): void
     {
         $container = \Yii::$container;
+
+        $container->setSingleton(Security::class, function () use ($app) {
+            return $app->errorHandler;
+        });
 
         $container->setSingleton(Client::class, function () {
             return ClientBuilder::create()->build();

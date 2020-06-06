@@ -2,9 +2,11 @@
 
 namespace app\forms\token;
 
+use http\Client\Request;
+use Yii;
 use yii\base\Exception;
 
-class TokenForm
+class TokensForm
 {
     private int $_expiresAt;
     private string $_ip;
@@ -12,14 +14,9 @@ class TokenForm
     private string $_token;
     private string $_userAgent;
 
-    /**
-     * UserTokenDTO constructor.
-     *
-     * @throws Exception
-     */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        $request = Yii::$app->request;
+
 
         // Generate and set token string
         $this->generateToken();

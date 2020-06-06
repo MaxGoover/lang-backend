@@ -29,8 +29,6 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    use UserTokenTrait;
-
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 10;
 

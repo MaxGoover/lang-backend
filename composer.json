@@ -15,6 +15,7 @@
     "minimum-stability": "stable",
     "require": {
         "ext-curl": "*",
+        "ext-http": "*",
         "ext-json": "*",
         "ext-mongodb": "*",
         "jenssegers/mongodb": "^3.6",

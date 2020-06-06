@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 
+use app\forms\user\UserCreateForm;
+use app\forms\user\UserEditForm;
+use Yii;
 use yii\console\Controller;
 
 class UserController extends Controller
@@ -28,7 +31,7 @@ class UserController extends Controller
         $form = new UserCreateForm();
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
-                $user = $this->_manageService->create($form);
+                $user = $this->_service->create($form);
                 return $this->redirect(['view', 'id' => $user->id]);
             } catch (\DomainException $e) {
                 Yii::$app->errorHandler->logException($e);

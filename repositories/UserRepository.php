@@ -2,69 +2,30 @@
 
 namespace app\repositories;
 
-use shop\dispatchers\EventDispatcher;
-use shop\entities\User\User;
+use app\models\user\User;
 
 class UserRepository
 {
-    private $_eventDispatcher;
-
-    public function __construct(EventDispatcher $eventDispatcher)
+    public function findByUsername(string $username): ?User
     {
-        $this->_eventDispatcher = $eventDispatcher;
+        return User::find()->andWhere(['username' => $username])->one();
     }
 
-    public function findByNetworkIdentity($network, $identity): ?User
+    public function getById($_id): User
     {
-        return User::find()->joinWith('networks n')->andWhere(['n.network' => $network, 'n.identity' => $identity])->one();
+        return $this->_getBy(['_id' => $_id]);
     }
 
-    public function findByUsernameOrEmail($value): ?User
+    public function getByUsername(string $username): User
     {
-        return User::find()->andWhere(['or', ['username' => $value], ['email' => $value]])->one();
+        return $this->_getBy(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 
-    public function get($id): User
-    {
-        return $this->_getBy(['id' => $id]);
-    }
-
-
-    public function getAllByProductInWishList($productId): iterable
-    {
-        return User::find()
-            ->alias('u')
-            ->joinWith('wishlistItems w', false, 'INNER JOIN')
-            ->andWhere(['w.product_id' => $productId])
-            ->each();
-    }
-
-    public function getByEmail($email): User
-    {
-        return $this->_getBy(['email' => $email]);
-    }
-
-    public function getByEmailConfirmToken($token): User
-    {
-        return $this->_getBy(['email_confirm_token' => $token]);
-    }
-
-    public function getByPasswordResetToken($token): User
-    {
-        return $this->_getBy(['password_reset_token' => $token]);
-    }
-
-    public function existsByPasswordResetToken(string $token): bool
-    {
-        return (bool) User::findByPasswordResetToken($token);
-    }
-
-    public function remove(User $user): void
+    public function delete(User $user): void
     {
         if (!$user->delete()) {
             throw new \RuntimeException('Removing error.');
         }
-        $this->_eventDispatcher->dispatchAll($user->releaseEvents());
     }
 
     public function save(User $user): void
@@ -72,13 +33,12 @@ class UserRepository
         if (!$user->save()) {
             throw new \RuntimeException('Saving error.');
         }
-        $this->_eventDispatcher->dispatchAll($user->releaseEvents());
     }
 
     private function _getBy(array $condition): User
     {
         if (!$user = User::find()->andWhere($condition)->limit(1)->one()) {
-            throw new NotFoundException('User not found.');
+//            throw new NotFoundException('User not found.');
         }
         return $user;
     }

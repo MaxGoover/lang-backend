@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\forms\user\UserCreateForm;
 use app\forms\user\UserEditForm;
+use app\services\user\UserService;
 use Yii;
 use yii\console\Controller;
 

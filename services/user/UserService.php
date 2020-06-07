@@ -2,77 +2,59 @@
 
 namespace app\services\user;
 
-use shop\entities\User\User;
-use shop\forms\manage\User\UserCreateForm;
-use shop\forms\manage\User\UserEditForm;
-use shop\repositories\UserRepository;
-use shop\services\newsletter\Newsletter;
-use shop\services\RoleManager;
-use shop\services\TransactionManager;
+use app\forms\user\UserCreateForm;
+use app\forms\user\UserEditForm;
+use app\managers\user\RoleManager;
+use app\models\user\User;
+use app\repositories\UserRepository;
 
 class UserService
 {
     private $_repository;
     private $_roles;
-    private $_transaction;
-    /**
-     * @var Newsletter
-     */
-    private $_newsletter;
 
     public function __construct(
         UserRepository $repository,
-        RoleManager $roles,
-        TransactionManager $transaction,
-        Newsletter $newsletter
+        RoleManager $roles
     )
     {
         $this->_repository = $repository;
         $this->_roles = $roles;
-        $this->_transaction = $transaction;
-        $this->_newsletter = $newsletter;
     }
 
-    public function assignRole($id, $role): void
+    /**
+     * Привязываем роль к пользователю.
+     * @param $_id
+     * @param $role
+     */
+    public function assignRole($_id, $role): void
     {
-        $user = $this->_repository->get($id);
-        $this->_roles->assign($user->id, $role);
+        $user = $this->_repository->getById($_id);
+        $this->_roles->assign($user->_id, $role);
     }
 
     public function create(UserCreateForm $form): User
     {
         $user = User::create(
-            $form->username,
-            $form->email,
-            $form->phone,
-            $form->password
+            $form->password,
+            $form->username
         );
-        $this->_transaction->wrap(function () use ($user, $form) {
-            $this->_repository->save($user);
-            $this->_roles->assign($user->id, $form->role);
-            $this->_newsletter->subscribe($user->email);
-        });
+        $this->_repository->save($user);
+        $this->_roles->assign($user->_id, 'user');
         return $user;
     }
 
-    public function edit($id, UserEditForm $form): void
+    public function edit($_id, UserEditForm $form): void
     {
-        $user = $this->_repository->get($id);
-        $user->edit(
-            $form->username,
-            $form->email,
-            $form->phone
-        );
-        $this->_transaction->wrap(function () use ($user, $form) {
-            $this->_repository->save($user);
-            $this->_roles->assign($user->id, $form->role);
-        });
+        $user = $this->_repository->getById($_id);
+        $user->edit($form->username);
+        $this->_repository->save($user);
+        $this->_roles->assign($user->_id, 'user');
     }
 
-    public function remove($id): void
+    public function remove($_id): void
     {
-        $user = $this->_repository->get($id);
-        $this->_repository->remove($user);
-        $this->_newsletter->unsubscribe($user->email);
+        $user = $this->_repository->getById($_id);
+        $this->_repository->delete($user);
     }
 }

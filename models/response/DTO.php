@@ -6,6 +6,7 @@ class DTO
 {
     const STATUS_SUCCESS = 200;
     const STATUS_BAD_REQUEST = 400;
+    const STATUS_UNAUTHORIZED = 401;
     const STATUS_NOT_FOUND = 404;
     const STATUS_INTERNAL_SERVER = 500;
 
@@ -42,6 +43,16 @@ class DTO
         $callback = function (self $dto) {
             $dto->message = 'Not Found Error';
             $dto->status = self::STATUS_NOT_FOUND;
+            return $dto;
+        };
+        return self::response($callback, $errors);
+    }
+
+    public static function unauthorizedError($errors = null): self
+    {
+        $callback = function (self $dto) {
+            $dto->message = 'Unauthorized Error';
+            $dto->status = self::STATUS_UNAUTHORIZED;
             return $dto;
         };
         return self::response($callback, $errors);

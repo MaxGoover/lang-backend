@@ -2,22 +2,22 @@
 
 namespace app\services\auth;
 
-use shop\entities\User\User;
-use shop\forms\auth\LoginForm;
-use shop\repositories\UserRepository;
+use app\forms\auth\LoginForm;
+use app\models\user\User;
+use app\repositories\UserRepository;
 
 class AuthService
 {
-    private $_users;
+    private $_userRepository;
 
-    public function __construct(UserRepository $users)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->_users = $users;
+        $this->_userRepository = $userRepository;
     }
 
     public function auth(LoginForm $form): User
     {
-        $user = $this->_users->findByUsernameOrEmail($form->username);
+        $user = $this->_userRepository->findByUsername($form->username);
         if (!$user || !$user->isActive() || !$user->validatePassword($form->password)) {
             throw new \DomainException('Undefined user or password.');
         }

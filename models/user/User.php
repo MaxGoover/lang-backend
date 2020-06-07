@@ -27,7 +27,7 @@ use yii\web\IdentityInterface;
  * @property array $logins
  * @property array $publicData Returns only user's public data
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends ActiveRecord
 {
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 10;
@@ -51,34 +51,6 @@ class User extends ActiveRecord implements IdentityInterface
     public static function find()
     {
         return new UserQuery(get_called_class());
-    }
-
-    /**
-     * @param int|string $id
-     * @return IdentityInterface|null
-     */
-    public static function findIdentity($id)
-    {
-        return self::find()->byId($id)->active()->one();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function findIdentityByAccessToken($token, $type = null): self
-    {
-        return static::find()->byToken($token)->one();
-    }
-
-    /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
-     */
-    public static function findByUsername(string $username): ?self
-    {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**

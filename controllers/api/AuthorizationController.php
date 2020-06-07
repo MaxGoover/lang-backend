@@ -56,55 +56,55 @@ class AuthorizationController extends ApiPublicController
      *
      * @return ResponseDTO
      */
-//    public function actionSignUp(): ResponseDTO
-//    {
-//        $responseDto = new Response();
-//
-//        $model = new SignUpForm();
-//
-//        if ($model->load(Yii::$app->request->post())) {
-//            try {
-//                if ($model->validate()) {
-//                    if ($userModel = $model->signup()) {
-//
-//                        // Creates user info by type if its not exists
-//                        $userInfoFactory = new UserInfoFactory();
-//                        if ($userInfoClass = $userInfoFactory->getUserInfoClassNameByType($userModel->type)) {
-//
-//                            if (!($userInfoModel = $userInfoClass::find()->byUserId($userModel->id)->one())) {
-//                                $userInfoModel = $userInfoClass::createByUserModel($userModel);
-//                            }
-//
-//                            // Create or refresh exists token
-//                            $tokenDto = $userInfoModel->refreshToken();
-//
-//                            if ($userInfoModel->save()) {
-//                                $responseDto->setData([
-//                                    'user'  => $userModel->publicData,
-//                                    'token' => $tokenDto->getPublicTokenData(),
-//                                ]);
-//                            } else {
-//                                $responseDto->setInternalServerError();
-//                            }
-//                        } else {
-//                            $responseDto->setInternalServerError();
-//                        }
-//
-//                    } else {
-//                        $responseDto->setInternalServerError();
-//                    }
-//                } else {
-//                    $responseDto->setValidationError($model->errors);
-//                }
-//            } catch (Exception $e) {
-//                $responseDto->setInternalServerError($e);
-//            }
-//        } else {
-//            $responseDto->setBadRequestError();
-//        }
-//
-//        return $responseDto->getResponseData();
-//    }
+    public function actionSignUp(): ResponseDTO
+    {
+        $responseDto = new Response();
+
+        $model = new SignUpForm();
+
+        if ($model->load(Yii::$app->request->post())) {
+            try {
+                if ($model->validate()) {
+                    if ($userModel = $model->signup()) {
+
+                        // Creates user info by type if its not exists
+                        $userInfoFactory = new UserInfoFactory();
+                        if ($userInfoClass = $userInfoFactory->getUserInfoClassNameByType($userModel->type)) {
+
+                            if (!($userInfoModel = $userInfoClass::find()->byUserId($userModel->id)->one())) {
+                                $userInfoModel = $userInfoClass::createByUserModel($userModel);
+                            }
+
+                            // Create or refresh exists token
+                            $tokenDto = $userInfoModel->refreshToken();
+
+                            if ($userInfoModel->save()) {
+                                $responseDto->setData([
+                                    'user'  => $userModel->publicData,
+                                    'token' => $tokenDto->getPublicTokenData(),
+                                ]);
+                            } else {
+                                $responseDto->setInternalServerError();
+                            }
+                        } else {
+                            $responseDto->setInternalServerError();
+                        }
+
+                    } else {
+                        $responseDto->setInternalServerError();
+                    }
+                } else {
+                    $responseDto->setValidationError($model->errors);
+                }
+            } catch (Exception $e) {
+                $responseDto->setInternalServerError($e);
+            }
+        } else {
+            $responseDto->setBadRequestError();
+        }
+
+        return $responseDto->getResponseData();
+    }
 
     /**
      * Update token.

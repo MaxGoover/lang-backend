@@ -5,7 +5,7 @@ namespace app\forms\token;
 use Yii;
 use yii\web\Request;
 
-class TokensForm
+class TokenForm
 {
     private int $_expiresAt;
     private string $_ip;

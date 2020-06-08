@@ -10,7 +10,7 @@ use yii\base\Model;
 
 class LoginForm extends Model
 {
-    public string $username;
+    public $username;
     public string $password;
     public bool $rememberMe = false;
 

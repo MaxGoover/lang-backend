@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\models\authorization\LoginForm;
+use app\forms\auth\LoginForm;
 use app\models\authorization\SignUpForm;
 use Yii;
 use yii\web\Controller;

@@ -8,44 +8,14 @@ use Yii;
 use yii\base\Exception;
 use yii\base\Model;
 
-
 class LoginForm extends Model
 {
     public string $username;
     public string $password;
     public bool $rememberMe = false;
 
-    private $_user;
     private $_tokenDto;
-
-    public function rules()
-    {
-        return [
-            [['username', 'password'], 'required'],
-            ['rememberMe', 'boolean'],
-            ['password', 'validatePassword'],
-        ];
-    }
-
-    public function attributeLabels()
-    {
-        return [
-            'username'   => Yii::t('user', 'Username'),
-            'password'   => Yii::t('user', 'Password'),
-            'rememberMe' => Yii::t('user', 'Remember me'),
-        ];
-    }
-
-    public function validatePassword($attribute)
-    {
-        if (!$this->hasErrors()) {
-            $user = $this->getUser();
-
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, Yii::t('user','Incorrect username or password.'));
-            }
-        }
-    }
+    private $_user;
 
     public function login(): bool
     {
@@ -65,6 +35,11 @@ class LoginForm extends Model
         return false;
     }
 
+    public function getTokenDto(): ?UserTokenDTO
+    {
+        return $this->_tokenDto;
+    }
+
     public function getUser(): ?User
     {
         if ($this->_user === null) {
@@ -74,8 +49,34 @@ class LoginForm extends Model
         return $this->_user;
     }
 
-    public function getTokenDto(): ?UserTokenDTO
+    public function validatePassword($attribute)
     {
-        return $this->_tokenDto;
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
+
+            if (!$user || !$user->validatePassword($this->password)) {
+                $this->addError($attribute, Yii::t('user','Incorrect username or password.'));
+            }
+        }
+    }
+
+    ##################################################
+
+    public function attributeLabels(): array
+    {
+        return [
+            'username'   => Yii::t('user', 'Username'),
+            'password'   => Yii::t('user', 'Password'),
+            'rememberMe' => Yii::t('user', 'Remember me'),
+        ];
+    }
+
+    public function rules(): array
+    {
+        return [
+            [['username', 'password'], 'required'],
+            ['rememberMe', 'boolean'],
+            ['password', 'validatePassword'],
+        ];
     }
 }

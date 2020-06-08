@@ -39,8 +39,6 @@ class AuthController extends Controller
         ], parent::behaviors());
     }
 
-
-
 //    private AuthService $_service;
 //
 //    public function __construct(
@@ -54,6 +52,27 @@ class AuthController extends Controller
 //    }
 
     public function actionLogin() {
+        $form = new LoginForm();
+        if ($form->load(Yii::$app->request->post())) return DTO::badRequestError();
+        if ($form->validate()) return DTO::validationError();
+
+
+        try {
+            $user = $this->_service->auth($form);
+            Yii::$app->user->login(new Identity($user), $form->rememberMe ? 2592000 : 0);
+            if ($user->save()) return DTO::internalServerError();
+            return DTO::success([
+                'user'  => $model->getUser()->publicData,
+                'token' => $model->getTokenDto()->getPublicTokenData(),
+            ]);
+        } catch (\DomainException $e) {
+            Yii::$app->errorHandler->logException($e);
+            Yii::$app->session->setFlash('error', $e->getMessage());
+            return DTO::unauthorizedError();
+        }
+
+
+
         $responseDto = new Response();
         $request = Yii::$app->request;
 
@@ -83,25 +102,18 @@ class AuthController extends Controller
 
         return $responseDto->getResponseData();
 
-
-//        if ($form->load(Yii::$app->request->post())) return DTO::badRequestError();
-//        if ($form->validate()) return DTO::validationError();
-//        try {
-//            $user = $this->_service->auth($form);
-//            Yii::$app->user->login(new Identity($user), $form->rememberMe ? 2592000 : 0);
-//            if ($user->save()) return DTO::internalServerError();
-//            return DTO::success([
-//                'user'  => $model->getUser()->publicData,
-//                'token' => $model->getTokenDto()->getPublicTokenData(),
-//            ]);
-//        } catch (\DomainException $e) {
-//            Yii::$app->errorHandler->logException($e);
-//            Yii::$app->session->setFlash('error', $e->getMessage());
-//            return DTO::unauthorizedError();
+//        $form = new LoginForm();
+//        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+//            try {
+//                $user = $this->_service->auth($form);
+//                Yii::$app->user->login(new Identity($user), $form->rememberMe ? 2592000 : 0);
+//                return $this->goBack();
+//            } catch (\DomainException $e) {
+//                Yii::$app->errorHandler->logException($e);
+//                Yii::$app->session->setFlash('error', $e->getMessage());
+//            }
 //        }
     }
-
-
 
     public function actionLogout()
     {

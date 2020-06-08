@@ -14,12 +14,12 @@ class Identity implements IdentityInterface
         $this->_user = $user;
     }
 
-    public static function findIdentity($_id)
+    public static function findIdentity($_id): ?User
     {
         return User::find()->byId($_id)->active()->one();
     }
 
-    public static function findIdentityByAccessToken($token, $type = null)
+    public static function findIdentityByAccessToken($token, $type = null): ?User
     {
         return User::find()->byToken($token)->one();
     }
@@ -29,7 +29,7 @@ class Identity implements IdentityInterface
         return $this->_user->authKey;
     }
 
-    public function getId(): int
+    public function getId(): string
     {
         return $this->_user->_id;
     }

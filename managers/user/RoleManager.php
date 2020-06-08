@@ -6,7 +6,7 @@ use yii\rbac\ManagerInterface;
 
 class RoleManager
 {
-    private $_manager;
+    private ManagerInterface $_manager;
 
     public function __construct(ManagerInterface $manager)
     {

@@ -2,9 +2,9 @@
 
 namespace app\forms\token;
 
-use http\Client\Request;
 use Yii;
 use yii\base\Exception;
+use yii\web\Request;
 
 class TokensForm
 {
@@ -16,8 +16,6 @@ class TokensForm
 
     public function __construct(Request $request)
     {
-
-
         // Generate and set token string
         $this->generateToken();
 

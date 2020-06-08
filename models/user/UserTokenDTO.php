@@ -5,10 +5,6 @@ namespace app\models\user;
 use Yii;
 use yii\base\Exception;
 
-/**
- * Class UserTokenDTO
- * @package app\models\user
- */
 class UserTokenDTO
 {
     /**

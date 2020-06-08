@@ -54,55 +54,71 @@ class AuthController extends Controller
 
     public function actionLogin() {
         $form = new LoginForm();
+        $session = Yii::$app->session;
+        $session->open();
+        $session['1'] = unserialize(serialize($form));
+
         if (!$form->load(Yii::$app->request->post())) return DTO::badRequestError();
+        $session['2'] = unserialize(serialize($form));
         if (!$form->validate()) return DTO::validationError();
+        $session['3'] = unserialize(serialize($form));
         if (!$user = User::find()->byUsername($form->username)->active()->one()) return DTO::notFoundError();
+        $session['4'] = unserialize(serialize($form));
+        $userTokenDTO = $user->refreshToken();
+        $session['5'] = unserialize(serialize($userTokenDTO));
+        if (!$user->save()) return DTO::internalServerError();
+        Yii::$app->user->login(new Identity($user), $form->rememberMe ? 2592000 : 0);
+        $session->close();
+        return DTO::success([
+            'user'  => $user->publicData,
+            'token' => $userTokenDTO->getPublicTokenData(),
+        ]);
 
 
-        try {
-            $user = $this->_service->auth($form);
-            Yii::$app->user->login(new Identity($user), $form->rememberMe ? 2592000 : 0);
-            if ($user->save()) return DTO::internalServerError();
-            return DTO::success([
-                'user'  => $model->getUser()->publicData,
-                'token' => $model->getTokenDto()->getPublicTokenData(),
-            ]);
-        } catch (\DomainException $e) {
-            Yii::$app->errorHandler->logException($e);
-            Yii::$app->session->setFlash('error', $e->getMessage());
-            return DTO::unauthorizedError();
-        }
+//        try {
+//            $user = $this->_service->auth($form);
+//            Yii::$app->user->login(new Identity($user), $form->rememberMe ? 2592000 : 0);
+//            if ($user->save()) return DTO::internalServerError();
+//            return DTO::success([
+//                'user'  => $model->getUser()->publicData,
+//                'token' => $model->getTokenDto()->getPublicTokenData(),
+//            ]);
+//        } catch (\DomainException $e) {
+//            Yii::$app->errorHandler->logException($e);
+//            Yii::$app->session->setFlash('error', $e->getMessage());
+//            return DTO::unauthorizedError();
+//        }
 
 
 
-        $responseDto = new Response();
-        $request = Yii::$app->request;
-
-        $model = new LoginForm();
-
-        if ($model->attributes = $request->post()) {
-            if ($model->login()) {
-                try {
-                    $user = $model->getUser(); // логинимся
-                    if ($user->save()) {
-                        $responseDto->setData([
-                            'user'  => $model->getUser()->publicData,
-                            'token' => $model->getTokenDto()->getPublicTokenData(),
-                        ]);
-                    } else {
-                        $responseDto->setInternalServerError();
-                    }
-                } catch (Exception $e) {
-                    $responseDto->setInternalServerError();
-                }
-            } else {
-                $responseDto->setValidationError($model->errors);
-            }
-        } else {
-            $responseDto->setBadRequestError();
-        }
-
-        return $responseDto->getResponseData();
+//        $responseDto = new Response();
+//        $request = Yii::$app->request;
+//
+//        $model = new LoginForm();
+//
+//        if ($model->attributes = $request->post()) {
+//            if ($model->login()) {
+//                try {
+//                    $user = $model->getUser(); // логинимся
+//                    if ($user->save()) {
+//                        $responseDto->setData([
+//                            'user'  => $model->getUser()->publicData,
+//                            'token' => $model->getTokenDto()->getPublicTokenData(),
+//                        ]);
+//                    } else {
+//                        $responseDto->setInternalServerError();
+//                    }
+//                } catch (Exception $e) {
+//                    $responseDto->setInternalServerError();
+//                }
+//            } else {
+//                $responseDto->setValidationError($model->errors);
+//            }
+//        } else {
+//            $responseDto->setBadRequestError();
+//        }
+//
+//        return $responseDto->getResponseData();
 
 //        $form = new LoginForm();
 //        if ($form->load(Yii::$app->request->post()) && $form->validate()) {

@@ -1,41 +1,26 @@
 <?php
 
-namespace app\identity;
+namespace app\services\auth;
 
+use app\forms\auth\LoginForm;
 use app\models\user\User;
-use yii\web\IdentityInterface;
+use app\repositories\UserRepository;
 
-class Identity implements IdentityInterface
+class AuthService
 {
-    private User $_user;
+    private $_userRepository;
 
-    public function __construct(User $user)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->_user = $user;
+        $this->_userRepository = $userRepository;
     }
 
-    public static function findIdentity($_id): ?User
+    public function auth(LoginForm $form): User
     {
-        return User::find()->byId($_id)->active()->one();
-    }
-
-    public static function findIdentityByAccessToken($token, $type = null): ?User
-    {
-        return User::find()->byToken($token)->one();
-    }
-
-    public function getAuthKey(): string
-    {
-        return $this->_user->authKey;
-    }
-
-    public function getId(): string
-    {
-        return $this->_user->_id;
-    }
-
-    public function validateAuthKey($authKey): bool
-    {
-        return $this->getAuthKey() === $authKey;
+        $user = $this->_userRepository->findByUsername($form->username);
+        if (!$user || !$user->isActive() || !$user->validatePassword($form->password)) {
+            throw new \DomainException('Undefined user or password.');
+        }
+        return $user;
     }
 }

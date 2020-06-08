@@ -2,6 +2,7 @@
 
 namespace app\controllers\api;
 
+use app\forms\auth\LoginForm;
 use app\models\authorization\login\LoginFormCreator;
 use app\models\response\Response;
 use app\models\response\ResponseDTO;
@@ -24,7 +25,7 @@ class AuthorizationController extends ApiPublicController
         $responseDto = new Response();
         $request = Yii::$app->request;
 
-        $model = LoginFormCreator::getLoginFormByType($request->post('type', LoginFormCreator::TYPE_SCORECARD)); // сюда мы будем передавать тип авторизации
+        $model = new LoginForm();
 
         if ($model->attributes = $request->post()) {
             if ($model->login()) {

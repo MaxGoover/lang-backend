@@ -2,6 +2,7 @@
 namespace app\controllers\auth;
 
 use app\forms\auth\SignupForm;
+use app\identity\Identity;
 use app\models\response\DTO;
 use app\services\auth\SignUpService;
 use Yii;
@@ -10,8 +11,6 @@ use yii\web\Controller;
 
 class SignUpController extends Controller
 {
-    public $layout = 'cabinet';
-
     private $_service;
 
     public function __construct(
@@ -41,7 +40,7 @@ class SignUpController extends Controller
 //        return $this->goHome();
 //    }
 
-    public function actionSignUp(): DTO
+    public function actionIndex(): DTO
     {
         $request = Yii::$app->request;
 
@@ -50,27 +49,16 @@ class SignUpController extends Controller
         if ($form->validate()) return DTO::validationError();
         try {
             $user = $this->_service->signup($form, $request);
-
+            Yii::$app->user->login(new Identity($user), $form->rememberMe ? 2592000 : 0);
+            return DTO::success([
+                'user'  => $user->getPublicData(),
+                'token' => $user->tokens,
+            ]);
         } catch (\DomainException $e) {
-            // somecode
+            Yii::$app->errorHandler->logException($e);
+            Yii::$app->session->setFlash('error', $e->getMessage());
+            return DTO::unauthorizedError();
         }
-
-
-
-        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
-            try {
-                $this->_service->signup($form);
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-                return $this->goHome();
-            } catch (\DomainException $e) {
-                Yii::$app->errorHandler->logException($e);
-                Yii::$app->session->setFlash('error', $e->getMessage());
-            }
-        }
-
-        return $this->render('request', [
-            'model' => $form,
-        ]);
     }
 
     ##################################################

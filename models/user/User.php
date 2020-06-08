@@ -84,7 +84,6 @@ class User extends ActiveRecord
         return [
             'id'       => $this->_id,
             'username' => $this->username,
-            'email'    => $this->email,
             'roles'    => Yii::$app->authManager->getRolesByUser($this->_id),
         ];
     }

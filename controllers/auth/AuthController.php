@@ -5,6 +5,7 @@ namespace app\controllers\auth;
 use app\forms\auth\LoginForm;
 use app\identity\Identity;
 use app\models\response\DTO;
+use app\models\user\User;
 use app\services\auth\AuthService;
 use Yii;
 use yii\base\Exception;
@@ -53,8 +54,9 @@ class AuthController extends Controller
 
     public function actionLogin() {
         $form = new LoginForm();
-        if ($form->load(Yii::$app->request->post())) return DTO::badRequestError();
-        if ($form->validate()) return DTO::validationError();
+        if (!$form->load(Yii::$app->request->post())) return DTO::badRequestError();
+        if (!$form->validate()) return DTO::validationError();
+        if (!$user = User::find()->byUsername($form->username)->active()->one()) return DTO::notFoundError();
 
 
         try {

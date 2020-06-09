@@ -10,12 +10,22 @@ class DTO
     const STATUS_NOT_FOUND = 404;
     const STATUS_INTERNAL_SERVER = 500;
 
-    public $data = null;
-    public $date;
-    public $errors = null;
-    public bool $isError = true;
+    /**
+     * @var mixed
+     */
+    public $data;
+    public int $date;
+    public $errors;
+    public bool $isError;
     public string $message;
     public int $status;
+
+    public function __construct()
+    {
+        $this->data = null;
+        $this->errors = null;
+        $this->isError = true;
+    }
 
     public function badRequestError($errors = null): self
     {

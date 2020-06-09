@@ -2,6 +2,7 @@
 
 namespace app\controllers\auth;
 
+use app\controllers\ApiController;
 use app\forms\auth\LoginForm;
 use app\identity\Identity;
 use app\models\response\DTO;
@@ -13,66 +14,38 @@ use yii\filters\ContentNegotiator;
 use yii\filters\Cors;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
-use yii\web\Response as Resp;
-use app\models\response\Response;
+use yii\web\Request;
+use yii\web\Response;
+use yii\web\NotFoundHttpException;
 
-class AuthController extends Controller
+class AuthController extends ApiController
 {
-    public function init()
+    private DTO $_dto;
+    private Request $_request;
+
+    public function __construct(
+        $id,
+        $module,
+        DTO $dto,
+        Request $request,
+        $config = [])
     {
-        parent::init();
-        Yii::$app->language = Yii::$app->request->headers->get('Accept-Language');
+        parent::__construct($id, $module, $config);
+        $this->_dto = $dto;
+        $this->_request = $request;
     }
 
-    public function behaviors()
+    public function actionLogin(): DTO
     {
-        return ArrayHelper::merge([
-            'corsFilter'        => [
-                'class' => Cors::class,
-                'cors'  => Yii::$app->params['apiCorsOptions'],
-            ],
-            'contentNegotiator' => [
-                'class'   => ContentNegotiator::class,
-                'formats' => [
-                    'application/json' => Resp::FORMAT_JSON,
-                ],
-            ],
-        ], parent::behaviors());
-    }
-
-//    private AuthService $_service;
-//
-//    public function __construct(
-//        $id,
-//        $module,
-//        AuthService $service,
-//        $config = [])
-//    {
-//        parent::__construct($id, $module, $config);
-//        $this->_service = $service;
-//    }
-
-    public function actionLogin() {
         $form = new LoginForm();
-        $dto = new DTO();
-        $session = Yii::$app->session;
-        $session->open();
-        if (!($form->attributes = Yii::$app->request->post())) return $dto->badRequestError();
-        $session['2'] = unserialize(serialize($form));
-        if (!$form->validate()) return $dto->validationError();
-        $session['3'] = unserialize(serialize($form));
-        if (!$user = User::find()->byUsername($form->username)->active()->one()) return $dto->notFoundError();
-        $session['4'] = unserialize(serialize($user));
+        if (!$form->load(Yii::$app->request->post())) return $this->_dto->badRequestError($form->errors);
+        if (!$form->validate()) return $this->_dto->validationError($form->errors);
+        if (!$user = User::find()->byUsername($form->username)->active()->one()) return $this->_dto->notFoundError();
         $userTokenDTO = $user->refreshToken();
-        $session['5'] = unserialize(serialize($userTokenDTO));
-        if (!$user->save()) return $dto->internalServerError();
+        if (!$user->save(false)) return $this->_dto->internalServerError();
         Yii::$app->user->login(new Identity($user), $form->rememberMe ? 2592000 : 0);
-        $session['6'] = unserialize(serialize($dto->success([
-            'user'  => $user->publicData,
-            'token' => $userTokenDTO->getPublicTokenData(),
-        ])));
-        $session->close();
-        return $dto->success([
+//        throw new NotFoundHttpException('Saving error');
+        return $this->_dto->success([
             'user'  => $user->publicData,
             'token' => $userTokenDTO->getPublicTokenData(),
         ]);

@@ -10,84 +10,82 @@ class DTO
     const STATUS_NOT_FOUND = 404;
     const STATUS_INTERNAL_SERVER = 500;
 
-    protected $data = null;
-    protected $date;
-    protected $errors = null;
-//    protected $executionTime;
-    protected bool $isError = true;
-    protected string $message;
-    protected int $status;
+    public $data = null;
+    public $date;
+    public $errors = null;
+    public bool $isError = true;
+    public string $message;
+    public int $status;
 
-    public static function badRequestError($errors = null): self
+    public function badRequestError($errors = null): self
     {
-        $callback = function (self $dto) {
-            $dto->message = 'Bad Request Error';
-            $dto->status = self::STATUS_BAD_REQUEST;
-            return $dto;
+        $callback = function () {
+            $this->message = 'Bad Request Error';
+            $this->status = self::STATUS_BAD_REQUEST;
+            return $this;
         };
-        return self::response($callback, $errors);
+        return $this->response($callback, $errors);
     }
 
-    public static function internalServerError($errors = null): self
+    public function internalServerError($errors = null): self
     {
-        $callback = function (self $dto) {
-            $dto->message = 'Internal Server Error';
-            $dto->status = self::STATUS_INTERNAL_SERVER;
-            return $dto;
+        $callback = function () {
+            $this->message = 'Internal Server Error';
+            $this->status = self::STATUS_INTERNAL_SERVER;
+            return $this;
         };
-        return self::response($callback, $errors);
+        return $this->response($callback, $errors);
     }
 
-    public static function notFoundError($errors = null): self
+    public function notFoundError($errors = null): self
     {
-        $callback = function (self $dto) {
-            $dto->message = 'Not Found Error';
-            $dto->status = self::STATUS_NOT_FOUND;
-            return $dto;
+        $callback = function () {
+            $this->message = 'Not Found Error';
+            $this->status = self::STATUS_NOT_FOUND;
+            return $this;
         };
-        return self::response($callback, $errors);
+        return $this->response($callback, $errors);
     }
 
-    public static function unauthorizedError($errors = null): self
+    public function unauthorizedError($errors = null): self
     {
-        $callback = function (self $dto) {
-            $dto->message = 'Unauthorized Error';
-            $dto->status = self::STATUS_UNAUTHORIZED;
-            return $dto;
+        $callback = function () {
+            $this->message = 'Unauthorized Error';
+            $this->status = self::STATUS_UNAUTHORIZED;
+            return $this;
         };
-        return self::response($callback, $errors);
+        return $this->response($callback, $errors);
     }
 
-    public static function validationError($errors = null): self
+    public function validationError($errors = null): self
     {
-        $callback = function (self $dto) {
-            $dto->message = 'Validation Error';
-            $dto->status = self::STATUS_BAD_REQUEST;
-            return $dto;
+        $callback = function () {
+            $this->message = 'Validation Error';
+            $this->status = self::STATUS_BAD_REQUEST;
+            return $this;
         };
-        return self::response($callback, $errors);
+        return $this->response($callback, $errors);
     }
 
     ##################################################
 
-    public static function response(callable $callback, $errors = null): self
+    public function response(callable $callback, $errors = null): self
     {
-        $dto = new static();
-        $dto->errors = $errors;
-        $dto = $callback($dto);
-        $dto->date = time();
-        return $dto;
+        $this->errors = $errors;
+        $callback();
+        $this->date = time();
+        return $this;
     }
 
-    public static function success ($data): self
+    public function success ($data): self
     {
-        $callback = function (self $dto) use ($data) {
-            $dto->data = $data;
-            $dto->isError = false;
-            $dto->message = 'Successfully';
-            $dto->status = self::STATUS_SUCCESS;
-            return $dto;
+        $callback = function () use ($data) {
+            $this->data = $data;
+            $this->isError = false;
+            $this->message = 'Successfully';
+            $this->status = self::STATUS_SUCCESS;
+            return $this;
         };
-        return self::response($callback);
+        return $this->response($callback);
     }
 }

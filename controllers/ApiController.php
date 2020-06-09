@@ -10,7 +10,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\web\BadRequestHttpException;
-use Dotenv\Exception\ValidationException;
+use yii\web\ServerErrorHttpException;
 
 class ApiController extends Controller
 {
@@ -46,6 +46,13 @@ class ApiController extends Controller
     protected function validate (Model $model) {
         if (!$model->validate()) {
             throw new BadRequestHttpException('Model validation error');
+        }
+        return $model;
+    }
+
+    protected function save (Model $model) {
+        if (!$model->save()) {
+            throw new ServerErrorHttpException('Model save error');
         }
         return $model;
     }

@@ -27,9 +27,12 @@ class AuthService
         return $user;
     }
 
-
     public function login (User $user, bool $rememberMe) {
         $this->_userRepository->save($user);
         Yii::$app->user->login(new Identity($user), $rememberMe ? 2592000 : 0);
+    }
+
+    public function logout () {
+        Yii::$app->user->logout();
     }
 }

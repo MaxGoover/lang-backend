@@ -5,23 +5,20 @@ namespace app\services\auth;
 use app\forms\auth\SignupForm;
 use app\models\user\User;
 use app\repositories\UserRepository;
-Use RoleMa
+Use app\managers\RoleManager;
 
 class SignupService
 {
+    private RoleManager $_roleManager;
     private UserRepository $_userRepository;
-    private $_roleManager;
-    private $_transaction;
 
     public function __construct(
-        UserRepository $users,
-        RoleManager $roles,
-        TransactionManager $transaction
+        RoleManager $roleManager,
+        UserRepository $userRepository
     )
     {
-        $this->_users = $users;
-        $this->_roles = $roles;
-        $this->_transaction = $transaction;
+        $this->_roleManager = $roleManager;
+        $this->_userRepository = $userRepository;
     }
 
     public function signup(SignupForm $form)

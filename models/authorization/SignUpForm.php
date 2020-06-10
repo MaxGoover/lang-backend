@@ -13,9 +13,8 @@ use yii\base\Model;
  */
 class SignUpForm extends Model
 {
-    public $email;
+    public $username;
     public $password;
-    public $retypePassword;
 
     /**
      * User's token DTO.
@@ -45,12 +44,11 @@ class SignUpForm extends Model
         if ($this->validate()) {
             $user = new User();
 
-            $user->username = $this->email;
-            $user->email = $this->email;
+            $user->username = $this->username;
             $user->status = User::STATUS_ACTIVE;
             $user->setPassword($this->password);
             $user->generateAuthKey();
-            $this->_tokenDto = $user->refreshToken();
+            $user->refreshToken();
 
             if ($user->save()) {
                 return $user;
@@ -62,29 +60,11 @@ class SignUpForm extends Model
 
     ##################################################
 
-    /**
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
-        $class = Yii::$app->getUser()->identityClass ?: 'app\models\user\User';
-
         return [
-            ['email', 'filter', 'filter' => 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
-            [
-                'email',
-                'unique',
-                'targetClass' => $class,
-                'message'     => Yii::t('admin', 'This email address has already been taken.')
-            ],
-
-            ['password', 'required'],
-            ['password', 'string', 'min' => 6, 'max' => 255],
-
-            ['retypePassword', 'required'],
-            ['retypePassword', 'compare', 'compareAttribute' => 'password'],
+            [['username', 'password'], 'required'],
+            ['rememberMe', 'boolean'],
         ];
     }
 }

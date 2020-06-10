@@ -284,16 +284,9 @@ class User extends ActiveRecord implements IdentityInterface
             ['username', 'unique'],
             [['username', 'passwordHash', 'passwordResetToken', 'authKey'], 'string'],
             [['status', 'createdAt', 'updatedAt'], 'integer'],
-            ['tokens', 'checkTokens'],
-//            ['webSettings', 'checkWebSettings'],
-            [['username', 'email'], 'filter', 'filter' => 'trim'],
-            ['email', 'email'],
-//            ['email', 'unique', 'message' => Yii::t('admin', 'This email address has already been taken.')],
-            ['email', 'unique', 'message' => Yii::t('admin', 'This email address has already been taken.')],
+            ['username', 'filter', 'filter' => 'trim'],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE]],
-//            [['logins', 'projectsIds'], 'each', 'rule' => ['string']],
-//            [['_id','username','passwordHash','passwordResetToken','email','wfmNumber','authKey','tokens','logins',
-//                'name','surname','middleName','webSettings','projectsIds','status','createdAt','updatedAt',], 'safe']
+            ['tokens', 'checkTokens'],
         ];
     }
 }

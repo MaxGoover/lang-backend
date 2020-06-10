@@ -34,23 +34,25 @@ class AuthController extends ApiController
     {
         $this->loadModel($this->_loginForm);
         $this->validateModel($this->_loginForm);
-        $this->_authService->auth($this->_loginForm);
-
-        $user = $this->_userRepository->getByUsername($this->_loginForm->username);
-        $user->refreshToken();
-
-        $this->loadModel($this->_loginForm);
-        $this->validateModel($this->_loginForm);
-        $user = $this->_userRepository->getByUsername($this->_loginForm->username);
-        if (!$user = User::find()->byUsername($form->username)->active()->one()) return $this->_dto->notFoundError();
+        $user = $this->_authService->auth($this->_loginForm);
         $userTokenDTO = $user->refreshToken();
-        if (!$user->save(false)) return $this->_dto->internalServerError();
-        Yii::$app->user->login(new Identity($user), $form->rememberMe ? 2592000 : 0);
-//        throw new NotFoundHttpException('Saving error');
+        $this->_authService->login($user, $this->_loginForm->rememberMe);
         return $this->_dto->success([
-            'user'  => $user->publicData,
+            'user'  => $user->getPublicData(),
             'token' => $userTokenDTO->getPublicTokenData(),
         ]);
+
+//        $this->loadModel($this->_loginForm);
+//        $this->validateModel($this->_loginForm);
+//        $user = $this->_userRepository->getByUsername($this->_loginForm->username);
+//        if (!$user = User::find()->byUsername($form->username)->active()->one()) return $this->_dto->notFoundError();
+//        $userTokenDTO = $user->refreshToken();
+//        if (!$user->save(false)) return $this->_dto->internalServerError();
+//        Yii::$app->user->login(new Identity($user), $form->rememberMe ? 2592000 : 0);
+//        return $this->_dto->success([
+//            'user'  => $user->publicData,
+//            'token' => $userTokenDTO->getPublicTokenData(),
+//        ]);
 
 
 //        try {

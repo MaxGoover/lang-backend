@@ -3,8 +3,11 @@
 namespace app\services\auth;
 
 use app\forms\auth\LoginForm;
+use app\identity\Identity;
 use app\models\user\User;
 use app\repositories\UserRepository;
+use app\services\user\UserService;
+use Yii;
 
 class AuthService
 {
@@ -22,5 +25,11 @@ class AuthService
             throw new \DomainException('Undefined user or password.');
         }
         return $user;
+    }
+
+
+    public function login (User $user, bool $rememberMe) {
+        $this->_userRepository->save($user);
+        Yii::$app->user->login(new Identity($user), $rememberMe ? 2592000 : 0);
     }
 }

@@ -47,10 +47,4 @@ class ApiController extends Controller
             throw new BadRequestHttpException('Model validation error');
         }
     }
-
-    protected function saveModel (Model $model) {
-        if (!$model->save(false)) {
-            throw new ServerErrorHttpException('Model save error');
-        }
-    }
 }

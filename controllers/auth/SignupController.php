@@ -30,12 +30,10 @@ class SignupController extends ApiController
     public function actionSignup() {
         $this->loadModel($this->_signupForm);
         $this->validateModel($this->_signupForm);
-        $user = $this->_authService->auth($this->_loginForm);
-        $userTokenDTO = $user->refreshToken();
-        $this->_authService->login($user, $this->_loginForm->rememberMe);
+        $user = $this->_signupService->signup($this->_signupForm);
         return $this->_dto->success([
             'user'  => $user->getPublicData(),
-            'token' => $userTokenDTO->getPublicTokenData(),
+            'token' => $user->getPublicTokenData(),
         ]);
     }
 

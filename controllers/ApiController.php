@@ -7,9 +7,9 @@ use yii\base\Model;
 use yii\filters\ContentNegotiator;
 use yii\filters\Cors;
 use yii\helpers\ArrayHelper;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\Response;
-use yii\web\BadRequestHttpException;
 use yii\web\ServerErrorHttpException;
 
 class ApiController extends Controller
@@ -36,24 +36,21 @@ class ApiController extends Controller
         ], parent::behaviors());
     }
 
-    protected function load (Model $model) {
+    protected function loadModel (Model $model) {
         if (!$model->load(Yii::$app->request->post())) {
             throw new BadRequestHttpException('Model load error');
         }
-        return $model;
     }
 
-    protected function validate (Model $model) {
+    protected function validateModel (Model $model) {
         if (!$model->validate()) {
             throw new BadRequestHttpException('Model validation error');
         }
-        return $model;
     }
 
-    protected function save (Model $model) {
-        if (!$model->save()) {
+    protected function saveModel (Model $model) {
+        if (!$model->save(false)) {
             throw new ServerErrorHttpException('Model save error');
         }
-        return $model;
     }
 }

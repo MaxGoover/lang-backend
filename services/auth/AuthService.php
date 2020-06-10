@@ -8,7 +8,7 @@ use app\repositories\UserRepository;
 
 class AuthService
 {
-    private $_userRepository;
+    private UserRepository $_userRepository;
 
     public function __construct(UserRepository $userRepository)
     {
@@ -17,8 +17,8 @@ class AuthService
 
     public function auth(LoginForm $form): User
     {
-        $user = $this->_userRepository->findByUsername($form->username);
-        if (!$user || !$user->isActive() || !$user->validatePassword($form->password)) {
+        $user = $this->_userRepository->getByUsername($form->username);
+        if (!$user->validatePassword($form->password)) {
             throw new \DomainException('Undefined user or password.');
         }
         return $user;

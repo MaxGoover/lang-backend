@@ -1,12 +1,11 @@
 <?php
 
-namespace app\models\authorization;
+namespace app\forms\auth;
 
 use app\models\user\User;
-use app\models\user\UserTokenDTO;
 use yii\base\Model;
 
-class SignUpForm extends Model
+class SignupForm extends Model
 {
     public $username;
     public $password;

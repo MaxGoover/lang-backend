@@ -34,6 +34,20 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 10;
 
+    public static function create(
+        string $username,
+        string $password
+    ): self
+    {
+        $user = new User();
+        $user->username = $username;
+        $user->setPassword($password);
+        $user->status = self::STATUS_ACTIVE;
+        $user->authKey = Yii::$app->security->generateRandomString();
+        $user->tokens = (new UserTokenDTO())->getTokenData();
+        return $user;
+    }
+
     /**
      * {@inheritdoc}
      * @return UserQuery the active query used by this AR class.

@@ -6,7 +6,6 @@ use app\forms\auth\LoginForm;
 use app\identity\Identity;
 use app\models\user\User;
 use app\repositories\UserRepository;
-use app\services\user\UserService;
 use Yii;
 
 class AuthService
@@ -27,12 +26,14 @@ class AuthService
         return $user;
     }
 
-    public function login (User $user, bool $rememberMe) {
+    public function login (User $user, bool $rememberMe): void
+    {
         $this->_userRepository->save($user);
         Yii::$app->user->login(new Identity($user), $rememberMe ? 2592000 : 0);
     }
 
-    public function logout () {
+    public function logout(): void
+    {
         Yii::$app->user->logout();
     }
 }

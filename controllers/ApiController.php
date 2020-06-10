@@ -7,10 +7,9 @@ use yii\base\Model;
 use yii\filters\ContentNegotiator;
 use yii\filters\Cors;
 use yii\helpers\ArrayHelper;
-use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\Response;
-use yii\web\ServerErrorHttpException;
+use DomainException;
 
 class ApiController extends Controller
 {
@@ -38,13 +37,13 @@ class ApiController extends Controller
 
     protected function loadModel (Model $model) {
         if (!$model->load(Yii::$app->request->post())) {
-            throw new BadRequestHttpException('Model load error');
+            throw new DomainException('Model load error');
         }
     }
 
     protected function validateModel (Model $model) {
         if (!$model->validate()) {
-            throw new BadRequestHttpException('Model validation error');
+            throw new DomainException('Model validation error');
         }
     }
 }

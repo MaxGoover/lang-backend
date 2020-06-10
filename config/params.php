@@ -2,6 +2,7 @@
 
 return [
     'adminEmail' => 'admin@example.com',
+    'secondsToAccessTokenExpires'=> 900,
     'senderEmail' => 'noreply@example.com',
     'senderName' => 'Example.com mailer',
 

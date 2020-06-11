@@ -19,8 +19,8 @@ $config = [
     ],
     'basePath'   => dirname(__DIR__),
     'bootstrap'  => [
-        'log',
-        'bootstrap\SetUp'
+        'app\bootstrap\SetUp',
+        'log'
     ],
     'components' => [
         'authManager'  => [
@@ -106,7 +106,7 @@ if (YII_ENV_DEV) {
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
-        'class'      => 'yii\gii\Module',
+        'class'      => yii\gii\Module::class,
         'generators' => [
             'mongoDbModel' => [
                 'class' => yii\mongodb\gii\model\Generator::class

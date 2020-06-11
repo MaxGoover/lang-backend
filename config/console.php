@@ -13,8 +13,7 @@ $config = [
     ],
     'basePath'            => dirname(__DIR__),
     'bootstrap'           => [
-        'log',
-        'bootstrap\SetUp'
+        'log'
     ],
     'components'          => [
         'authManager' => [

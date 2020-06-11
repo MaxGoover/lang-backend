@@ -1,6 +1,6 @@
 <?php
 
-namespace common\bootstrap;
+namespace app\bootstrap;
 
 use yii\base\BootstrapInterface;
 use yii\rbac\ManagerInterface;

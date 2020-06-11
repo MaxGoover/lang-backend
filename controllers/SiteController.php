@@ -54,6 +54,21 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+    public function actionSignup()
+    {
+        $model = new SignUpForm();
+
+//        if ($model->load(Yii::$app->request->post())) {
+//            if ($user = $model->signUp()) {
+//                return $this->goHome();
+//            }
+//        }
+
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
+    }
+
     ##################################################
 
     /**

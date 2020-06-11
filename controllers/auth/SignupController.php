@@ -37,39 +37,6 @@ class SignupController extends ApiController
         ]);
     }
 
-    public function actionConfirm($token)
-    {
-        try {
-            $this->_service->confirm($token);
-            Yii::$app->session->setFlash('success', 'Your email is confirmed.');
-            return $this->redirect(['auth/auth/login']);
-        } catch (\DomainException $e) {
-            Yii::$app->errorHandler->logException($e);
-            Yii::$app->session->setFlash('error', $e->getMessage());
-        }
-        return $this->goHome();
-    }
-
-
-    public function actionRequest()
-    {
-        $form = new SignupForm();
-        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
-            try {
-                $this->_service->signup($form);
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-                return $this->goHome();
-            } catch (\DomainException $e) {
-                Yii::$app->errorHandler->logException($e);
-                Yii::$app->session->setFlash('error', $e->getMessage());
-            }
-        }
-
-        return $this->render('request', [
-            'model' => $form,
-        ]);
-    }
-
     ##################################################
 
 //    public function behaviors(): array

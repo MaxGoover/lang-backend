@@ -7,8 +7,8 @@ use yii\base\Model;
 
 class SignupForm extends Model
 {
-    public $username;
-    public string $password;
+    public string $username = '';
+    public string $password = '';
     public bool $rememberMe = false;
 
     public function rules(): array

@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use app\forms\auth\LoginForm;
-use app\models\authorization\SignUpForm;
+use app\forms\auth\SignupForm;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
@@ -52,26 +52,6 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
-    }
-
-    /**
-     * Sign up a new user.
-     *
-     * @return string|Response
-     */
-    public function actionSignup()
-    {
-        $model = new SignUpForm();
-
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signUp()) {
-                return $this->goHome();
-            }
-        }
-
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
     }
 
     ##################################################

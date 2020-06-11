@@ -177,6 +177,15 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    public function getPublicTokenData()
+    {
+        return [
+            'token'        => $this->tokens['token'],
+            'refreshToken' => $this->tokens['refreshToken'],
+            'expiresAt'    => $this->tokens['expiresAt'],
+        ];
+    }
+
     public function isActive(): bool
     {
         return $this->status === self::STATUS_ACTIVE;

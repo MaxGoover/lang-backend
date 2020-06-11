@@ -7,46 +7,12 @@ use yii\base\Exception;
 
 class UserTokenDTO
 {
-    /**
-     * Token string.
-     *
-     * @var string
-     */
-    private $_token;
-
-    /**
-     * Refresh token string.
-     *
-     * @var string
-     */
-    private $_refreshToken;
-
-    /**
-     * user's ip.
-     *
-     * @var string
-     */
+    private $_expiresAt;
     private $_ip;
-
-    /**
-     * user agent data.
-     *
-     * @var string
-     */
+    private $_refreshToken;
+    private $_token;
     private $_userAgent;
 
-    /**
-     * Token expiration date.
-     *
-     * @var int
-     */
-    private $_expiresAt;
-
-    /**
-     * UserTokenDTO constructor.
-     *
-     * @throws Exception
-     */
     public function __construct()
     {
         $request = Yii::$app->request;
@@ -67,122 +33,61 @@ class UserTokenDTO
         $this->setExpiresAt(time() + Yii::$app->params['secondsToAccessTokenExpires']);
     }
 
-    /**
-     * Generate token string.
-     *
-     * @throws Exception
-     */
     public function generateToken()
     {
         $this->setToken(Yii::$app->security->generateRandomString());
     }
 
-    /**
-     * Generate refresh token string.
-     *
-     * @throws Exception
-     */
     public function generateRefreshToken()
     {
         $this->setRefreshToken(Yii::$app->security->generateRandomString());
     }
 
-    /**
-     * Get token string.
-     *
-     * @return string
-     */
     public function getToken(): string
     {
         return $this->_token;
     }
 
-    /**
-     * Set token string.
-     *
-     * @param string $token
-     */
     public function setToken($token): void
     {
         $this->_token = (string)$token;
     }
 
-    /**
-     * Get refresh token string.
-     *
-     * @return string
-     */
     public function getRefreshToken(): string
     {
         return $this->_refreshToken;
     }
 
-    /**
-     * Set refresh token string.
-     *
-     * @param string $refreshToken
-     */
     public function setRefreshToken($refreshToken): void
     {
         $this->_refreshToken = (string)$refreshToken;
     }
 
-    /**
-     * Get user's ip.
-     *
-     * @return string
-     */
     public function getIp(): string
     {
         return $this->_ip;
     }
 
-    /**
-     * Set user's ip.
-     *
-     * @param string $ip
-     */
     public function setIp($ip): void
     {
         $this->_ip = (string)$ip;
     }
 
-    /**
-     * Get user agent data.
-     *
-     * @return string
-     */
     public function getUserAgent(): string
     {
         return $this->_userAgent;
     }
 
-    /**
-     * Set user agent data.
-     *
-     * @param string $userAgent
-     */
     public function setUserAgent($userAgent): void
     {
         $this->_userAgent = (string)$userAgent;
     }
 
-    /**
-     * Get token expiration date.
-     *
-     * @return int
-     */
     public function getExpiresAt(): int
     {
         return $this->_expiresAt;
     }
 
-    /**
-     * Set token expiration date.
-     *
-     * @param $expiresAt
-     * @return bool
-     */
     public function setExpiresAt($expiresAt): bool
     {
         if (is_int($expiresAt)) {
@@ -194,11 +99,6 @@ class UserTokenDTO
         return false;
     }
 
-    /**
-     * Get token data array.
-     *
-     * @return array
-     */
     public function getTokenData(): array
     {
         return [
@@ -210,11 +110,6 @@ class UserTokenDTO
         ];
     }
 
-    /**
-     * Get public token data array.
-     *
-     * @return array
-     */
     public function getPublicTokenData(): array
     {
         return [

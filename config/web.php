@@ -18,7 +18,9 @@ $config = [
         ]
     ],
     'basePath'   => dirname(__DIR__),
-    'bootstrap'  => ['log'],
+    'bootstrap'  => [
+        'log'
+    ],
     'components' => [
         'authManager'  => [
             'class'        => yii\rbac\DbManager::class,
@@ -49,9 +51,6 @@ $config = [
         ],
         'mailer'       => [
             'class'            => yii\swiftmailer\Mailer::class,
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
         'mongodb'      => $mongodb,

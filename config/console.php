@@ -12,7 +12,10 @@ $config = [
         '@tests' => '@app/tests',
     ],
     'basePath'            => dirname(__DIR__),
-    'bootstrap'           => ['log'],
+    'bootstrap'           => [
+        'log',
+        'bootstrap\SetUp'
+    ],
     'components'          => [
         'authManager' => [
             'class' => yii\rbac\DbManager::class,

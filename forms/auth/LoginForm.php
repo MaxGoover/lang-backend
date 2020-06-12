@@ -27,6 +27,9 @@ class LoginForm extends Model
     {
         return [
             [['username', 'password'], 'required'],
+            ['username', 'trim'],
+            ['username', 'string', 'length' => [3, 48]],
+            ['password', 'string', 'length' => [6, 24]],
             ['rememberMe', 'boolean'],
         ];
     }

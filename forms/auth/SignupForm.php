@@ -14,7 +14,6 @@ class SignupForm extends Model
     public function rules(): array
     {
         return [
-            [['username', 'password'], 'required'],
             ['username', 'trim'],
             ['username', 'string', 'length' => [3, 48]],
             ['password', 'string', 'length' => [6, 24]],

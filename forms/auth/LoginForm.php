@@ -10,8 +10,8 @@ use yii\base\Model;
 
 class LoginForm extends Model
 {
-    public $username;
-    public string $password;
+    public string $username = '';
+    public string $password = '';
     public bool $rememberMe = false;
 
     public function attributeLabels(): array
@@ -26,7 +26,6 @@ class LoginForm extends Model
     public function rules(): array
     {
         return [
-            [['username', 'password'], 'required'],
             ['username', 'trim'],
             ['username', 'string', 'length' => [3, 48]],
             ['password', 'string', 'length' => [6, 24]],

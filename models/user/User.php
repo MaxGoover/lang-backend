@@ -44,7 +44,7 @@ class User extends ActiveRecord implements IdentityInterface
         $user->setPassword($password);
         $user->status = self::STATUS_ACTIVE;
         $user->authKey = Yii::$app->security->generateRandomString();
-        $user->tokens = (new UserTokenDTO())->getTokenData();
+        $user->tokens = [(new UserTokenDTO())->getTokenData()];
         return $user;
     }
 
@@ -180,9 +180,9 @@ class User extends ActiveRecord implements IdentityInterface
     public function getPublicTokenData()
     {
         return [
-            'token'        => $this->tokens['token'],
-            'refreshToken' => $this->tokens['refreshToken'],
-            'expiresAt'    => $this->tokens['expiresAt'],
+            'token'        => $this->tokens[0]['token'],
+            'refreshToken' => $this->tokens[0]['refreshToken'],
+            'expiresAt'    => $this->tokens[0]['expiresAt'],
         ];
     }
 

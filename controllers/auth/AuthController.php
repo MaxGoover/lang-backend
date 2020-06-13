@@ -43,6 +43,6 @@ class AuthController extends ApiController
     public function actionLogout()
     {
         $this->_authService->logout();
-        return $this->goHome();
+        return $this->_dto->success(true);
     }
 }

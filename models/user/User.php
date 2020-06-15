@@ -34,6 +34,20 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 10;
 
+    public static function create(
+        string $username,
+        string $password
+    ): self
+    {
+        $user = new User();
+        $user->username = $username;
+        $user->setPassword($password);
+        $user->status = self::STATUS_ACTIVE;
+        $user->authKey = Yii::$app->security->generateRandomString();
+        $user->tokens = [(new UserTokenDTO())->getTokenData()];
+        return $user;
+    }
+
     /**
      * {@inheritdoc}
      * @return UserQuery the active query used by this AR class.
@@ -95,7 +109,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername(string $username): self
+    public static function findByUsername(string $username): ?self
     {
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
@@ -147,6 +161,34 @@ class User extends ActiveRecord implements IdentityInterface
     public function getId()
     {
         return $this->getPrimaryKey();
+    }
+
+    /**
+     * Returns only public data.
+     *
+     * @return array
+     */
+    public function getPublicData()
+    {
+        return [
+            'id'       => $this->_id,
+            'username' => $this->username,
+            'roles'    => Yii::$app->authManager->getRolesByUser($this->_id),
+        ];
+    }
+
+    public function getPublicTokenData()
+    {
+        return [
+            'token'        => $this->tokens[0]['token'],
+            'refreshToken' => $this->tokens[0]['refreshToken'],
+            'expiresAt'    => $this->tokens[0]['expiresAt'],
+        ];
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status === self::STATUS_ACTIVE;
     }
 
     /**
@@ -223,16 +265,8 @@ class User extends ActiveRecord implements IdentityInterface
             'username',
             'passwordHash',
             'passwordResetToken',
-            'email',
-//            'wfmNumber',
             'authKey',
             'tokens',
-//            'logins',
-//            'name',
-//            'surname',
-//            'middleName',
-//            'webSettings',
-//            'projectsIds',
             'status',
             'createdAt',
             'updatedAt',
@@ -265,16 +299,9 @@ class User extends ActiveRecord implements IdentityInterface
             ['username', 'unique'],
             [['username', 'passwordHash', 'passwordResetToken', 'authKey'], 'string'],
             [['status', 'createdAt', 'updatedAt'], 'integer'],
-            ['tokens', 'checkTokens'],
-//            ['webSettings', 'checkWebSettings'],
-            [['username', 'email'], 'filter', 'filter' => 'trim'],
-            ['email', 'email'],
-//            ['email', 'unique', 'message' => Yii::t('rbac-admin', 'This email address has already been taken.')],
-            ['email', 'unique', 'message' => Yii::t('rbac-admin', 'This email address has already been taken.')],
+            ['username', 'filter', 'filter' => 'trim'],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE]],
-//            [['logins', 'projectsIds'], 'each', 'rule' => ['string']],
-//            [['_id','username','passwordHash','passwordResetToken','email','wfmNumber','authKey','tokens','logins',
-//                'name','surname','middleName','webSettings','projectsIds','status','createdAt','updatedAt',], 'safe']
+            ['tokens', 'checkTokens'],
         ];
     }
 }

@@ -18,7 +18,10 @@ $config = [
         ]
     ],
     'basePath'   => dirname(__DIR__),
-    'bootstrap'  => ['log'],
+    'bootstrap'  => [
+        'app\bootstrap\SetUp',
+        'log'
+    ],
     'components' => [
         'authManager'  => [
             'class'        => yii\rbac\DbManager::class,
@@ -49,15 +52,16 @@ $config = [
         ],
         'mailer'       => [
             'class'            => yii\swiftmailer\Mailer::class,
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
         'mongodb'      => $mongodb,
         'request'      => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+            'baseUrl' => env('BASE_URL'),
             'cookieValidationKey' => env('COOKIE_VALIDATION_KEY'),
+            'enableCsrfValidation' => false,
+            'parsers' => [
+                'application/json' => yii\web\JsonParser::class,
+            ]
         ],
         'urlManager'   => [
             'enablePrettyUrl' => true,
@@ -94,18 +98,20 @@ $config = [
 ];
 
 if (YII_ENV_DEV) {
-    // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => yii\debug\Module::class,
-        // uncomment the following to add your IP if you are not connecting from localhost.
         'allowedIPs' => ['*'],
     ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
-        'class' => yii\gii\Module::class,
-        // uncomment the following to add your IP if you are not connecting from localhost.
+        'class'      => yii\gii\Module::class,
+        'generators' => [
+            'mongoDbModel' => [
+                'class' => yii\mongodb\gii\model\Generator::class
+            ]
+        ],
         'allowedIPs' => ['*'],
     ];
 }

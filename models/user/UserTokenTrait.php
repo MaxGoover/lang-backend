@@ -4,15 +4,8 @@ namespace app\models\user;
 
 use Yii;
 
-/**
- * Trait UserTokenTrait
- * @package app\models\user
- */
 trait UserTokenTrait
 {
-    /**
-     * Tokens rules.
-     */
     public function checkTokens()
     {
         if (!is_array($this->tokens)) {
@@ -38,12 +31,6 @@ trait UserTokenTrait
         }
     }
 
-    /**
-     * Checking the token for relevance.
-     *
-     * @param string $token
-     * @return bool
-     */
     public function checkTokenIsActual($token): bool
     {
         $tokens = $this->tokens;
@@ -62,12 +49,6 @@ trait UserTokenTrait
         return false;
     }
 
-    /**
-     * Checking the refresh token for relevance.
-     *
-     * @param $refreshToken
-     * @return bool
-     */
     public function checkRefreshTokenIsActual($refreshToken): bool
     {
         $tokens = $this->tokens;
@@ -83,12 +64,6 @@ trait UserTokenTrait
         return false;
     }
 
-    /**
-     * Replaces existing token or creates a new one.
-     *
-     * @return UserTokenDTO
-     * @throws \yii\base\Exception
-     */
     public function refreshToken(): UserTokenDTO
     {
         $tokenDto = new UserTokenDTO();
@@ -122,9 +97,6 @@ trait UserTokenTrait
         return $tokenDto;
     }
 
-    /**
-     * Removes current user's token.
-     */
     public function removeCurrentToken(): void
     {
         $request = Yii::$app->request;
@@ -147,9 +119,6 @@ trait UserTokenTrait
         }
     }
 
-    /**
-     * Removes current user's expired tokens.
-     */
     public function removeExpiredTokens(): void
     {
         $tokens = $this->tokens;

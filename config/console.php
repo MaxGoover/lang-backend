@@ -12,7 +12,9 @@ $config = [
         '@tests' => '@app/tests',
     ],
     'basePath'            => dirname(__DIR__),
-    'bootstrap'           => ['log'],
+    'bootstrap'           => [
+        'log'
+    ],
     'components'          => [
         'authManager' => [
             'class' => yii\rbac\DbManager::class,
@@ -20,11 +22,17 @@ $config = [
         'cache'       => [
             'class' => yii\caching\FileCache::class,
         ],
-        'log'         => [
+        'log' => [
             'targets' => [
                 [
-                    'class'  => yii\log\FileTarget::class,
-                    'levels' => ['error', 'warning'],
+                    'categories' => ['console_errors'],
+                    'class'      => yii\log\FileTarget::class,
+                    'logFile'    => '@runtime/logs/console_errors.log',
+                ],
+                [
+                    'categories' => ['console_success'],
+                    'class'      => yii\log\FileTarget::class,
+                    'logFile'    => '@runtime/logs/console_success.log',
                 ],
             ],
         ],
@@ -46,10 +54,15 @@ $config = [
 ];
 
 if (YII_ENV_DEV) {
-    // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
-        'class' => yii\gii\Module::class,
+        'class'      => yii\gii\Module::class,
+        'generators' => [
+            'mongoDbModel' => [
+                'class' => yii\mongodb\gii\model\Generator::class
+            ]
+        ],
+        'allowedIPs' => ['*'],
     ];
 }
 

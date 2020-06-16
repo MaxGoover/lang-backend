@@ -1,11 +1,12 @@
 <?php
 
+use app\models\book\Book;
 use MongoDB\BSON\ObjectId;
 use yii\mongodb\Migration;
 
 class m200615_155909_fill_book_collection extends Migration
 {
-    private $_collection = 'book';
+    private string $_collection = 'book';
 
     public function up()
     {
@@ -48,13 +49,6 @@ class m200615_155909_fill_book_collection extends Migration
 
     public function down()
     {
-        RecordLoaderField::deleteAll([
-            'in',
-            'record_loader_type_id',
-            [
-                RecordLoaderType::QMT_0376_SN_CHAT_RECORD_LOADER_ID,
-                RecordLoaderType::QMT_0376_RAP_CHAT_RECORD_LOADER_ID,
-            ]
-        ]);
+        Book::deleteAll();
     }
 }

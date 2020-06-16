@@ -14,7 +14,7 @@ use yii\mongodb\ActiveRecord;
  * @property string $imageUrl
  * @property int $rating
  * @property int $ratingCount
- * @property array $level
+ * @property string[] $level
  * @property string $youtubePlaylistId
  */
 class Book extends ActiveRecord
@@ -24,7 +24,12 @@ class Book extends ActiveRecord
         return [Yii::$app->params['mongoDBName'], 'book'];
     }
 
-    public function attributes()
+    public static function find()
+    {
+        return new BookQuery(get_called_class());
+    }
+
+    public function attributes(): array
     {
         return [
             '_id',
@@ -38,10 +43,7 @@ class Book extends ActiveRecord
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -70,11 +72,6 @@ class Book extends ActiveRecord
             ],
             ['level', 'array'],
         ];
-    }
-
-    public static function find()
-    {
-        return new BookQuery(get_called_class());
     }
 
 //    /**

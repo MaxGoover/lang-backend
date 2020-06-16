@@ -1,11 +1,11 @@
 <?php
+
 namespace app\controllers\auth;
 
 use app\controllers\ApiController;
 use app\forms\auth\SignupForm;
 use app\models\response\DTO;
 use app\services\auth\SignupService;
-use Yii;
 
 class SignupController extends ApiController
 {

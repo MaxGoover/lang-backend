@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use DomainException;
 use Yii;
 use yii\base\Model;
 use yii\filters\ContentNegotiator;
@@ -9,7 +10,6 @@ use yii\filters\Cors;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\Response;
-use DomainException;
 
 class ApiController extends Controller
 {

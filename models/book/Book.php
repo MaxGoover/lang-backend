@@ -24,10 +24,10 @@ class Book extends ActiveRecord
         return [Yii::$app->params['mongoDBName'], 'book'];
     }
 
-    public static function find()
-    {
-        return new BookQuery(get_called_class());
-    }
+//    public static function find()
+//    {
+//        return new BookQuery(get_called_class());
+//    }
 
     public function attributes(): array
     {

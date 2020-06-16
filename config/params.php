@@ -6,8 +6,11 @@ return [
     'senderEmail' => 'noreply@example.com',
     'senderName' => 'Example.com mailer',
 
+    // MongoDB DB name
+    'mongoDBName' => env('MONGO_DB_DATABASE'),
+
     // Настройки Cors для пользования API
-    'apiCorsOptions'              => [
+    'apiCorsOptions' => [
         'Origin'                           => [env('CORS_ORIGIN')],
         'Access-Control-Request-Method'    => ['POST'], // методы, которые мы разрешаем
         'Access-Control-Request-Headers'   => ['*'], // разрешаем пока что все заголовки

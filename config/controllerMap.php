@@ -25,6 +25,14 @@ return [
         ],
     ],
 
+    // MongoDB fill migrations
+    'migrate-mongodb-fill' => [
+        'class'         => MongodbController::class,
+        'migrationPath' => [
+            '@app/migrations/mongodb-fill',
+        ],
+    ],
+
     // MySQL migrations
     'migrate-mysql'   => [
         'class'          => MysqlController::class,

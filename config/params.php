@@ -5,6 +5,7 @@ return [
     'secondsToAccessTokenExpires'=> 900,
     'senderEmail' => 'noreply@example.com',
     'senderName' => 'Example.com mailer',
+    'tableTextMaxLength' => 1000,
 
     // MongoDB DB name
     'mongoDBName' => env('MONGO_DB_DATABASE'),

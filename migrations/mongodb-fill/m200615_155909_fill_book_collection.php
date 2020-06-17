@@ -21,7 +21,29 @@ class m200615_155909_fill_book_collection extends Migration
                     'rating'            => 4,
                     'ratingCount'       => 100,
                     'level'             => ['B2', 'C1'],
-                    'youtubePlaylistId' => 'er7638es2JD781j'
+                    'youtubePlaylistId' => 'er7638es2JD781j',
+                    'parts'             => [
+                        [
+                            'id' => 'Wf783hfew',
+                            'title' => 'Kapitel 1',
+                            'youtubeId' => 'cn473ief'
+                        ],
+                        [
+                            'id' => 'T8443hfew',
+                            'title' => 'Kapitel 2',
+                            'youtubeId' => 'Dw6e3ief'
+                        ],
+                        [
+                            'id' => 'L32j3hfew',
+                            'title' => 'Kapitel 3',
+                            'youtubeId' => '7so13ief'
+                        ],
+                        [
+                            'id' => 'so5q3hfew',
+                            'title' => 'Kapitel 4',
+                            'youtubeId' => 'mc7s3ief'
+                        ],
+                    ],
                 ],
                 [
                     '_id'               => new ObjectId(),
@@ -31,7 +53,29 @@ class m200615_155909_fill_book_collection extends Migration
                     'rating'            => 3.5,
                     'ratingCount'       => 55,
                     'level'             => ['B1', 'B2'],
-                    'youtubePlaylistId' => 'd628shes2JD781j'
+                    'youtubePlaylistId' => 'd628shes2JD781j',
+                    'parts'             => [
+                        [
+                            'id' => 'Wf783hfew',
+                            'title' => 'Kapitel 1',
+                            'youtubeId' => 'cn473ief'
+                        ],
+                        [
+                            'id' => 'T8443hfew',
+                            'title' => 'Kapitel 2',
+                            'youtubeId' => 'Dw6e3ief'
+                        ],
+                        [
+                            'id' => 'L32j3hfew',
+                            'title' => 'Kapitel 3',
+                            'youtubeId' => '7so13ief'
+                        ],
+                        [
+                            'id' => 'so5q3hfew',
+                            'title' => 'Kapitel 4',
+                            'youtubeId' => 'mc7s3ief'
+                        ],
+                    ],
                 ],
                 [
                     '_id'               => new ObjectId(),
@@ -41,7 +85,29 @@ class m200615_155909_fill_book_collection extends Migration
                     'rating'            => 2,
                     'ratingCount'       => 80,
                     'level'             => ['A2'],
-                    'youtubePlaylistId' => 'lt6rr38es2JD781j'
+                    'youtubePlaylistId' => 'lt6rr38es2JD781j',
+                    'parts'             => [
+                        [
+                            'id' => 'Wf783hfew',
+                            'title' => 'Kapitel 1',
+                            'youtubeId' => 'cn473ief'
+                        ],
+                        [
+                            'id' => 'T8443hfew',
+                            'title' => 'Kapitel 2',
+                            'youtubeId' => 'Dw6e3ief'
+                        ],
+                        [
+                            'id' => 'L32j3hfew',
+                            'title' => 'Kapitel 3',
+                            'youtubeId' => '7so13ief'
+                        ],
+                        [
+                            'id' => 'so5q3hfew',
+                            'title' => 'Kapitel 4',
+                            'youtubeId' => 'mc7s3ief'
+                        ],
+                    ],
                 ],
             ]
         );

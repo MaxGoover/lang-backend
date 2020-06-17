@@ -16,6 +16,7 @@ use yii\mongodb\ActiveRecord;
  * @property int $ratingCount
  * @property string[] $level
  * @property string $youtubePlaylistId
+ * @property array[] $parts
  */
 class Book extends ActiveRecord
 {
@@ -40,6 +41,7 @@ class Book extends ActiveRecord
             'ratingCount',
             'level',
             'youtubePlaylistId',
+            'parts'
         ];
     }
 
@@ -70,7 +72,7 @@ class Book extends ActiveRecord
                 ],
                 'string'
             ],
-            ['level', 'array'],
+            [['level', 'parts'], 'array'],
         ];
     }
 

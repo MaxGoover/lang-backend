@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\book;
+namespace app\models\book\book;
 
 use Yii;
 use yii\mongodb\ActiveRecord;
@@ -24,11 +24,6 @@ class Book extends ActiveRecord
     {
         return [Yii::$app->params['mongoDBName'], 'book'];
     }
-
-//    public static function find()
-//    {
-//        return new BookQuery(get_called_class());
-//    }
 
     public function attributes(): array
     {
@@ -75,22 +70,4 @@ class Book extends ActiveRecord
             [['level', 'parts'], 'array'],
         ];
     }
-
-//    /**
-//     * Get loader fields by loader type id and task type id
-//     *
-//     * @param int $id
-//     * @param int $taskType
-//     * @param int $isSearchField
-//     * @return RecordLoaderFieldQuery
-//     */
-//    public function findByRecordLoaderTypeAndTaskTypeId(int $id, int $taskType, int $isSearchField = 0)
-//    {
-//        return self::find()
-//            ->andWhere(['record_loader_type_id' => $id])
-//            ->andWhere(['task_type_id' => $taskType])
-//            ->andWhere(['is_search_field' => $isSearchField])
-//            ->andWhere(['is_active' => 1])
-//            ->orderBy('order');
-//    }
 }

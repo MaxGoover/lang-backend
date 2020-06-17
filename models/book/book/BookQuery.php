@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\book;
+namespace app\models\book\book;
 
 use yii\mongodb\ActiveQuery;
 

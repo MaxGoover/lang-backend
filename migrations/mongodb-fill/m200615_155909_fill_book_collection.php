@@ -1,6 +1,6 @@
 <?php
 
-use app\models\book\Book;
+use app\models\book\book\Book;
 use MongoDB\BSON\ObjectId;
 use yii\mongodb\Migration;
 

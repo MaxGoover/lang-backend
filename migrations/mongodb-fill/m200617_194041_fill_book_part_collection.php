@@ -1,12 +1,12 @@
 <?php
 
-use app\models\book\bookParts\BookParts;
+use app\models\book\bookPart\BookPart;
 use MongoDB\BSON\ObjectId;
 use yii\mongodb\Migration;
 
-class m200617_194041_fill_book_parts_collection extends Migration
+class m200617_194041_fill_book_part_collection extends Migration
 {
-    private string $_collection = 'book_parts';
+    private string $_collection = 'book_part';
 
     public function up()
     {
@@ -90,6 +90,6 @@ class m200617_194041_fill_book_parts_collection extends Migration
 
     public function down()
     {
-        BookParts::deleteAll();
+        BookPart::deleteAll();
     }
 }

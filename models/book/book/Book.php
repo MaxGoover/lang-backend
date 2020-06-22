@@ -20,7 +20,7 @@ use yii\mongodb\ActiveRecord;
  */
 class Book extends ActiveRecord
 {
-    public static function collectionName()
+    public static function collectionName(): array
     {
         return [Yii::$app->params['mongoDBName'], 'book'];
     }

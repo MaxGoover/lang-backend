@@ -1,12 +1,12 @@
 <?php
 
-namespace app\models\book\bookParts;
+namespace app\models\book\bookPart;
 
 use Yii;
 use yii\mongodb\ActiveRecord;
 
 /**
- * This is the model class for collection "book_parts".
+ * This is the model class for collection "book_part".
  *
  * @property \MongoDB\BSON\ObjectID|string $_id
  * @property string $bookPartId
@@ -16,17 +16,12 @@ use yii\mongodb\ActiveRecord;
  * @property array $content
  * @property array[] $words
  */
-class BookParts extends ActiveRecord
+class BookPart extends ActiveRecord
 {
-    public static function collectionName()
+    public static function collectionName(): array
     {
-        return [Yii::$app->params['mongoDBName'], 'book_parts'];
+        return [Yii::$app->params['mongoDBName'], 'book_part'];
     }
-
-//    public static function find()
-//    {
-//        return new BookPartsQuery(get_called_class());
-//    }
 
     public function attributes(): array
     {

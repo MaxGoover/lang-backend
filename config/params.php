@@ -10,6 +10,9 @@ return [
     // MongoDB DB name
     'mongoDBName' => env('MONGO_DB_DATABASE'),
 
+    // Path to uploaded video files
+    'videoFilesPath'     => 'videos/',
+
     // Настройки Cors для пользования API
     'apiCorsOptions' => [
         'Origin'                           => [env('CORS_ORIGIN')],

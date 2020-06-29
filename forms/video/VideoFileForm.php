@@ -18,7 +18,7 @@ class VideoFileForm extends Model
     /**
      * @var UploadedFile[]
      */
-    public $files;
+    public array $files;
 
     public function rules(): array
     {

@@ -3,9 +3,9 @@
 namespace app\controllers\video;
 
 use app\controllers\ApiController;
+use app\forms\video\VideoFileForm;
 use app\models\response\DTO;
 use yii\web\UploadedFile;
-use FFMpeg\FFMpeg;
 
 class VideoController extends ApiController
 {
@@ -27,10 +27,15 @@ class VideoController extends ApiController
         $session->open();
         $session['check'] = $files;
         $session['files'] = $_FILES;
-        $session->close();
 
-        return $this->_dto->success(
-            $files
-        );
+        $model = new VideoFileForm();
+        $model->files = $files;
+
+        try {
+            $model->validate();
+            return $this->_dto->success($model->saveFilesAndGetData());
+        } catch (\Exception $e) {
+            return $this->_dto->validationError($model->errors);
+        }
     }
 }

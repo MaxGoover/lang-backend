@@ -2,6 +2,9 @@
 
 namespace app\forms\video;
 
+use FFMpeg\Coordinate;
+use FFMpeg\FFMpeg;
+use FFMpeg\Format\Video;
 use Yii;
 use yii\base\Model;
 use yii\helpers\Url;
@@ -23,7 +26,7 @@ class VideoFileForm extends Model
             [
                 ['files'],
                 'file',
-                'extensions'               => ['3gp', 'avi', 'dat', 'flv', 'mov', 'mpeg', 'mp4', 'wav'],
+                'extensions'               => ['3gp', 'avi', 'dat', 'flv', 'mov', 'mpeg', 'mp4', 'wav', 'webm'],
                 'skipOnEmpty'              => false,
                 'checkExtensionByMimeType' => false,
                 'maxFiles'                 => self::MAX_FILES,
@@ -36,27 +39,47 @@ class VideoFileForm extends Model
     public function saveFilesAndGetData()
     {
         $result = [];
-
         $path = Yii::$app->params['videoFilesPath'];
-        $date = date('Y-m-d_H-i-s_' . round(microtime(true) * 1000));
+
         if (!file_exists($path)) {
             mkdir($path, 0755, true);
         }
+        $session = \Yii::$app->session;
+        $ffmpeg = FFMpeg::create();
 
-        foreach ($this->files as $key => $file) {
-            $fileName = $date . '_' . $key . '.' . $file->extension;
+        try {
+            foreach ($this->files as $key => $file) {
+                $fileName = pathinfo($file->name, PATHINFO_FILENAME);
+                $session['$file->name'] = $file->name;
+                $session['$fileName'] = $fileName;
+                $session['$file->tempName'] = $file->tempName;
 
-            // Saves file to server
-            $file->saveAs($path . $fileName);
+                $video = $ffmpeg->open($file->tempName);
+                $video
+                    ->filters()
+                    ->resize(new Coordinate\Dimension(320, 240))
+                    ->synchronize();
+                $video
+                    ->frame(Coordinate\TimeCode::fromSeconds(4))
+                    ->save( $fileName . '.jpg');
+                $video
+                    ->save(new Video\X264(), $fileName . '.mp4');
 
-            $result[] = [
-                'title'            => $file->baseName,
-                'fileName'         => $fileName,
-                'extension'        => $file->extension,
-                'isManualUploaded' => true,
-                'src'              => Url::base(true) . '/' . $path . $fileName,
-            ];
+                $session['$video' . $key] = $video;
+
+                $result[] = [
+                    'title'            => $file->baseName,
+                    'fileName'         => $fileName,
+                    'extension'        => $file->extension,
+                    'srcVideo'         => Url::base(true) . '/' . $fileName . '.mp4',
+                    'srcImage'         => Url::base(true) . '/' . $fileName . '.jpg',
+                ];
+            }
+        } catch (\Exception $e) {
+            return $e;
         }
+
+        $session->close();
 
         return $result;
     }

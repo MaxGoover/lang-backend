@@ -10,13 +10,11 @@ class m200630_124233_create_training_table extends Migration
             'id'          => $this
                 ->primaryKey(),
             'level_id'    => $this
-                ->tinyInteger()
-                ->unsigned()
+                ->integer()
                 ->notNull()
                 ->comment('ID уровня'),
             'tense_id'    => $this
-                ->tinyInteger()
-                ->unsigned()
+                ->integer()
                 ->notNull()
                 ->comment('ID времени'),
             'title'       => $this

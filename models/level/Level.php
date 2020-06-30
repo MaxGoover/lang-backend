@@ -1,8 +1,8 @@
 <?php
 
-namespace app\models\level\level;
+namespace app\models\level;
 
-use app\models\training\training\Training;
+use app\models\training\Training;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 

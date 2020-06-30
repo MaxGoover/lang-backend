@@ -1,8 +1,8 @@
 <?php
 
-namespace app\models\tense\tense;
+namespace app\models\tense;
 
-use app\models\training\training\Training;
+use app\models\training\Training;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 

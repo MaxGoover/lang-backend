@@ -1,6 +1,6 @@
 <?php
 
-namespace app\repositories;
+namespace app\repositories\book;
 
 use app\models\book\book\Book;
 use yii\data\ActiveDataProvider;

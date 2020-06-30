@@ -4,7 +4,7 @@ namespace app\controllers\book;
 
 use app\controllers\ApiController;
 use app\models\response\DTO;
-use app\repositories\BookPartReadRepository;
+use app\repositories\book\BookPartReadRepository;
 use Yii;
 
 class BookPartController extends ApiController

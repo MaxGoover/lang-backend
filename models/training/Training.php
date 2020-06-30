@@ -1,9 +1,9 @@
 <?php
 
-namespace app\models\training\training;
+namespace app\models\training;
 
-use app\models\level\level\Level;
-use app\models\tense\tense\Tense;
+use app\models\level\Level;
+use app\models\tense\Tense;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 

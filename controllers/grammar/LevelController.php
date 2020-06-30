@@ -1,32 +1,32 @@
 <?php
 
-namespace app\controllers\book;
+namespace app\controllers\grammar;
 
 use app\controllers\ApiController;
 use app\models\response\DTO;
-use app\repositories\book\BookReadRepository;
+use app\repositories\grammar\LevelReadRepository;
 
-class BookController extends ApiController
+class LevelController extends ApiController
 {
-    private BookReadRepository $_bookReadRepository;
+    private LevelReadRepository $_levelReadRepository;
     private DTO $_dto;
 
     public function __construct(
         $id,
         $module,
-        BookReadRepository $bookReadRepository,
+        LevelReadRepository $levelReadRepository,
         DTO $dto,
         $config = []
     )
     {
         parent::__construct($id, $module, $config);
-        $this->_bookReadRepository = $bookReadRepository;
+        $this->_levelReadRepository = $levelReadRepository;
         $this->_dto = $dto;
     }
 
     public function actionIndex() {
         return $this->_dto->success(
-            $this->_bookReadRepository->getAll()
+            $this->_levelReadRepository->getAll()
         );
     }
 }

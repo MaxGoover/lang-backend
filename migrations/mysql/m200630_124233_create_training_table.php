@@ -34,7 +34,6 @@ class m200630_124233_create_training_table extends Migration
                 ->comment('Псевдоним названия тренировки'),
             'avatar'      => $this
                 ->string()
-                ->unique()
                 ->notNull()
                 ->comment('Аватарка тренировки'),
         ]);

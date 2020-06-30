@@ -44,6 +44,15 @@ return [
         'migrationTable' => 'migration',
     ],
 
+    // MySQL fill migrations
+    'migrate-mysql-fill'   => [
+        'class'          => MysqlController::class,
+        'migrationPath'  => [
+            '@app/migrations/mysql-fill',
+        ],
+        'migrationTable' => 'migration_fill',
+    ],
+
     // RBAC migrations
     'migrate-rbac'    => [
         'class'          => MysqlController::class,

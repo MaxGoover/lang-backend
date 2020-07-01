@@ -14,7 +14,7 @@ class BookReadRepository
         return $this->_getProvider($query);
     }
 
-    private function _getProvider($query): ActiveDataProvider
+    private function _getProvider(array $query): ActiveDataProvider
     {
         return new ActiveDataProvider([
             'query' => $query,

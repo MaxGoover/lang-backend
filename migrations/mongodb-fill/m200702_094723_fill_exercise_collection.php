@@ -1,120 +1,60 @@
 <?php
 
-use app\models\book\bookPart\BookPart;
+use app\models\grammar\exercise\Exercise;
 use MongoDB\BSON\ObjectId;
 use yii\mongodb\Migration;
 
 class m200702_094723_fill_exercise_collection extends Migration
 {
     private string $_collection = 'exercise';
+    private array $_exercises = [];
+    private array $_sentences = [
+        'Я помню это.',
+        'Я понимаю тебя.',
+        'Я так думаю.',
+        'Мы говорим по-аглийски.',
+        'Я знаю это очень хорошо.',
+        'Ты мне помогаешь.',
+        'Я живу в России.',
+        'Я очень хорошо понимаю тебя.',
+        'Я живу в этом городе.',
+        'Мы помним это.',
+    ];
 
     public function up()
     {
-        $this->batchInsert(
-            $this->_collection,
-            [
-                [
-                    '_id'               => new ObjectId(),
-                    'title'             => 'Harry Potter and the Philosopher\'s stone - 1',
-                    'description'       => 'Первая глава первой книги о Гарри Поттере',
-                    'imageUrl'          => '/img/kitty.png',
-                    'rating'            => 4,
-                    'ratingCount'       => 100,
-                    'level'             => ['B2', 'C1'],
-                    'youtubePlaylistId' => 'er7638es2JD781j',
-                    'parts'             => [
-                        [
-                            'id' => 'Wf783hfew',
-                            'title' => 'Kapitel 1',
-                            'youtubeId' => 'cn473ief'
-                        ],
-                        [
-                            'id' => 'T8443hfew',
-                            'title' => 'Kapitel 2',
-                            'youtubeId' => 'Dw6e3ief'
-                        ],
-                        [
-                            'id' => 'L32j3hfew',
-                            'title' => 'Kapitel 3',
-                            'youtubeId' => '7so13ief'
-                        ],
-                        [
-                            'id' => 'so5q3hfew',
-                            'title' => 'Kapitel 4',
-                            'youtubeId' => 'mc7s3ief'
-                        ],
-                    ],
-                ],
-                [
-                    '_id'               => new ObjectId(),
-                    'title'             => 'Harry Potter and the Philosopher\'s stone - 2',
-                    'description'       => 'Вторая глава первой книги о Гарри Поттере',
-                    'imageUrl'          => '/img/kitty.png',
-                    'rating'            => 3.5,
-                    'ratingCount'       => 55,
-                    'level'             => ['B1', 'B2'],
-                    'youtubePlaylistId' => 'd628shes2JD781j',
-                    'parts'             => [
-                        [
-                            'id' => 'Wf783hfew',
-                            'title' => 'Kapitel 1',
-                            'youtubeId' => 'cn473ief'
-                        ],
-                        [
-                            'id' => 'T8443hfew',
-                            'title' => 'Kapitel 2',
-                            'youtubeId' => 'Dw6e3ief'
-                        ],
-                        [
-                            'id' => 'L32j3hfew',
-                            'title' => 'Kapitel 3',
-                            'youtubeId' => '7so13ief'
-                        ],
-                        [
-                            'id' => 'so5q3hfew',
-                            'title' => 'Kapitel 4',
-                            'youtubeId' => 'mc7s3ief'
-                        ],
-                    ],
-                ],
-                [
-                    '_id'               => new ObjectId(),
-                    'title'             => 'Harry Potter and the Philosopher\'s stone - 3',
-                    'description'       => 'Третья глава первой книги о Гарри Поттере',
-                    'imageUrl'          => '/img/kitty.png',
-                    'rating'            => 2,
-                    'ratingCount'       => 80,
-                    'level'             => ['A2'],
-                    'youtubePlaylistId' => 'lt6rr38es2JD781j',
-                    'parts'             => [
-                        [
-                            'id' => 'Wf783hfew',
-                            'title' => 'Kapitel 1',
-                            'youtubeId' => 'cn473ief'
-                        ],
-                        [
-                            'id' => 'T8443hfew',
-                            'title' => 'Kapitel 2',
-                            'youtubeId' => 'Dw6e3ief'
-                        ],
-                        [
-                            'id' => 'L32j3hfew',
-                            'title' => 'Kapitel 3',
-                            'youtubeId' => '7so13ief'
-                        ],
-                        [
-                            'id' => 'so5q3hfew',
-                            'title' => 'Kapitel 4',
-                            'youtubeId' => 'mc7s3ief'
-                        ],
-                    ],
-                ],
-            ]
-        );
+        $translations = [
+            ['I remember it.'],
+            ['I understand you.'],
+            ['I think so.'],
+            ['We speak English.'],
+            ['I know it very well.'],
+            ['You help me.'],
+            ['I live in Russia.'],
+            ['I understand you very well.'],
+            ['I live in this city.'],
+            ['We remember it.'],
+        ];
+
+        foreach ($this->_sentences as $key => $sentence) {
+            $model = new Exercise();
+            $model->_id = new ObjectId();
+            $model->sentence = $sentence;
+            $model->translations = $translations[$key];
+            $model->voice = 1;
+            $model->tense_id = 1;
+            $model->form = 1;
+            $model->from_english = false;
+            $model->save();
+        }
     }
 
     public function down()
     {
-        Book::deleteAll();
+        Exercise::deleteAll([
+            'in',
+            'sentence',
+            $this->_sentences
+        ]);
     }
 }

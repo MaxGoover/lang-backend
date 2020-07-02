@@ -6,8 +6,6 @@ use yii\mongodb\Migration;
 
 class m200702_094723_fill_exercise_collection extends Migration
 {
-    private string $_collection = 'exercise';
-    private array $_exercises = [];
     private array $_sentences = [
         'Я помню это.',
         'Я понимаю тебя.',
@@ -39,12 +37,12 @@ class m200702_094723_fill_exercise_collection extends Migration
         foreach ($this->_sentences as $key => $sentence) {
             $model = new Exercise();
             $model->_id = new ObjectId();
-            $model->sentence = $sentence;
-            $model->translations = $translations[$key];
             $model->voice = 1;
             $model->tense_id = 1;
             $model->form = 1;
             $model->from_english = false;
+            $model->sentence = $sentence;
+            $model->translations = $translations[$key];
             $model->save();
         }
     }

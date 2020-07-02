@@ -14,9 +14,11 @@ class LevelReadRepository
                 'id', lv.id,
                 'title', lv.title
             )",
-            'training' => "JSON_ARRAYAGG(
+            'trainings' => "JSON_ARRAYAGG(
                 JSON_OBJECT(
-                    'title', tr.title
+                    'title', tr.title,
+                    'alias', tr.alias,
+                    'avatar', tr.avatar
                 )
             )"
         ]);

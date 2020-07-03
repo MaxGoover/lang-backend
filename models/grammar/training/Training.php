@@ -29,9 +29,4 @@ class Training extends ActiveRecord
     {
         return $this->hasOne(Level::class, ['id' => 'level_id']);
     }
-
-    public function getTense(): ActiveQuery
-    {
-        return $this->hasOne(Tense::class, ['id' => 'tense_id']);
-    }
 }

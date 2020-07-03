@@ -16,7 +16,6 @@ class LevelReadRepository
             )",
             'trainings' => "JSON_ARRAYAGG(
                 JSON_OBJECT(
-                    'tense_id', tr.tense_id,
                     'title', tr.title,
                     'translation', tr.translation,
                     'alias', tr.alias,

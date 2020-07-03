@@ -13,10 +13,6 @@ class m200630_124233_create_training_table extends Migration
                 ->integer()
                 ->notNull()
                 ->comment('ID уровня'),
-            'tense_id'    => $this
-                ->integer()
-                ->notNull()
-                ->comment('ID времени'),
             'title'       => $this
                 ->string()
                 ->unique()

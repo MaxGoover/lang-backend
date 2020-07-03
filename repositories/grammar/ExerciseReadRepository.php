@@ -8,10 +8,10 @@ use yii\data\DataProviderInterface;
 
 class ExerciseReadRepository
 {
-    public function getByTenseAndVoice (): DataProviderInterface
+    public function getBy (array $conditions): DataProviderInterface
     {
         $query = Exercise::find()
-            ->andWhere(['alias' => $alias])
+            ->andWhere($conditions)
             ->orderBy('RAND()')
             ->limit(10)
             ->all();

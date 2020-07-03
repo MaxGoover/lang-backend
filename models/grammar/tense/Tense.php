@@ -19,9 +19,4 @@ class Tense extends ActiveRecord
     {
         return '{{%tense}}';
     }
-
-    public function getTrainings(): ActiveQuery
-    {
-        return $this->hasMany(Training::class, ['tense_id' => 'id']);
-    }
 }

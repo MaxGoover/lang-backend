@@ -25,14 +25,9 @@ class ExerciseController extends ApiController
     }
 
     public function actionIndex() {
-        $alias = \Yii::$app->request->post('alias');
-        $session = \Yii::$app->session;
-        $session->open();
-        $session['post'] = \Yii::$app->request->post();
-        $session['alias'] = $alias;
-        $session->close();
+        $conditions = \Yii::$app->request->post();
         return $this->_dto->success(
-            $this->_exerciseReadRepository->getByAlias($alias)
+            $this->_exerciseReadRepository->getBy($conditions)
         );
     }
 }

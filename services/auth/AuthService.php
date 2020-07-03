@@ -5,7 +5,7 @@ namespace app\services\auth;
 use app\forms\auth\LoginForm;
 use app\identity\Identity;
 use app\models\user\User;
-use app\repositories\UserRepository;
+use app\repositories\user\UserRepository;
 use Yii;
 
 class AuthService

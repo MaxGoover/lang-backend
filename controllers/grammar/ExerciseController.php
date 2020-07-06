@@ -5,6 +5,7 @@ namespace app\controllers\grammar;
 use app\controllers\ApiController;
 use app\models\response\DTO;
 use app\repositories\grammar\ExerciseReadRepository;
+use Yii;
 
 class ExerciseController extends ApiController
 {
@@ -25,7 +26,7 @@ class ExerciseController extends ApiController
     }
 
     public function actionIndex() {
-        $conditions = \Yii::$app->request->post();
+        $conditions = Yii::$app->request->post();
         return $this->_dto->success(
             $this->_exerciseReadRepository->getBy($conditions)
         );

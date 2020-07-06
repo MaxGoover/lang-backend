@@ -1,47 +1,97 @@
 <?php
 
-//[
-//    0 => yii\web\UploadedFile#1
-//    (
-//        [name] => '1_8.mov'
-//        [tempName] => '/tmp/phpaQgf2H'
-//        [type] => 'video/quicktime'
-//        [size] => 1819371
-//        [error] => 0
-//        [yii\web\UploadedFile:_tempResource] => []
-//    )
-//    1 => yii\web\UploadedFile#2
-//    (
-//        [name] => '1_406313634330.webm'
-//        [tempName] => '/tmp/php6HEWnZ'
-//        [type] => 'video/webm'
-//        [size] => 1888724
-//        [error] => 0
-//        [yii\web\UploadedFile:_tempResource] => []
-//    )
-//]
+public function actionConvert() {
+    $files = UploadedFile::getInstancesByName('files');
 
-//[
-//    'files' => [
-//        'name' => [
-//            0 => '1_8.mov'
-//            1 => '1_406313634330.webm'
-//        ]
-//        'type' => [
-//            0 => 'video/quicktime'
-//            1 => 'video/webm'
-//        ]
-//        'tmp_name' => [
-//            0 => '/tmp/phpaQgf2H'
-//            1 => '/tmp/php6HEWnZ'
-//        ]
-//        'error' => [
-//            0 => 0
-//            1 => 0
-//        ]
-//        'size' => [
-//            0 => 1819371
-//            1 => 1888724
-//        ]
-//    ]
-//]
+    $result = [];
+    $path = Yii::$app->params['videoFilesPath'];
+
+    if (!file_exists($path)) {
+        mkdir($path, 0777, true);
+    }
+    $ffmpeg = FFMpeg::create();
+//        $ffprobe = FFProbe::create();
+
+    foreach ($files as $key => $file) {
+        $fileName = pathinfo($file->name, PATHINFO_FILENAME);
+        $video = $ffmpeg->open($file->tempName);
+
+        $session = \Yii::$app->session;
+        $session->open();
+        $session['$fileName'] = $fileName;
+        $session->close();
+
+        return $video
+            ->frame(Coordinate\TimeCode::fromSeconds(4))
+            ->save( $path . $fileName . '.jpg');
+
+        $format = new Video\X264();
+        $format->setAudioCodec("libmp3lame");
+
+        return $video
+            ->save($format, $path . $fileName . '.mp4');
+
+        // 'format_name' => 'mkv,mp4,3gp'
+        // 'format_name_good' => 'webm,avi'
+
+        $result[] = [
+            'title'            => $file->baseName,
+            'fileName'         => $fileName,
+            'extension'        => $file->extension,
+            'srcVideo'         => Url::base(true) . '/' . $fileName . '.mp4',
+            'srcImage'         => Url::base(true) . '/' . $fileName . '.jpg',
+        ];
+    }
+
+    return $this->_dto->success($result);
+
+}
+
+
+
+public function saveFilesAndGetData()
+{
+    $result = [];
+    $path = Yii::$app->params['videoFilesPath'];
+
+    if (!file_exists($path)) {
+        mkdir($path, 0755, true);
+    }
+    $session = \Yii::$app->session;
+    $ffmpeg = FFMpeg::create();
+
+    foreach ($this->files as $key => $file) {
+        $fileName = pathinfo($file->name, PATHINFO_FILENAME);
+        $video = $ffmpeg->open($file->tempName);
+
+        $video
+            ->frame(Coordinate\TimeCode::fromSeconds(4))
+            ->save( $fileName . '.jpg');
+
+        $video
+            ->save(new Video\X264(), $fileName . '.mp4');
+
+        // 'format_name' => 'mkv,mov,mp4,3gp'
+        // 'format_name_good' => 'webm,avi'
+
+        $session['$video2'] = unserialize(serialize($video));
+        $session->close();
+        $result[] = [
+            'title'            => $file->baseName,
+            'fileName'         => $fileName,
+            'extension'        => $file->extension,
+            'srcVideo'         => Url::base(true) . '/' . $fileName . '.mp4',
+            'srcImage'         => Url::base(true) . '/' . $fileName . '.jpg',
+        ];
+    }
+
+    $session->close();
+
+    return $result;
+}
+
+
+
+
+
+

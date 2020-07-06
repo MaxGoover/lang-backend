@@ -39,47 +39,28 @@ class VideoFileForm extends Model
     public function saveFilesAndGetData()
     {
         $result = [];
-        $path = Yii::$app->params['videoFilesPath'];
-
-        if (!file_exists($path)) {
-            mkdir($path, 0755, true);
-        }
-        $session = \Yii::$app->session;
         $ffmpeg = FFMpeg::create();
 
-        try {
-            foreach ($this->files as $key => $file) {
-                $fileName = pathinfo($file->name, PATHINFO_FILENAME);
-                $session['$file->name'] = $file->name;
-                $session['$fileName'] = $fileName;
-                $session['$file->tempName'] = $file->tempName;
+        foreach ($this->files as $key => $file) {
+            $fileName = pathinfo($file->name, PATHINFO_FILENAME);
 
-                $video = $ffmpeg->open($file->tempName);
-                $video
-                    ->filters()
-                    ->resize(new Coordinate\Dimension(320, 240))
-                    ->synchronize();
-                $video
-                    ->frame(Coordinate\TimeCode::fromSeconds(4))
-                    ->save( $fileName . '.jpg');
-                $video
-                    ->save(new Video\X264(), $fileName . '.mp4');
+            $video = $ffmpeg->open($file->tempName);
+            $video
+                ->frame(Coordinate\TimeCode::fromSeconds(4))
+                ->save( $fileName . '.jpg');
 
-                $session['$video' . $key] = $video;
+            $format = new Video\X264();
+            $format->setAudioCodec("libmp3lame");
+            $video->save($format, $fileName . '.mp4');
 
-                $result[] = [
-                    'title'            => $file->baseName,
-                    'fileName'         => $fileName,
-                    'extension'        => $file->extension,
-                    'srcVideo'         => Url::base(true) . '/' . $fileName . '.mp4',
-                    'srcImage'         => Url::base(true) . '/' . $fileName . '.jpg',
-                ];
-            }
-        } catch (\Exception $e) {
-            return $e;
+            $result[] = [
+                'title'            => $file->baseName,
+                'fileName'         => $fileName,
+                'extension'        => $file->extension,
+                'srcVideo'         => Url::base(true) . '/' . $fileName . '.mp4',
+                'srcImage'         => Url::base(true) . '/' . $fileName . '.jpg',
+            ];
         }
-
-        $session->close();
 
         return $result;
     }

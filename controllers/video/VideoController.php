@@ -23,10 +23,6 @@ class VideoController extends ApiController
 
     public function actionConvert() {
         $files = UploadedFile::getInstancesByName('files');
-        $session = \Yii::$app->session;
-        $session->open();
-        $session['check'] = $files;
-        $session['files'] = $_FILES;
 
         $model = new VideoFileForm();
         $model->files = $files;

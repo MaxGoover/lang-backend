@@ -25,6 +25,14 @@ return [
         ],
     ],
 
+    // MongoDB fill migrations
+    'migrate-mongodb-fill' => [
+        'class'         => MongodbController::class,
+        'migrationPath' => [
+            '@app/migrations/mongodb-fill',
+        ],
+    ],
+
     // MySQL migrations
     'migrate-mysql'   => [
         'class'          => MysqlController::class,
@@ -34,6 +42,15 @@ return [
             '@mdm/admin/migrations',
         ],
         'migrationTable' => 'migration',
+    ],
+
+    // MySQL fill migrations
+    'migrate-mysql-fill'   => [
+        'class'          => MysqlController::class,
+        'migrationPath'  => [
+            '@app/migrations/mysql-fill',
+        ],
+        'migrationTable' => 'migration_fill',
     ],
 
     // RBAC migrations

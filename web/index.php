@@ -2,6 +2,7 @@
 
 require(__DIR__ . '/../vendor/autoload.php');
 require(__DIR__ . '/../helpers/EnvHelper.php');
+require(__DIR__ . '/../helpers/DownloadHelper.php');
 
 $dotEnv = Dotenv\Dotenv::create(__DIR__ . '/../');
 $dotEnv->load();

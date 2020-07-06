@@ -1,6 +1,6 @@
 <?php
 
-namespace app\repositories;
+namespace app\repositories\user;
 
 use app\models\user\User;
 use yii\web\NotFoundHttpException;

@@ -2,28 +2,30 @@ FROM php:7.4-apache
 
 RUN apt-get update && apt-get install -y \
         cron \
-        rsyslog \
         curl \
-        wget \
         git \
         jq \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libxslt-dev \
-        libicu-dev \
-        libmcrypt-dev \
-        libsodium-dev \
-        zlib1g-dev \
-        libpcre3-dev \
         libcurl4-openssl-dev \
-        pkg-config \
-        libssl-dev \
+        libfreetype6-dev \
+        libicu-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
         libonig-dev \
+        libpcre3-dev \
+        libsodium-dev \
+        libssl-dev \
+        libxslt-dev \
+        pkg-config \
+        rsyslog \
+        wget \
+        zlib1g-dev \
     && a2enmod \
-        rewrite \
-    && ACCEPT_EULA=y \
+        rewrite
+
+RUN ACCEPT_EULA=y \
         DEBIAN_FRONTEND=noninteractive \
         apt-get install --yes \
+        ffmpeg \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \

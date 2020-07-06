@@ -3,7 +3,6 @@ version: '3.1'
 services:
 
   web:
-    #    image: tc-dockerhub.telecontact.ru/mirror/php:7.1-apache-stretch
     build: ./docker/web
     environment:
       - APACHE_RUN_USER=#1000

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\training;
+namespace app\models\grammar\training;
 
 use app\models\level\Level;
 use app\models\tense\Tense;

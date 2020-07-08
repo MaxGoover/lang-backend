@@ -6,7 +6,6 @@ use yii\mongodb\Migration;
 
 class m200708_180454_fill_present_simple_exercise_collection extends \yii\mongodb\Migration
 {
-    // L2 - 4:21
     private array $_sentences = [
         'Он читает по-английски.',
         'Она помнит это.',

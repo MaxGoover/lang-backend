@@ -4,7 +4,7 @@ use app\models\grammar\exercise\Exercise;
 use MongoDB\BSON\ObjectId;
 use yii\mongodb\Migration;
 
-class m200702_132011_fill_exercise_collection extends Migration
+class m200702_132011_fill_present_simple_exercise_collection extends Migration
 {
     private array $_sentences = [
         'Я говорю по-английски.',
@@ -35,14 +35,16 @@ class m200702_132011_fill_exercise_collection extends Migration
         ];
 
         foreach ($this->_sentences as $key => $sentence) {
-            $model = new Exercise();
-            $model->_id = new ObjectId();
-            $model->voice = 1;
-            $model->tense_id = 1;
-            $model->form = 1;
-            $model->from_english = false;
-            $model->sentence = $sentence;
-            $model->translations = $translations[$key];
+            $model = new Exercise(
+                new ObjectId(),
+                1,
+                1,
+                1,
+                false,
+                $sentence,
+                $translations[$key],
+                true
+            );
             $model->save();
         }
     }

@@ -15,9 +15,33 @@ use yii\mongodb\ActiveRecord;
  * @property bool $from_english     Перевод с английского
  * @property string $sentence       Предложение
  * @property array $translations    Варианты переводов ($translations[0] - основной перевод, остальные дополнительные)
+ * @property bool $active           Активность перевода
  */
 class Exercise extends ActiveRecord
 {
+    public function __construct (
+        $_id,
+        $voice,
+        $tenseId,
+        $form,
+        $fromEnglish,
+        $sentence,
+        $translations,
+        $active = false,
+        $config = []
+    )
+    {
+        parent::__construct($config);
+        $this->_id = $_id;
+        $this->voice = $voice;
+        $this->tense_id = $tenseId;
+        $this->form = $form;
+        $this->from_english = $fromEnglish;
+        $this->sentence = $sentence;
+        $this->translations = $translations;
+        $this->active = $active;
+    }
+
     public static function collectionName(): array
     {
         return [Yii::$app->params['mongoDBName'], 'exercise'];
@@ -32,7 +56,8 @@ class Exercise extends ActiveRecord
             'form',
             'from_english',
             'sentence',
-            'translations'
+            'translations',
+            'active',
         ];
     }
 
@@ -47,7 +72,8 @@ class Exercise extends ActiveRecord
                     'form',
                     'from_english',
                     'sentence',
-                    'translations'
+                    'translations',
+                    'active'
                 ],
                 'required'
             ],
@@ -59,7 +85,7 @@ class Exercise extends ActiveRecord
                 ],
                 'integer'
             ],
-            ['from_english', 'boolean'],
+            [['from_english', 'active'], 'boolean'],
             ['sentence', 'string', 'length' => [3, 255]],
         ];
     }

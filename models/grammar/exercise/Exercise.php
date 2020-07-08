@@ -19,7 +19,7 @@ use yii\mongodb\ActiveRecord;
  */
 class Exercise extends ActiveRecord
 {
-    public function __construct (
+    public static function create(
         $_id,
         $voice,
         $tenseId,
@@ -27,19 +27,19 @@ class Exercise extends ActiveRecord
         $fromEnglish,
         $sentence,
         $translations,
-        $active = false,
-        $config = []
+        $active = false
     )
     {
-        parent::__construct($config);
-        $this->_id = $_id;
-        $this->voice = $voice;
-        $this->tense_id = $tenseId;
-        $this->form = $form;
-        $this->from_english = $fromEnglish;
-        $this->sentence = $sentence;
-        $this->translations = $translations;
-        $this->active = $active;
+        $exercise = new static();
+        $exercise->_id = $_id;
+        $exercise->voice = $voice;
+        $exercise->tense_id = $tenseId;
+        $exercise->form = $form;
+        $exercise->from_english = $fromEnglish;
+        $exercise->sentence = $sentence;
+        $exercise->translations = $translations;
+        $exercise->active = $active;
+        return $exercise;
     }
 
     public static function collectionName(): array

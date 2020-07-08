@@ -36,7 +36,7 @@ class m200708_180454_fill_present_simple_exercise_collection extends \yii\mongod
         ];
 
         foreach ($this->_sentences as $key => $sentence) {
-            $model = new Exercise(
+            $model = Exercise::create(
                 new ObjectId(),
                 1,
                 1,

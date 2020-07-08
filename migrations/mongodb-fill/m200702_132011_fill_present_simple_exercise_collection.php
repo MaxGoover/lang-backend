@@ -35,7 +35,7 @@ class m200702_132011_fill_present_simple_exercise_collection extends Migration
         ];
 
         foreach ($this->_sentences as $key => $sentence) {
-            $model = new Exercise(
+            $model = Exercise::create(
                 new ObjectId(),
                 1,
                 1,

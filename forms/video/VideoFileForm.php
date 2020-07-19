@@ -41,24 +41,30 @@ class VideoFileForm extends Model
         $result = [];
         $ffmpeg = FFMpeg::create();
 
+        $path = Yii::$app->params['videoFilesPath'];
+
+        if (!file_exists($path)) {
+            mkdir($path, 0755, true);
+        }
+
         foreach ($this->files as $key => $file) {
             $fileName = pathinfo($file->name, PATHINFO_FILENAME);
 
             $video = $ffmpeg->open($file->tempName);
             $video
                 ->frame(Coordinate\TimeCode::fromSeconds(4))
-                ->save( $fileName . '.jpg');
+                ->save( $path . $fileName  . '.jpg');
 
             $format = new Video\X264();
             $format->setAudioCodec("libmp3lame");
-            $video->save($format, $fileName . '.mp4');
+            $video->save($format, $path . $fileName . '.mp4');
 
             $result[] = [
                 'title'            => $file->baseName,
                 'fileName'         => $fileName,
                 'extension'        => $file->extension,
-                'srcVideo'         => Url::base(true) . '/' . $fileName . '.mp4',
-                'srcImage'         => Url::base(true) . '/' . $fileName . '.jpg',
+                'srcVideo'         => Url::base(true) . '/' . $path . $fileName . '.mp4',
+                'srcImage'         => Url::base(true) . '/' . $path . $fileName . '.jpg',
             ];
         }
 

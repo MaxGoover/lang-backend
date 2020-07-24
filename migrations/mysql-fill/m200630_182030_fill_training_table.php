@@ -25,7 +25,7 @@ class m200630_182030_fill_training_table extends Migration
                     'Present Simple',
                     'Настоящее простое',
                     'present-simple',
-                    'PS',
+                    '1_Facebook',
                 ],
                 [
                     2,
@@ -33,7 +33,7 @@ class m200630_182030_fill_training_table extends Migration
                     'Past Simple',
                     'Прошедшее простое',
                     'past-simple',
-                    'PS',
+                    '2_Lg',
                 ],
                 [
                     3,
@@ -41,7 +41,7 @@ class m200630_182030_fill_training_table extends Migration
                     'Future Simple',
                     'Будущее простое',
                     'future-simple',
-                    'FS',
+                    '3_Skype',
                 ],
                 [
                     4,
@@ -49,7 +49,7 @@ class m200630_182030_fill_training_table extends Migration
                     'Numerals',
                     'Числительные',
                     'numerals',
-                    'N',
+                    '4_Android',
                 ],
                 [
                     5,
@@ -57,7 +57,7 @@ class m200630_182030_fill_training_table extends Migration
                     'Test',
                     'Тест',
                     'test-test',
-                    'T',
+                    '5_Youtube',
                 ],
             ]
         );

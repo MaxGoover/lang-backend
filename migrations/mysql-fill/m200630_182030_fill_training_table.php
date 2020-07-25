@@ -25,7 +25,7 @@ class m200630_182030_fill_training_table extends Migration
                     'Present Simple',
                     'Настоящее простое',
                     'present-simple',
-                    'PS',
+                    '1-Facebook',
                 ],
                 [
                     2,
@@ -33,7 +33,7 @@ class m200630_182030_fill_training_table extends Migration
                     'Past Simple',
                     'Прошедшее простое',
                     'past-simple',
-                    'PS',
+                    '2-Ig',
                 ],
                 [
                     3,
@@ -41,7 +41,7 @@ class m200630_182030_fill_training_table extends Migration
                     'Future Simple',
                     'Будущее простое',
                     'future-simple',
-                    'FS',
+                    '3-Skype',
                 ],
                 [
                     4,
@@ -49,7 +49,7 @@ class m200630_182030_fill_training_table extends Migration
                     'Numerals',
                     'Числительные',
                     'numerals',
-                    'N',
+                    '4-Android',
                 ],
                 [
                     5,
@@ -57,7 +57,23 @@ class m200630_182030_fill_training_table extends Migration
                     'Test',
                     'Тест',
                     'test-test',
-                    'T',
+                    '5-Youtube',
+                ],
+                [
+                    6,
+                    3,
+                    'Test2',
+                    'Тест2',
+                    'test-test2',
+                    '6-Dribbble',
+                ],
+                [
+                    7,
+                    3,
+                    'Test3',
+                    'Тест3',
+                    'test-test3',
+                    '7-Line',
                 ],
             ]
         );
@@ -66,7 +82,7 @@ class m200630_182030_fill_training_table extends Migration
     public function safeDown()
     {
         if (Yii::$app->db->schema->getTableSchema($this->_tableName)) {
-            $this->delete($this->_tableName, ['id' => range(1, 4)]);
+            $this->delete($this->_tableName, ['id' => range(1, 7)]);
         }
     }
 }

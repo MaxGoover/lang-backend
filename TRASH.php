@@ -95,11 +95,3 @@
 //
 //
 //
-'Ты не пытаешься выучить английский.',
-'Это не работает.',
-'Я не хочу это знать.',
-'Я не согласен с тобой.',
-
-['You don`t try to learn English.', 'You do not try to learn English.'],
-['It doesn`t work.', 'It does not work.'],
-['I don`t want to know it.', 'I do not want to know it.'],

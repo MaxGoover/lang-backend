@@ -12,10 +12,10 @@ class ExerciseReadRepository
     {
         $query = Exercise::find()
             ->andWhere($conditions)
-            ->orderBy('rand()')
+            ->orderBy('sentence')
             ->limit(10)
             ->all();
-        shuffle($query);
+//        shuffle($query);
         return $this->_getProvider($query);
     }
 

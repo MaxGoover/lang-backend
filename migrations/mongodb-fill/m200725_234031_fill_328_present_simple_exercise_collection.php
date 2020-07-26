@@ -4,7 +4,7 @@ use app\models\grammar\exercise\Exercise;
 use MongoDB\BSON\ObjectId;
 use yii\mongodb\Migration;
 
-class m200725_234031_fill_362_present_simple_exercise_collection extends Migration
+class m200725_234031_fill_328_present_simple_exercise_collection extends Migration
 {
     private array $_sentences = [
         'Ты не пытаешься выучить английский.',
@@ -60,13 +60,20 @@ class m200725_234031_fill_362_present_simple_exercise_collection extends Migrati
         'Мой брат не хочет думать о своем будущем.',
         'Я со своим другом не звоню им.',
         'Мой друг так не думает.',
-        '.',
-        '.',
-        '.',
-        '.',
-        '.',
-        '.',
-        '.',
+        'Те уроки не кажутся полезными. Эти уроки кажутся очень полезными.',
+        'Моя сестра не хочет делать это позже. Она хочет сделать это прямо сейчас.',
+        'Эта вещь не интересует меня.',
+        'Я знаю эту компанию. Её прибыль не кажется большой.',
+        'Мой друг не пытается это делать.',
+        'Их компания не пытается делать это.',
+        'Та вещь не кажется интересной.',
+        'Моя сестра не хочет там учиться.',
+        'Тот метод не работает. Этот метод реально помогает.',
+        'Их родители не чувствуют себя счастливыми.',
+        'Он думает, деньги не приносят людям счастья.',
+        'Это предложение не кажется таким интересным.',
+        'Наша компания не хочет этого.',
+        'Мой друг не согласен со мной.',
     ];//L9 10:00
 
     public function up()
@@ -286,20 +293,61 @@ class m200725_234031_fill_362_present_simple_exercise_collection extends Migrati
                 'My friend does not think so.',
             ],
             [
-                '.',
+                'Those lessons don`t seem useful. These lessons seem very useful.',
+                'Those lessons do not seem useful. These lessons seem very useful.',
             ],
             [
-                '.',
-            ],[
-                '.',
-            ],[
-                '.',
-            ],[
-                '.',
-            ],[
-                '.',
-            ],[
-                '.',
+                'My sister doesn`t want to do it later. She wants to do it right now.',
+                'My sister does not want to do it later. She wants to do it right now.',
+            ],
+            [
+                'This thing doesn`t interest me.',
+                'This thing does not interest me.',
+            ],
+            [
+                'I know this company. Its profit doesn`t seem big.',
+                'I know this company. Its profit does not seem big.',
+            ],
+            [
+                'My friend doesn`t try to do it.',
+                'My friend does not try to do it.',
+            ],
+            [
+                'Their company doesn`t try to do it.',
+                'Their company does not try to do it.',
+            ],
+            [
+                'That thing doesn`t seem interesting.',
+                'That thing does not seem interesting.',
+            ],
+            [
+                'My sister doesn`t want to study there.',
+                'My sister does not want to study there.',
+            ],
+            [
+                'That method doesn`t work. This method really help.',
+                'That method does not work. This method really help.',
+            ],
+            [
+                'Their parents don`t feel happy.',
+                'Their parents do not feel happy.',
+            ],
+            [
+                'He thinks money doesn`t bring people happiness.',
+                'He thinks money does not bring people happiness.',
+            ],
+            [
+                'This offer doesn`t seem so interesting.',
+                'This offer does not seem so interesting.',
+            ],
+            [
+                'Our company doesn`t want it.',
+                'Our company does not want it.',
+            ],
+            [
+                'My friend doesn`t agree with me.',
+                'My friend does not agree with me.',
+                'My friend disagree with me.',
             ],
         ];
 
@@ -308,7 +356,7 @@ class m200725_234031_fill_362_present_simple_exercise_collection extends Migrati
                 new ObjectId(),
                 1,
                 1,
-                1,
+                2,
                 false,
                 $sentence,
                 $translations[$key],

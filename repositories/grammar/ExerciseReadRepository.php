@@ -12,7 +12,7 @@ class ExerciseReadRepository
     {
         $query = Exercise::find()
             ->andWhere($conditions)
-            ->orderBy('RAND()')
+            ->orderBy('rand()')
             ->limit(10)
             ->all();
         shuffle($query);

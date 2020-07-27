@@ -4,7 +4,7 @@ use app\models\grammar\exercise\Exercise;
 use MongoDB\BSON\ObjectId;
 use yii\mongodb\Migration;
 
-class m200725_234031_fill_328_present_simple_exercise_collection extends Migration
+class m200725_234031_fill_330_present_simple_exercise_collection extends Migration
 {
     private array $_sentences = [
         'Ты не пытаешься выучить английский.',

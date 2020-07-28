@@ -108,7 +108,7 @@ class m200709_190649_fill_200_present_simple_exercise_collection extends Migrati
         'Он хочет купить эту вещь.',
         'Я хочу снова пойти туда.',
         'Я хочу иметь хорошую работу.',
-    ];// L6 6:38
+    ];
 
     public function up()
     {
@@ -120,6 +120,7 @@ class m200709_190649_fill_200_present_simple_exercise_collection extends Migrati
             ['He sometimes wants to do it.'],
             ['She misses you.'],
             ['He tries to do it.'],
+            ['She wants to go the park.'],
             ['He has money.'],
             ['She has a car.'],
             ['He tries to help me.'],

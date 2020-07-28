@@ -2,20 +2,23 @@
 
 namespace app\repositories\grammar;
 
-use app\models\grammar\exercise\Exercise;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
+use yii\mongodb\Collection;
+use Yii;
 
 class ExerciseReadRepository
 {
-    public function getBy (array $conditions): DataProviderInterface
+    public function getByConditions (array $conditions): DataProviderInterface
     {
-        $query = Exercise::find()
-            ->andWhere($conditions)
-            ->orderBy('RAND()')
-            ->limit(10)
-            ->all();
-        shuffle($query);
+        /* @var Collection $collection */
+        $collection = Yii::$app->mongodb->getCollection('exercise');
+        $query = $collection->aggregate(
+            [
+                ['$match' => $conditions],
+                ['$sample' => ['size' => 10]]
+            ]
+        );
         return $this->_getProvider($query);
     }
 

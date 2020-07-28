@@ -32,7 +32,7 @@ class TrainingController extends ApiController
     public function actionIndex() {
         $post = Yii::$app->request->post();
         return $this->_dto->success([
-            'exercises' => $this->_exerciseReadRepository->getBy($post['conditions']),
+            'exercises' => $this->_exerciseReadRepository->getByConditions($post['conditions']),
             'training' => $this->_trainingReadRepository->getByAlias($post['alias']),
         ]
 

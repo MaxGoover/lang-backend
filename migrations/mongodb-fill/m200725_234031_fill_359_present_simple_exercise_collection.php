@@ -74,7 +74,24 @@ class m200725_234031_fill_359_present_simple_exercise_collection extends Migrati
         'Это предложение не кажется таким интересным.',
         'Наша компания не хочет этого.',
         'Мой друг не согласен со мной.',
-    ];//L9 10:00
+        'Они не верят ему.',
+        'Мой друг не говорит по-английски свободно.',
+        'Я не говорю ему эти вещи.',
+        'У нас нет артикля здесь.',
+        'Их учителя не объясняют это.',
+        'Она не говорит мне эти вещи.',
+        'Этот человек не пытается это сделать.',
+        'Деньги вовсе не мотивируют ее.',
+        'Деньги не привлекают ее.',
+        'Я не заказываю там еду.',
+        'Наши учителя не объясняют это.',
+        'Его девушка не чувствует себя счастливой.',
+        'Её парень не знает об этой проблеме.',
+        'У нас нет каких-либо вопросов.',
+        'Он не заказывает еду здесь.',
+        '.',
+        '.',
+    ];// L12 13:47
 
     public function up()
     {
@@ -348,6 +365,72 @@ class m200725_234031_fill_359_present_simple_exercise_collection extends Migrati
                 'My friend doesn`t agree with me.',
                 'My friend does not agree with me.',
                 'My friend disagree with me.',
+            ],
+            [
+                'They don`t believe him.',
+                'They do not believe him.',
+            ],
+            [
+                'My friend doesn`t speak English fluently.',
+                'My friend does not speak English fluently.',
+            ],
+            [
+                'I don`t tell him these things.',
+                'I do not tell him these things.',
+            ],
+            [
+                'We don`t have an article here.',
+                'We do not have an article here.',
+            ],
+            [
+                'Their teachers don`t explain it.',
+                'Their teachers do not explain it.',
+            ],
+            [
+                'She doesn`t tell me these things.',
+                'She does not tell me these things.',
+            ],
+            [
+                'This person doesn`t try to do it.',
+                'This person does not try to do it.',
+            ],
+            [
+                'Money doesn`t motivate her at all.',
+                'Money does not motivate her at all.',
+            ],
+            [
+                'Money doesn`t attract her.',
+                'Money does not attract her.',
+            ],
+            [
+                'I don`t order food there.',
+                'I do not order food there.',
+            ],
+            [
+                'Our teachers don`t explain it.',
+                'Our teachers do not explain it.',
+            ],
+            [
+                'His girlfriend doesn`t feel happy.',
+                'His girlfriend does not feel happy.',
+            ],
+            [
+                'Her boyfriend doesn`t know about this problem.',
+                'Her boyfriend does not know about this problem.',
+            ],
+            [
+                'We don`t have any questions.',
+                'We do not have any questions.',
+            ],
+            [
+                'He doesn`t order food here.',
+                'He does not order food here.',
+            ],
+            [
+                '.',
+            ],
+            [
+                '.',
             ],
         ];
 

@@ -13,7 +13,7 @@ use yii\db\ActiveRecord;
  * @property string $title          Название товара
  * @property string $description    Описание товара
  * @property float $price           Цена товара
- * @property int $quantity          Цена товара
+ * @property int $quantity          Количество товара
  */
 class Goods extends ActiveRecord
 {

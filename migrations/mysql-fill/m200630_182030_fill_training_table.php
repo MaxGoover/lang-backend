@@ -75,6 +75,22 @@ class m200630_182030_fill_training_table extends Migration
                     'test-test3',
                     '7-Line',
                 ],
+                [
+                    8,
+                    3,
+                    'Test4',
+                    'Тест4',
+                    'test-test4',
+                    '8-Youtube',
+                ],
+                [
+                    9,
+                    3,
+                    'Test5',
+                    'Тест5',
+                    'test-test5',
+                    '9-Messager',
+                ],
             ]
         );
     }
@@ -82,7 +98,7 @@ class m200630_182030_fill_training_table extends Migration
     public function safeDown()
     {
         if (Yii::$app->db->schema->getTableSchema($this->_tableName)) {
-            $this->delete($this->_tableName, ['id' => range(1, 7)]);
+            $this->delete($this->_tableName, ['id' => range(1, 9)]);
         }
     }
 }

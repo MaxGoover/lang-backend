@@ -29,12 +29,12 @@ class m200729_144334_fill_shop_group_table extends Migration
                 [
                     5,
                     'Спорт',
-                    2,
+                    4,
                 ],
                 [
                     8,
                     'Сантехника',
-                    3,
+                    4,
                 ],
                 [
                     10,
@@ -44,7 +44,7 @@ class m200729_144334_fill_shop_group_table extends Migration
                 [
                     15,
                     'Сувениры',
-                    2,
+                    3,
                 ],
             ]
         );

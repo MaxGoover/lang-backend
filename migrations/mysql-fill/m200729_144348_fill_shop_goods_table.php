@@ -4,7 +4,7 @@ use yii\db\Migration;
 
 class m200729_144348_fill_shop_goods_table extends Migration
 {
-    private string $_tableName = 'training';
+    private string $_tableName = 'shop_goods';
 
     public function safeUp()
     {
@@ -58,6 +58,38 @@ class m200729_144348_fill_shop_goods_table extends Migration
                     null,
                     2.17,
                     4,
+                ],
+                [
+                    11,
+                    15,
+                    'Набор для рисования Пастель',
+                    null,
+                    2.2,
+                    1,
+                ],
+                [
+                    12,
+                    15,
+                    'Брелок-рулетка',
+                    null,
+                    2.5,
+                    1,
+                ],
+                [
+                    63,
+                    15,
+                    'Брелок-открывалка',
+                    null,
+                    1.97,
+                    21,
+                ],
+                [
+                    64,
+                    15,
+                    'Ручка-стилус шариковая',
+                    null,
+                    4,
+                    1,
                 ],
                 [
                     85,
@@ -171,39 +203,14 @@ class m200729_144348_fill_shop_goods_table extends Migration
                     1.97,
                     21,
                 ],
-                [
-                    11,
-                    15,
-                    'Набор для рисования Пастель',
-                    null,
-                    2.2,
-                    1,
-                ],
-                [
-                    12,
-                    15,
-                    'Брелок-рулетка',
-                    null,
-                    2.5,
-                    1,
-                ],
-                [
-                    63,
-                    15,
-                    'Брелок-открывалка',
-                    null,
-                    1.97,
-                    21,
-                ],
-                [
-                    64,
-                    15,
-                    'Ручка-стилус шариковая',
-                    null,
-                    4,
-                    1,
-                ],
             ]
         );
+    }
+
+    public function safeDown()
+    {
+        if (Yii::$app->db->schema->getTableSchema($this->_tableName)) {
+            $this->delete($this->_tableName, ['id' => [1, 2, 3, 7, 8, 11, 12, 63, 64, 85, 86, 109, 110, 111, 112, 184, 185, 191, 192, 193, 194, 195, 196]]);
+        }
     }
 }

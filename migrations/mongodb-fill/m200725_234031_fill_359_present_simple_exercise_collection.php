@@ -89,9 +89,13 @@ class m200725_234031_fill_359_present_simple_exercise_collection extends Migrati
         'Её парень не знает об этой проблеме.',
         'У нас нет каких-либо вопросов.',
         'Он не заказывает еду здесь.',
-        '.',
-        '.',
-    ];// L12 13:47
+        'Их прибыль не кажется такой большой.',
+        'Она не говорит это.',
+        'Их учитель не объясняет это.',
+        'Он не говорит по-испански.',
+        'Ты не понимаешь нас.',
+        'Это не мотивирует меня.',
+    ];
 
     public function up()
     {
@@ -427,10 +431,28 @@ class m200725_234031_fill_359_present_simple_exercise_collection extends Migrati
                 'He does not order food here.',
             ],
             [
-                '.',
+                'Their profit doesn`t seem so big.',
+                'Their profit does not seem so big.',
             ],
             [
-                '.',
+                'She doesn`t say it.',
+                'She does not say it.',
+            ],
+            [
+                'Their teacher doesn`t explain it',
+                'Their teacher does not explain it',
+            ],
+            [
+                'He doesn`t speak Spanish.',
+                'He does not speak Spanish.',
+            ],
+            [
+                'You don`t understand us.',
+                'You do not understand us.',
+            ],
+            [
+                'It doesn`t motivate me.',
+                'It does not motivate me.',
             ],
         ];
 

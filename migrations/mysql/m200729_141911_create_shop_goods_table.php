@@ -22,7 +22,7 @@ class m200729_141911_create_shop_goods_table extends Migration
                 ->text()
                 ->comment('Описание товара'),
             'price'       => $this
-                ->float(2)
+                ->decimal(5, 2)
                 ->unsigned()
                 ->notNull()
                 ->comment('Цена товара'),

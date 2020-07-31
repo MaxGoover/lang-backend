@@ -100,6 +100,21 @@ class m200726_223156_fill_459_present_simple_exercise_collection extends Migrati
         'Мне бы хотелось чашку кофе.',
         'Она ходит на работу.',
         'У него есть машина.',
+        'Он хочет решить эту проблему.',
+        'Она приходит домой поздно.',
+        'Это происходит время от времени.',
+        'Ей нравится эта идея.',
+        'Это выглядит так странно.',
+        'Этот отель кажется очень дорогим.',
+        'Её интересуют деньги.',
+        'Ей нравится это место.',
+        'Она работает в другом месте.',
+        'Он согласен с нами.',
+        'Его слова мотивируют её.',
+        'Эта вещь интересует его.',
+        'Они пытаются это изменить.',
+        '.',
+        '.',
     ];
 
     public function up()
@@ -197,6 +212,21 @@ class m200726_223156_fill_459_present_simple_exercise_collection extends Migrati
             ['I`d like a cup of coffee.'],
             ['She goes to work.'],
             ['He has a car.'],
+            ['He wants to solve this problem.'],
+            ['She comes home late.'],
+            ['It happens from time to time.'],
+            ['She likes this idea.'],
+            ['It looks so strange.'],
+            ['This hotel seems very expansive.'],
+            ['Money interests her.'],
+            ['She likes this place.'],
+            ['She works in another place.'],
+            ['He agrees with us.'],
+            ['His words motivate her.'],
+            ['This thing interests him.'],
+            ['They try to change it.'],
+            ['.'],
+            ['.'],
         ];
 
         foreach ($this->_sentences as $key => $sentence) {

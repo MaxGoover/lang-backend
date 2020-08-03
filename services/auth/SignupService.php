@@ -6,7 +6,7 @@ use app\forms\auth\SignupForm;
 use app\identity\Identity;
 use app\models\user\User;
 use app\repositories\user\UserRepository;
-use app\managers\RoleManager;
+use app\other\managers\RoleManager;
 use app\access\Rbac;
 use Yii;
 

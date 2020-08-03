@@ -17,6 +17,13 @@ use yii\db\ActiveRecord;
  */
 class Goods extends ActiveRecord
 {
+    public function canBeCheckout(int $quantity): bool
+    {
+        return $quantity <= $this->quantity;
+    }
+
+    ##################################################
+
     public static function tableName(): string
     {
         return '{{%shop_goods}}';

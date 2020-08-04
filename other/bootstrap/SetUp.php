@@ -11,8 +11,19 @@ class SetUp implements BootstrapInterface
     {
         $container = \Yii::$container;
 
-        $container->setSingleton(ManagerInterface::class, function () use ($app) {
-            return $app->authManager;
+        $container->setSingleton(
+            ManagerInterface::class, fn() => $app->authManager
+        );
+
+        $container->setSingleton(Cart::class, function() use ($app) {
+            return new Cart(
+                new SimpleCost(),
+                new HybridStorage(
+                    'cart',
+                    3600 * 24,
+                    $app->db,
+                    $app->get('user'))
+            );
         });
     }
 }

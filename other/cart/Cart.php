@@ -9,31 +9,19 @@ use app\other\cart\storage\StorageInterface;
 class Cart
 {
     private CalculatorInterface $_calculator;
-
     /**
      * @var CartItem[]
      * */
-    private $_items;
-    private $_storage;
+    private array $_items;
+    private StorageInterface$_storage;
 
-    public function __construct(CalculatorInterface $calculator, StorageInterface $storage)
+    public function __construct(
+        CalculatorInterface $calculator,
+        StorageInterface $storage
+    )
     {
         $this->_calculator = $calculator;
         $this->_storage = $storage;
-    }
-
-    public function add(CartItem $item): void
-    {
-        $this->_loadItems();
-        foreach ($this->_items as $i => $current) {
-            if ($current->getId() == $item->getId()) {
-                $this->_items[$i] = $current->plus($item->getQuantity());
-                $this->_saveItems();
-                return;
-            }
-        }
-        $this->_items[] = $item;
-        $this->saveItems();
     }
 
     public function clear(): void
@@ -61,40 +49,6 @@ class Cart
     {
         $this->_loadItems();
         return $this->_items;
-    }
-
-    public function getWeight(): int
-    {
-        $this->_loadItems();
-        return array_sum(array_map(function (CartItem $item) {
-            return $item->getWeight();
-        }, $this->_items));
-    }
-
-    public function remove($id): void
-    {
-        $this->_loadItems();
-        foreach ($this->_items as $i => $current) {
-            if ($current->getId() == $id) {
-                unset($this->_items[$i]);
-                $this->_saveItems();
-                return;
-            }
-        }
-        throw new \DomainException('Item is not found.');
-    }
-
-    public function set($id, $quantity): void
-    {
-        $this->_loadItems();
-        foreach ($this->_items as $i => $current) {
-            if ($current->getId() == $id) {
-                $this->_items[$i] = $current->changeQuantity($quantity);
-                $this->_saveItems();
-                return;
-            }
-        }
-        throw new \DomainException('Item is not found.');
     }
 
     private function _loadItems(): void

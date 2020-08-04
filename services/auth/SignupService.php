@@ -3,7 +3,7 @@
 namespace app\services\auth;
 
 use app\forms\auth\SignupForm;
-use app\identity\Identity;
+use app\other\identity\Identity;
 use app\models\user\User;
 use app\repositories\user\UserRepository;
 use app\other\managers\RoleManager;

@@ -4,15 +4,15 @@ namespace app\other\cart\cost;
 
 final class Cost
 {
-    private float $_price;
+    private float $_cost;
 
-    public function __construct(float $price)
+    public function __construct(float $cost)
     {
-        $this->_price = $price;
+        $this->_cost = $cost;
     }
 
-    public function getOrigin(): float
+    public function getCost(): float
     {
-        return $this->_price;
+        return $this->_cost;
     }
 }

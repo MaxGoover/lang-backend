@@ -4,24 +4,20 @@ namespace app\other\cart\storage;
 
 use app\models\shop\Goods;
 use app\other\cart\CartItem;
-use app\repositories\shop\GoodsReadRepository;
 use Yii;
 use yii\helpers\Json;
 use yii\web\Cookie;
 
 class CookieStorage implements StorageInterface
 {
-    private GoodsReadRepository $_goodsReadRepository;
     private string $_key;
     private int $_timeout;
 
     public function __construct(
-        GoodsReadRepository $goodsReadRepository,
         string $key,
         int $timeout
     )
     {
-        $this->_goodsReadRepository = $goodsReadRepository;
         $this->_key = $key;
         $this->_timeout = $timeout;
 
@@ -31,7 +27,7 @@ class CookieStorage implements StorageInterface
     {
         if ($cookie = Yii::$app->request->cookies->get($this->_key)) {
             return array_filter(array_map(function (array $row) {
-                if (isset($row['id'], $row['q']) && $goods = $this->_goodsReadRepository->find($row['id'])) {
+                if (isset($row['id'], $row['q']) && $goods = Goods::findOne($row['id'])) {
                     /** @var Goods $goods */
                     return new CartItem($goods, $row['q']);
                 }

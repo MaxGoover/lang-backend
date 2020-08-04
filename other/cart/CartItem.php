@@ -2,7 +2,6 @@
 
 namespace app\other\cart;
 
-//use shop\entities\Shop\Product\Modification;
 use app\models\shop\Goods;
 
 class CartItem
@@ -19,9 +18,19 @@ class CartItem
         $this->_quantity = $quantity;
     }
 
+    public function getCost(): int
+    {
+        return $this->getPrice() * $this->_quantity;
+    }
+
     public function getGoodsId(): string
     {
         return $this->_goods->id;
+    }
+
+    public function getPrice(): float
+    {
+        return $this->_goods->price;
     }
 
     public function getQuantity(): int

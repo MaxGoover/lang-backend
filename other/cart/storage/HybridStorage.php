@@ -18,7 +18,7 @@ class HybridStorage implements StorageInterface
         string $cookieKey,
         int $cookieTimeout,
         Connection $db,
-        User $user
+        $user
     )
     {
         $this->_cookieKey = $cookieKey;

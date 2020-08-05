@@ -38,23 +38,23 @@ class CartController extends ApiController
             // todo сделать высплывашку - "Товар добавлен в корзину"
             // todo вернуть DTO success
             return true;
-        } catch (\DomainException $e) {
+        } catch(\DomainException $e) {
             Yii::$app->errorHandler->logException($e);
             // todo сделать высплывашку - "Ошибка добавления товара в корзину"
         }
 
-        $form = new AddToCartForm($goods);
-
-        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
-            try {
-                $this->_cartService->add($goods, $form->modification, $form->quantity);
-                // todo вернуть DTO success
-                return true;
-            } catch (\DomainException $e) {
-                Yii::$app->errorHandler->logException($e);
-                Yii::$app->session->setFlash('error', $e->getMessage());
-            }
-        }
+//        $form = new AddToCartForm($goods);
+//
+//        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+//            try {
+//                $this->_cartService->add($goods, $form->quantity);
+//                // todo вернуть DTO success
+//                return true;
+//            } catch (\DomainException $e) {
+//                Yii::$app->errorHandler->logException($e);
+//                Yii::$app->session->setFlash('error', $e->getMessage());
+//            }
+//        }
     }
 
     public function actionIndex()
@@ -71,11 +71,12 @@ class CartController extends ApiController
     public function actionRemove($id)
     {
         try {
-            $this->_service->remove($id);
-        } catch (\DomainException $e) {
+            $this->_cartService->remove($id);
+        } catch(\DomainException $e) {
             Yii::$app->errorHandler->logException($e);
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
+
         return $this->redirect(['index']);
     }
 }

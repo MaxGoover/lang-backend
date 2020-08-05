@@ -2,6 +2,9 @@
 
 namespace app\other\bootstrap;
 
+use app\other\cart\Cart;
+use app\other\cart\cost\calculator\SimpleCost;
+use app\other\cart\storage\HybridStorage;
 use yii\base\BootstrapInterface;
 use yii\rbac\ManagerInterface;
 

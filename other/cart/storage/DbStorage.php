@@ -10,7 +10,7 @@ use yii\db\Query;
 class DbStorage implements StorageInterface
 {
     private Connection $_db;
-    private string $_tableName = 'shop_art_item';
+    private string $_tableName = 'shop_cart_item';
     private string $_userId;
 
     public function __construct(

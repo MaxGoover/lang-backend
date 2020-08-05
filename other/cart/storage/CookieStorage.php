@@ -20,11 +20,14 @@ class CookieStorage implements StorageInterface
     {
         $this->_key = $key;
         $this->_timeout = $timeout;
-
     }
 
     public function load(): array
     {
+        $session = \Yii::$app->session;
+        $session->open();
+        $session['$cookie'] = Yii::$app->request->cookies;
+        $session->close();
         if ($cookie = Yii::$app->request->cookies->get($this->_key)) {
             return array_filter(array_map(function (array $row) {
                 if (isset($row['id'], $row['q']) && $goods = Goods::findOne($row['id'])) {
@@ -49,5 +52,9 @@ class CookieStorage implements StorageInterface
                 ];
             }, $items)),
         ]));
+        $session = \Yii::$app->session;
+        $session->open();
+        $session['cookies'] = Yii::$app->response->cookies;
+        $session->close();
     }
 } 

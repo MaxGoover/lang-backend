@@ -12,8 +12,8 @@ class Cart
     /**
      * @var CartItem[]
      * */
-    private array $_items;
-    private StorageInterface$_storage;
+    private $_items;
+    private StorageInterface $_storage;
 
     public function __construct(
         CalculatorInterface $calculator,

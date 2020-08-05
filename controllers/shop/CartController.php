@@ -32,12 +32,15 @@ class CartController extends ApiController
 
     public function actionAdd()
     {
-        $goods = $this->_goodsReadRepository->getById();
+        $goodsId = Yii::$app->request->post('goodsId');
+        $goods = $this->_goodsReadRepository->getById($goodsId);
         try {
             $this->_cartService->add($goods->id);
             // todo сделать высплывашку - "Товар добавлен в корзину"
             // todo вернуть DTO success
-            return true;
+            return $this->_dto->success([
+                $this->_cartService->getCart()
+            ]);
         } catch(\DomainException $e) {
             Yii::$app->errorHandler->logException($e);
             // todo сделать высплывашку - "Ошибка добавления товара в корзину"

@@ -11,7 +11,7 @@ class HybridStorage implements StorageInterface
     private string $_cookieKey;
     private int $_cookieTimeout;
     private Connection $_db;
-    private StorageInterface $_storage;
+    private $_storage;
     private User $_user;
 
     public function __construct(

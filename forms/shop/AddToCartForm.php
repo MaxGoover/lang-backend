@@ -22,7 +22,7 @@ class AddToCartForm extends Model
     public function rules(): array
     {
         return [
-            [['goodsId', 'quantity'], 'required'],
+            ['quantity', 'required'],
             ['quantity', 'integer', 'max' => $this->_goods->quantity],
         ];
     }

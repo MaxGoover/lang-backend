@@ -34,8 +34,6 @@ class TrainingController extends ApiController
         return $this->_dto->success([
             'exercises' => $this->_exerciseReadRepository->getByConditions($post['conditions']),
             'training' => $this->_trainingReadRepository->getByAlias($post['alias']),
-        ]
-
-        );
+        ]);
     }
 }

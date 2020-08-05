@@ -17,10 +17,10 @@ class CartService
         $this->_goodsReadRepository = $goodsReadRepository;
     }
 
-    public function add(int $goodsId, int $quantity): void
+    public function add(int $goodsId): void
     {
         $goods = $this->_goodsReadRepository->getById($goodsId);
-        $this->_cart->add(new CartItem($goods, $quantity));
+        $this->_cart->add(new CartItem($goods, 1));
     }
 
     public function clear(): void

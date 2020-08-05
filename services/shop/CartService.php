@@ -2,26 +2,25 @@
 
 namespace app\services\shop;
 
-use shop\cart\Cart;
-use shop\cart\CartItem;
-use shop\repositories\Shop\ProductRepository;
+use app\other\cart\Cart;
+use app\other\cart\CartItem;
+use app\repositories\shop\GoodsReadRepository;
 
 class CartService
 {
-    private $_cart;
-    private $_products;
+    private Cart $_cart;
+    private GoodsReadRepository $_goodsReadRepository;
 
-    public function __construct(Cart $cart, ProductRepository $products)
+    public function __construct(Cart $cart, GoodsReadRepository $goodsReadRepository)
     {
         $this->_cart = $cart;
-        $this->_products = $products;
+        $this->_goodsReadRepository = $goodsReadRepository;
     }
 
-    public function add($productId, $modificationId, $quantity): void
+    public function add(int $goodsId, int $quantity): void
     {
-        $product = $this->_products->get($productId);
-        $modId = $modificationId ? $product->getModification($modificationId)->id : null;
-        $this->_cart->add(new CartItem($product, $modId, $quantity));
+        $goods = $this->_goodsReadRepository->getById($goodsId);
+        $this->_cart->add(new CartItem($goods, $quantity));
     }
 
     public function clear(): void
@@ -37,10 +36,5 @@ class CartService
     public function remove($id): void
     {
         $this->_cart->remove($id);
-    }
-
-    public function set($id, $quantity): void
-    {
-        $this->_cart->set($id, $quantity);
     }
 }

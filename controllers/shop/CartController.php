@@ -2,41 +2,34 @@
 
 namespace app\controllers\shop;
 
+use app\controllers\ApiController;
 use shop\forms\Shop\AddToCartForm;
-use shop\readModels\Shop\ProductReadRepository;
-use shop\useCases\Shop\CartService;
+use app\repositories\shop\GoodsReadRepository;
+use app\services\shop\CartService;
 use Yii;
-use yii\filters\VerbFilter;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 
-class CartController extends Controller
+class CartController extends ApiController
 {
-    private $_goods;
-    private $_service;
+    private CartService $_cartService;
+    private GoodsReadRepository $_goodsReadRepository;
 
     public function __construct(
         $id,
         $module,
-        CartService $service,
-        ProductReadRepository $products,
-        $config = [])
+        CartService $cartService,
+        GoodsReadRepository $goodsReadRepository,
+        $config = []
+    )
     {
         parent::__construct($id, $module, $config);
-        $this->_products = $products;
-        $this->_service = $service;
+        $this->_cartService = $cartService;
+        $this->_goodsReadRepository = $goodsReadRepository;
     }
 
-    /**
-     * @param $id
-     * @return mixed
-     * @throws NotFoundHttpException
-     */
-    public function actionAdd($id)
+    public function actionAdd()
     {
-        if (!$product = $this->_products->find($id)) {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+
+        $goods = $this->_goodsReadRepository->getById();
 
         if (!$product->modifications) {
             try {
@@ -69,31 +62,10 @@ class CartController extends Controller
         ]);
     }
 
-    /**
-     * @return mixed
-     */
     public function actionIndex()
     {
-        $cart = $this->_service->getCart();
+        $cart = $this->_cartService->getCart();
 
-        return $this->render('index', [
-            'cart' => $cart,
-        ]);
-    }
-
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function actionQuantity($id)
-    {
-        try {
-            $this->_service->set($id, (int)Yii::$app->request->post('quantity'));
-        } catch (\DomainException $e) {
-            Yii::$app->errorHandler->logException($e);
-            Yii::$app->session->setFlash('error', $e->getMessage());
-        }
-        return $this->redirect(['index']);
     }
 
     /**
@@ -109,20 +81,5 @@ class CartController extends Controller
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(['index']);
-    }
-
-    ##################################################
-
-    public function behaviors(): array
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'quantity' => ['POST'],
-                    'remove' => ['POST'],
-                ],
-            ],
-        ];
     }
 }

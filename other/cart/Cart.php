@@ -24,6 +24,13 @@ class Cart
         $this->_storage = $storage;
     }
 
+    public function add(CartItem $item): void
+    {
+        $this->_loadItems();
+        $this->_items[] = $item;
+        $this->_saveItems();
+    }
+
     public function clear(): void
     {
         $this->_items = [];
@@ -49,6 +56,19 @@ class Cart
     {
         $this->_loadItems();
         return $this->_items;
+    }
+
+    public function remove(int $goodsId): void
+    {
+        $this->_loadItems();
+        foreach ($this->_items as $i => $current) {
+            if ($current->getGoodsId() === $goodsId) {
+                unset($this->_items[$i]);
+                $this->_saveItems();
+                return;
+            }
+        }
+        throw new \DomainException('CartItem is not found.');
     }
 
     private function _loadItems(): void

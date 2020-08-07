@@ -26,10 +26,10 @@ class m200729_141911_create_shop_goods_table extends Migration
                 ->unsigned()
                 ->notNull()
                 ->comment('Цена товара'),
-            'quantity'    => $this
+            'in_stock'    => $this
                 ->integer()
                 ->unsigned()
-                ->comment('Количество товаров'),
+                ->comment('Количество товара на складе'),
             ],
             'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci COMMENT="Таблица товаров"'
         );

@@ -18,7 +18,7 @@ class GroupReadRepository
                     'title', gd.title,
                     'description', gd.description,
                     'price', gd.price,
-                    'quantity', gd.quantity
+                    'inStock', gd.in_stock
                 )
             )"
         ];

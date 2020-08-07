@@ -16,7 +16,7 @@ class m200729_144348_fill_shop_goods_table extends Migration
                 'title',
                 'description',
                 'price',
-                'quantity',
+                'in_stock',
             ],
             [
                 [

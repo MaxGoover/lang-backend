@@ -30,8 +30,10 @@ class m200804_123104_create_shop_cart_item_table extends Migration
         );
 
         $this->createIndex('idx-' . $this->_tableName . '-goods_id', $this->_tableName, 'goods_id');
+//        $this->createIndex('idx-' . $this->_tableName . '-user_id', $this->_tableName, 'user_id');
 
         $this->addForeignKey('fk-' . $this->_tableName . '-goods_id', $this->_tableName, 'goods_id', '{{%shop_goods}}', 'id', 'CASCADE');
+//        $this->addForeignKey('fk-' . $this->_tableName . '-user_id', $this->_tableName, 'user_id', '{{%user}}', 'id', 'CASCADE');
     }
 
     public function safeDown()

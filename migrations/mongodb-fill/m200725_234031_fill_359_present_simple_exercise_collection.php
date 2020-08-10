@@ -89,9 +89,28 @@ class m200725_234031_fill_359_present_simple_exercise_collection extends Migrati
         'Её парень не знает об этой проблеме.',
         'У нас нет каких-либо вопросов.',
         'Он не заказывает еду здесь.',
+        'Их прибыль не кажется такой большой.',
+        'Она не говорит это.',
+        'Их учитель не объясняет это.',
+        'Он не говорит по-испански.',
+        'Ты не понимаешь нас.',
+        'Это не мотивирует меня.',
+        'Он не приходит домой поздно.',
+        'Этот отель не кажется таким дешевым.',
+        'Это не выглядит странно.',
+        'Он не работает в другом месте.',
+        'Она не согласна с нами.',
+        'Деньги его не интересуют.',
+        'Наш начальник не пытается изменить это.',
+        'Это не происходит время от времени.',
+        'Ему не нравится та идея.',
+        'Та вещь его не интересует.',
+        'Ей не нравится это место.',
+        'Он не хочет решать те проблемы.',
+        'Эти слова не мотивируют его.',
         '.',
         '.',
-    ];// L12 13:47
+    ];
 
     public function up()
     {
@@ -425,6 +444,82 @@ class m200725_234031_fill_359_present_simple_exercise_collection extends Migrati
             [
                 'He doesn`t order food here.',
                 'He does not order food here.',
+            ],
+            [
+                'Their profit doesn`t seem so big.',
+                'Their profit does not seem so big.',
+            ],
+            [
+                'She doesn`t say it.',
+                'She does not say it.',
+            ],
+            [
+                'Their teacher doesn`t explain it',
+                'Their teacher does not explain it',
+            ],
+            [
+                'He doesn`t speak Spanish.',
+                'He does not speak Spanish.',
+            ],
+            [
+                'You don`t understand us.',
+                'You do not understand us.',
+            ],
+            [
+                'It doesn`t motivate me.',
+                'It does not motivate me.',
+            ],
+            [
+                'He doesn`t come home late.',
+                'He does not come home late.',
+            ],
+            [
+                'This hotel doesn`t seem so cheap.',
+                'This hotel does not seem so cheap.',
+            ],
+            [
+                'It doesn`t look strange.',
+                'It does not look strange.',
+            ],
+            [
+                'He doesn`t work in another place.',
+                'He does not work in another place.',
+            ],
+            [
+                'She doesn`t agree with us.',
+                'She does not agree with us.',
+            ],
+            [
+                'Money doesn`t interest him.',
+                'Money does not interest him.',
+            ],
+            [
+                'Our boss doesn`t try to change it.',
+                'Our boss does not try to change it.',
+            ],
+            [
+                'It doesn`t happen from time to time.',
+                'It does not happen from time to time.',
+            ],
+            [
+                'He doesn`t like that idea.',
+                'He does not like that idea.',
+            ],
+            [
+                'That thing doesn`t interest him.',
+                'That thing does not interest him.',
+            ],
+            [
+                'She doesn`t like this place.',
+                'She does not like this place.',
+            ],
+            [
+                'He doesn`t want to solve those problems.',
+                'He does not want to solve those problems.',
+            ],
+            [
+                'These words don`t motivate him.',
+                'These words do not motivate him.',
             ],
             [
                 '.',

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\access;
+namespace app\other\access;
 
 class Rbac
 {

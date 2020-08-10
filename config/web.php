@@ -19,7 +19,7 @@ $config = [
     ],
     'basePath'   => dirname(__DIR__),
     'bootstrap'  => [
-        'app\bootstrap\SetUp',
+        'app\other\bootstrap\SetUp',
         'log'
     ],
     'components' => [

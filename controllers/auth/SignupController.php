@@ -36,23 +36,4 @@ class SignupController extends ApiController
             'token' => $user->getPublicTokenData(),
         ]);
     }
-
-    ##################################################
-
-//    public function behaviors(): array
-//    {
-//        return [
-//            'access' => [
-//                'class' => AccessControl::class,
-//                'only' => ['index'],
-//                'rules' => [
-//                    [
-//                        'actions' => ['index'],
-//                        'allow' => true,
-//                        'roles' => ['?'],
-//                    ],
-//                ],
-//            ],
-//        ];
-//    }
 }

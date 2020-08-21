@@ -4,7 +4,7 @@ use app\models\grammar\exercise\Exercise;
 use MongoDB\BSON\ObjectId;
 use yii\mongodb\Migration;
 
-class m200821_173840_fill_passive_future_simple_question_exercise_collection extends Migration
+class m200821_173924_fill_passive_present_continuous_question_exercise_collection extends Migration
 {
     private array $_sentences = [
         '',
@@ -20,7 +20,7 @@ class m200821_173840_fill_passive_future_simple_question_exercise_collection ext
             $model = Exercise::create(
                 new ObjectId(),
                 0,
-                3,
+                4,
                 3,
                 false,
                 $sentence,

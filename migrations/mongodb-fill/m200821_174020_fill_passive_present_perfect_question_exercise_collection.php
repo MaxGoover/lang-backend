@@ -7,13 +7,21 @@ use yii\mongodb\Migration;
 class m200821_174020_fill_passive_present_perfect_question_exercise_collection extends Migration
 {
     private array $_sentences = [
-        '',
+        'Это когда-либо упоминалось?',
+        'Сколько видео уже было записано?',
+        '?',
+        '?',
+        '?',
     ];
 
     public function up()
     {
         $translations = [
-            [''],
+            ['Has it ever been mentioned?'],
+            ['How many videos have already been recorded?'],
+            ['?'],
+            ['?'],
+            ['?'],
         ];
 
         foreach ($this->_sentences as $key => $sentence) {

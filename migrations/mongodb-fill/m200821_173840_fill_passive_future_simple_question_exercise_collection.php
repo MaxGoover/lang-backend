@@ -7,13 +7,23 @@ use yii\mongodb\Migration;
 class m200821_173840_fill_passive_future_simple_question_exercise_collection extends Migration
 {
     private array $_sentences = [
-        '',
+        'Когда это будет доказано?',
+        '?',
+        '?',
+        '?',
+        '?',
+        '?',
     ];
 
     public function up()
     {
         $translations = [
-            [''],
+            ['When will it be proved?'],
+            ['?'],
+            ['?'],
+            ['?'],
+            ['?'],
+            ['?'],
         ];
 
         foreach ($this->_sentences as $key => $sentence) {

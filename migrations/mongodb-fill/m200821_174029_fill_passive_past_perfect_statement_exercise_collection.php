@@ -7,13 +7,21 @@ use yii\mongodb\Migration;
 class m200821_174029_fill_passive_past_perfect_statement_exercise_collection extends Migration
 {
     private array $_sentences = [
-        '',
+        'Когда я пришел домой, еда уже была приготовлена.',
+        '.',
+        '.',
+        '.',
+        '.',
     ];
 
     public function up()
     {
         $translations = [
-            [''],
+            ['When I came home, the food had already been cooked.'],
+            ['.'],
+            ['.'],
+            ['.'],
+            ['.'],
         ];
 
         foreach ($this->_sentences as $key => $sentence) {

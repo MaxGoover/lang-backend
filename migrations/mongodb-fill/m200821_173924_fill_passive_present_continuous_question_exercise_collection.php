@@ -7,13 +7,25 @@ use yii\mongodb\Migration;
 class m200821_173924_fill_passive_present_continuous_question_exercise_collection extends Migration
 {
     private array $_sentences = [
-        '',
+        'Что скачивается сейчас?',
+        'Что говорят сейчас?',
+        '?',
+        '?',
+        '?',
+        '?',
+        '?',
     ];
 
     public function up()
     {
         $translations = [
+            ['What`s being downloaded now?'],
+            ['What`s being said now?'],
             [''],
+            ['?'],
+            ['?'],
+            ['?'],
+            ['?'],
         ];
 
         foreach ($this->_sentences as $key => $sentence) {

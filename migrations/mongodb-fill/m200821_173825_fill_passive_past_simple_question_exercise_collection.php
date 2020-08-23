@@ -7,13 +7,21 @@ use yii\mongodb\Migration;
 class m200821_173825_fill_passive_past_simple_question_exercise_collection extends Migration
 {
     private array $_sentences = [
-        '',
+        'Тебя благословили делать это?',
+        'Кем это было найдено?',
+        '?',
+        '?',
+        '?',
     ];
 
     public function up()
     {
         $translations = [
-            [''],
+            ['Were you blessed to do it?'],
+            ['Who was it found by?'],
+            ['?'],
+            ['?'],
+            ['?'],
         ];
 
         foreach ($this->_sentences as $key => $sentence) {

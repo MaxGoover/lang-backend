@@ -7,13 +7,21 @@ use yii\mongodb\Migration;
 class m200821_173922_fill_passive_present_continuous_statement_exercise_collection extends Migration
 {
     private array $_sentences = [
-        '',
+        'За ними наблюдают сейчас.',
+        'Пассивный залог изучается нами сейчас.',
+        '.',
+        '.',
+        '.',
     ];
 
     public function up()
     {
         $translations = [
-            [''],
+            ['They`re being watched now.'],
+            ['Passive Voice is being studied by us.'],
+            ['.'],
+            ['.'],
+            ['.'],
         ];
 
         foreach ($this->_sentences as $key => $sentence) {

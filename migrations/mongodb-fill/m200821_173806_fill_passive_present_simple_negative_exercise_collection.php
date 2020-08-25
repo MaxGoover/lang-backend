@@ -7,13 +7,21 @@ use yii\mongodb\Migration;
 class m200821_173806_fill_passive_present_simple_negative_exercise_collection extends Migration
 {
     private array $_sentences = [
-        '',
+        'Такие большие файлы не прикрепляются.',
+        'Ничего не было найдено.',
+        '.',
+        '.',
+        '.',
     ];
 
     public function up()
     {
         $translations = [
-            [''],
+            ['Such big files aren`t attached.'],
+            ['Nothing was found.'],
+            ['.'],
+            ['.'],
+            ['.'],
         ];
 
         foreach ($this->_sentences as $key => $sentence) {

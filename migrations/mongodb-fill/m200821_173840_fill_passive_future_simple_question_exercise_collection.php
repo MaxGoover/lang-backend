@@ -8,7 +8,9 @@ class m200821_173840_fill_passive_future_simple_question_exercise_collection ext
 {
     private array $_sentences = [
         'Когда это будет доказано?',
-        '?',
+        'Ты думаешь никто не будет наказан?',
+        'Кем будет поддержан этот проект?',
+        'Когда это будет забыто?',
         '?',
         '?',
         '?',
@@ -19,7 +21,9 @@ class m200821_173840_fill_passive_future_simple_question_exercise_collection ext
     {
         $translations = [
             ['When will it be proved?'],
-            ['?'],
+            ['Do you think no one will be punished?'],
+            ['Who will this project be supported by?'],
+            ['When will it be forgotten?'],
             ['?'],
             ['?'],
             ['?'],

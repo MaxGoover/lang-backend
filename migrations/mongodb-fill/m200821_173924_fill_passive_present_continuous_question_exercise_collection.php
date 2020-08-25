@@ -9,8 +9,8 @@ class m200821_173924_fill_passive_present_continuous_question_exercise_collectio
     private array $_sentences = [
         'Что скачивается сейчас?',
         'Что говорят сейчас?',
-        '?',
-        '?',
+        'В чем его обвиняют сейчас?',
+        'Что обсуждается сейчас?',
         '?',
         '?',
         '?',
@@ -21,8 +21,8 @@ class m200821_173924_fill_passive_present_continuous_question_exercise_collectio
         $translations = [
             ['What`s being downloaded now?'],
             ['What`s being said now?'],
-            [''],
-            ['?'],
+            ['What`s he being accused of now?'],
+            ['What`s being discussed now?'],
             ['?'],
             ['?'],
             ['?'],

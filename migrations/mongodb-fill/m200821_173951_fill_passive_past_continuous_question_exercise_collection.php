@@ -8,17 +8,17 @@ class m200821_173951_fill_passive_past_continuous_question_exercise_collection e
 {
     private array $_sentences = [
         'Что обсуждалось, когда ты заметил их?',
+        'В чём их обвиняли, когда ты находился там?',
         '?',
         '?',
         '?',
-        '?',
-    ];
+    ]; // L237 130.
 
     public function up()
     {
         $translations = [
             ['What was being discussed when you noticed them?'],
-            ['?'],
+            ['What were they being accused of when you were staying there?'],
             ['?'],
             ['?'],
             ['?'],

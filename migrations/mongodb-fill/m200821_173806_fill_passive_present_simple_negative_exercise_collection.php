@@ -9,7 +9,7 @@ class m200821_173806_fill_passive_present_simple_negative_exercise_collection ex
     private array $_sentences = [
         'Такие большие файлы не прикрепляются.',
         'Ничего не было найдено.',
-        '.',
+        'Та ошибка не была исправлена.',
         '.',
         '.',
     ];
@@ -19,7 +19,7 @@ class m200821_173806_fill_passive_present_simple_negative_exercise_collection ex
         $translations = [
             ['Such big files aren`t attached.'],
             ['Nothing was found.'],
-            ['.'],
+            ['That mistake wasn`t corrected.'],
             ['.'],
             ['.'],
         ];

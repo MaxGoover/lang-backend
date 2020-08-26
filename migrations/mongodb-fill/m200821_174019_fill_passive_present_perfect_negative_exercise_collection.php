@@ -10,6 +10,10 @@ class m200821_174019_fill_passive_present_perfect_negative_exercise_collection e
         'Это ещё не было доказано.',
         'Ключи ещё не были найдены.',
         'Это еще не было сделано.',
+        'Эта вещь ещё не была сказана.',
+        'Этот текст ещё не был переведён.',
+        'Эти вещи ещё не были сказаны.',
+        '.',
         '.',
         '.',
     ];
@@ -20,6 +24,10 @@ class m200821_174019_fill_passive_present_perfect_negative_exercise_collection e
             ['It hasn`t been proved yet.'],
             ['The keys haven`t been found yet.'],
             ['It hasn`t been done yet.'],
+            ['This thing hasn`t been said yet.'],
+            ['This text hasn`t been translated yet.'],
+            ['These things haven`t been said yet.'],
+            ['.'],
             ['.'],
             ['.'],
         ];

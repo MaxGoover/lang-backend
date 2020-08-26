@@ -9,6 +9,8 @@ class m200821_173824_fill_passive_past_simple_negative_exercise_collection exten
     private array $_sentences = [
         'Комментарий не был удален.',
         'Это не было обещано.',
+        'Информация не была проверена.',
+        '.',
         '.',
         '.',
         '.',
@@ -19,6 +21,8 @@ class m200821_173824_fill_passive_past_simple_negative_exercise_collection exten
         $translations = [
             ['The comment wasn`t deleted.'],
             ['It wasn`t promised.'],
+            ['The information wasn`t checked.'],
+            ['.'],
             ['.'],
             ['.'],
             ['.'],

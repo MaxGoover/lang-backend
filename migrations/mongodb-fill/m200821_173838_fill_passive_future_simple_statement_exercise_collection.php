@@ -9,6 +9,8 @@ class m200821_173838_fill_passive_future_simple_statement_exercise_collection ex
     private array $_sentences = [
         'Этот проект будет закончен скоро.',
         'Я думаю, меня будут критиковать.',
+        'Это будет объяснено в следующем видео.',
+        '.',
         '.',
         '.',
     ];
@@ -18,6 +20,8 @@ class m200821_173838_fill_passive_future_simple_statement_exercise_collection ex
         $translations = [
             ['This project will be finished  soon.'],
             ['I think I`ll be criticized.'],
+            ['It`ll be explained in the next video.'],
+            ['.'],
             ['.'],
             ['.'],
         ];

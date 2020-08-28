@@ -9,6 +9,8 @@ class m200821_174020_fill_passive_present_perfect_question_exercise_collection e
     private array $_sentences = [
         'Это когда-либо упоминалось?',
         'Сколько видео уже было записано?',
+        'Что ещё не было сделано?',
+        'Забор уже покрасили?',
         '?',
         '?',
         '?',
@@ -19,6 +21,8 @@ class m200821_174020_fill_passive_present_perfect_question_exercise_collection e
         $translations = [
             ['Has it ever been mentioned?'],
             ['How many videos have already been recorded?'],
+            ['What hasn`t been done yet?'],
+            ['Has the fence already been painted?'],
             ['?'],
             ['?'],
             ['?'],

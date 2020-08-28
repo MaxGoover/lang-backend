@@ -11,7 +11,7 @@ class m200821_173949_fill_passive_past_continuous_statement_exercise_collection 
         'Когда я позвонил ему, тот текст переводился.',
         'В то время, как они обсуждали очень важные вещи, за ними наблюдали.',
         'Когда я увидел её, та проблема обсуждалась.',
-        '.',
+        'Это никогда не обсуждалось, когда я жил там.',
         '.',
         '.',
     ];
@@ -23,7 +23,7 @@ class m200821_173949_fill_passive_past_continuous_statement_exercise_collection 
             ['When I called him, that text was being translated.'],
             ['While they were discussing very important things, they were being watched.'],
             ['When I saw her, that problem was being discussed.'],
-            ['.'],
+            ['It was never being discussed when I lived there.'],
             ['.'],
             ['.'],
         ];

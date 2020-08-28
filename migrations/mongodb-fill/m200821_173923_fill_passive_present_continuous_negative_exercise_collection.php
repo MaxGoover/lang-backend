@@ -8,7 +8,7 @@ class m200821_173923_fill_passive_present_continuous_negative_exercise_collectio
 {
     private array $_sentences = [
         'Эта ситуация не контролируется сейчас.',
-        '.',
+        'Эти файлы не скачиваются сейчас.',
         '.',
         '.',
         '.',
@@ -18,7 +18,7 @@ class m200821_173923_fill_passive_present_continuous_negative_exercise_collectio
     {
         $translations = [
             ['This situation isn`t being controlled now.'],
-            ['.'],
+            ['These files aren`t being downloaded now.'],
             ['.'],
             ['.'],
             ['.'],

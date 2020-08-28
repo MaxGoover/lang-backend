@@ -16,6 +16,8 @@ class m200821_173924_fill_passive_present_continuous_question_exercise_collectio
         'На кого кричат сейчас?',
         'Всё контролируется сейчас?',
         'Эти ошибки исправляют сейчас?',
+        'Кому сейчас кричат?',
+        '?',
         '?',
         '?',
     ];
@@ -32,6 +34,8 @@ class m200821_173924_fill_passive_present_continuous_question_exercise_collectio
             ['Who is being shouted at now?'],
             ['Is everything being controlled now?'],
             ['Are these mistakes being corrected now?'],
+            ['Who is being shouted to now?'],
+            ['?'],
             ['?'],
             ['?'],
         ];

@@ -15,8 +15,8 @@ class m200821_173922_fill_passive_present_continuous_statement_exercise_collecti
         'Здание разрушают сейчас.',
         'Их прогресс измеряется сейчас.',
         'Им помогают сейчас.',
-        '.',
-        '.',
+        'Слишком много вопросов задают сейчас.',
+        'С ним обращаются несправедливо сейчас.',
         '.',
         '.',
     ];
@@ -32,8 +32,8 @@ class m200821_173922_fill_passive_present_continuous_statement_exercise_collecti
             ['The building is being destroyed now.'],
             ['Their progress is being measured now.'],
             ['They`re being helped now.'],
-            ['.'],
-            ['.'],
+            ['Too many questions are being asked now.'],
+            ['He`s being treated unfairly now.'],
             ['.'],
             ['.'],
         ];

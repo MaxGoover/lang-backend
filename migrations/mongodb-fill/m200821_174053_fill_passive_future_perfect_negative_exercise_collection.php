@@ -7,13 +7,23 @@ use yii\mongodb\Migration;
 class m200821_174053_fill_passive_future_perfect_negative_exercise_collection extends Migration
 {
     private array $_sentences = [
-        '',
+        'Эта информация не будет найдена к завтрашнему.',
+        '.',
+        '.',
+        '.',
+        '.',
+        '.',
     ];
 
     public function up()
     {
         $translations = [
-            [''],
+            ['This information won`t have found by tomorrow.'],
+            ['.'],
+            ['.'],
+            ['.'],
+            ['.'],
+            ['.'],
         ];
 
         foreach ($this->_sentences as $key => $sentence) {
